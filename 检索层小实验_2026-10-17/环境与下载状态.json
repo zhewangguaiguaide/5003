@@ -1,0 +1,10 @@
+{
+  "project_torch_available": false,
+  "project_sentence_transformers_available": false,
+  "local_bge_m3_weights_available": false,
+  "tokenizer_files_obtained": false,
+  "official_download_attempt": "Connection refused in restricted attempt; connection timeout in approved network attempt",
+  "mirror_attempt": "HTTP 403 on tokenizer_config.json",
+  "isolated_faiss_version": "1.15.1",
+  "bge_inference_run": false
+}

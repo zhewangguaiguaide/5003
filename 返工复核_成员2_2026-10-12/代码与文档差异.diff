@@ -1,0 +1,719 @@
+--- before/docs\交接单_成员2_语料质检.md
++++ after/docs\交接单_成员2_语料质检.md
+@@ -22,11 +22,13 @@
+ ```text
+ python -m unittest tests.test_corpus tests.test_standard -v
+ python -m src.main --dry-run
+-python -m src.main --live --repair-loops 1
++python -m src.main --live --full --repair-loops 2
+ python -m src.main --export data/corpus.jsonl
++python -m src.main --quality
++python -m src.main --migrate
+ ```
+ 
+-全量 live 抓取不指定 `--column`，会按 `config.yaml` 依次处理 admission、visa_geo、registration、residence、fees、scholarship、library、calendar 八个栏目。试跑时可加 `--max-pages 5`；单栏目可加 `--column fees`。
++全量 live 抓取使用 `--full`：13 个种子优先采集，已有详情 URL 跳过但不终止扫描，详情尝试受栏目预算约束。默认不加 `--full` 仍保持原 Harness 增量终止语义。预算是上限，不代表成功页目标，更不代表全站穷尽。
+ 
+ 导出命令会打印输入数、去重后的输出数，以及 URL/正文指纹分别去掉的数量。检索层只读取 `data/corpus.jsonl`，不应直接依赖 `.db` 文件。
+ 
+@@ -40,6 +42,12 @@
+ 
+ ## 5. 待办与风险
+ 
+-- 在可用的 `.venv` 中执行八栏目 live 抓取，并把导出统计记录进报告；
+-- 成员1完成新 schema 后，可把 `academic_year` 从导出阶段迁移为 `documents.academic_year`，本模块仍可作为最终 JSONL 质检层；
++- 全量补齐证据见 `data/crawl_audit.jsonl` 与返工核查报告；失败详情页保存 URL、尝试次数、错误信息，失败记录不会阻止下轮补抓或进入语料；
++- 四表 schema 已存在，`--migrate` 将合格原始记录迁移至 documents，`academic_year` 已下沉；
+ - 成员3接入前确认 `topic`、`column`、`academic_year` 字段均作为 chunk 元数据保留。
++
++## 6. 环境与跨语言交接
++
++不打包 `.venv*`；接收人运行 `py -3.12 -m venv .venv`，然后用 `.venv\Scripts\python.exe -m pip install -r requirements.txt` 安装锁定依赖，并执行 `.venv\Scripts\scrapling.exe install` 安装浏览器。
++原 `.venv.broken` 已删除（不可恢复），本地只保留 Python 3.12 的 `.venv`。
++成员③需采用跨语言 embedding；成员⑤可在检索前把中文问题译成英文并用中文回答。语料保持官网原文，全文翻译为可选增强，尚未实施。
+--- before/docs\返工核查报告_成员2_语料质检.md
++++ after/docs\返工核查报告_成员2_语料质检.md
+@@ -0,0 +1,60 @@
++# 成员2返工核查报告
++
++日期：2026-10-11。依据用户提供的《验收报告_成员2_语料质检.md》核查当前项目；原验收报告保留作为历史证据，本文件记录修复后结果。
++
++## 已核实并修复的问题
++
++| 返工项 | 核查与改动 | 验证结果 |
++|---|---|---|
++| R1 失败 URL 持久化 | 网络/HTTP 错误保存至 records.error，已有成功原文不会被失败覆盖；错误记录不视为成功已抓 URL。全量模式逐栏目保存 URL、尝试次数、错误及汇总到 crawl_audit.jsonl；接入已有 crawl_runs | 种子复核写入 8 条 crawl_runs；原始层保留 31 条失败记录，导出不含失败记录 |
++| R2 缺失种子补抓 | 新增 --full，先处理所有种子，再扫描新详情；命中已抓详情跳过但不停止整栏。默认增量模式仍维持 Harness 终止约定 | 13/13 种子均为 ok；八栏目有效语料共 159 条 |
++| R3 student-visa 渲染退化 | 本机 HTTP 实测能拿完整正文；修正 StealthyFetcher 的类调用方式、关闭 network_idle 等待；HTTP 非成功状态和登录重定向明确判失败 | HTTP 正文 8,916 字符。没有证据证明历史退化一定由 disable_resources 导致；浏览器模式修复未单独完成 live 验证，本轮使用 HTTP |
++| R4 导航薄页 | 加入短正文多行导航判定，采集与导出共享过滤规则；失败/空白正文不进入去重后的语料 | 报告点名的 ResidenceHalls（348 字符）、HallAdmission（341 字符）均已从 corpus 排除；原始层留存 |
++| R5 重复标题 | 使用首个 title 元素，解码 HTML 实体，折叠完全重复的两半标题；导出和 documents 迁移同样清理旧记录标题 | ARRO 标题不再重复拼接 |
++
++额外根因：ARRO HTML 的 `<base href>` 原先未参与相对链接解析，导致 /arro/enrl/... 被拼成 /arro/regu/enrl/... 或 /arro/impd/enrl/...。修正后注册栏目由 1 条增为 18 条。因此历史缺页不能统一归因于“瞬时失败”。
++
++失败修复循环现在不会因第一次回放无进展而放弃第二次；修复计数按真正恢复的 URL 统计。HTTP 403/404 和登录重定向不会重复等待；导航薄页与瞬时超时仍可回放。
++
++## 最终语料与覆盖
++
++| 栏目 | 修复前 | 修复后 |
++|---|---:|---:|
++| admission | 14 | 25 |
++| visa_geo | 6 | 12 |
++| registration | 1 | 18 |
++| residence | 16 | 24 |
++| fees | 4 | 13 |
++| scholarship | 15 | 19 |
++| library | 20 | 40 |
++| calendar | 1 | 8 |
++| 合计 | 77 | 159 |
++
++原始 records：216 条。排除失败/空白/导航薄页：34 条；正文指纹去重：23 条；URL 去重：0 条；最终 corpus 与 documents：159 条。
++
++八栏目补抓发出 210 次请求，0 个 WAF 挑战，33 个栏目级未成功项（包含重复 URL 在不同栏目的失败）。该数字包括导航薄页和登录页面等质量拒绝，不能表述为“零失败”。随后仅复核全部 13 个种子：13 请求、0 挑战、0 失败、0 新增、13 更新；8 条 crawl_runs 记录对应此轮最终代码复核。
++
++预算限制的是每轮新详情尝试数；累计语料可超出单轮预算。所有种子优先处理，少量预算试跑也不会漏掉种子。这里的“全量”仅表示配置种子全部处理、按预算扫描所发现的链接，不表示官网全部递归穷尽。失效/导航/登录 URL 保留在审计中，后续可按新需求调整种子和过滤范围。
++
++## 可复现命令与证据
++
++```powershell
++.venv\Scripts\python.exe -m unittest discover -s tests -q
++.venv\Scripts\python.exe -m pip check
++.venv\Scripts\python.exe -m src.main --live --full --mode http --repair-loops 2
++.venv\Scripts\python.exe -m src.main --export data/corpus.jsonl
++.venv\Scripts\python.exe -m src.main --quality
++.venv\Scripts\python.exe -m src.main --migrate
++```
++
++实测：35/35 测试通过，pip check 无依赖冲突。质量报告保存至 data/quality_report.json；--quality 对缺失/失败种子返回非零退出码。详尽采集证据见 data/crawl_audit.jsonl；栏目汇总见 SQLite crawl_runs。
++
++迁移会清理旧版中已被质检排除、且没有 chunk 引用的 documents；对有 chunk 的旧文档保留，留待成员③重建索引。文档更新使用 ON CONFLICT，不替换父记录，避免影响已有 chunk。
++
++## 环境与下游交接
++
++- 本机使用 Python 3.12.10；残留的 .venv.broken 已删除，不可恢复，本地仅保留 .venv。
++- requirements.txt 引入 requirements-lock.txt，锁定本机验证的 20 个运行依赖版本。
++- 虚拟环境含绝对路径，不随交接包分发。接收方自行执行 py -3.12 -m venv .venv、安装 requirements.txt，并运行 scrapling install 下载浏览器。
++- 数据仍以 corpus.jsonl 交接；不把 .db、.venv 或浏览器缓存打包给其他成员。
++- 四表与 academic_year 下沉已存在并复用。成员③采用跨语言 embedding；成员⑤可增加中文问题到英文查询的翻译并用中文回答。原文全文翻译仍为可选下游增强，未在本次返工实施。
+--- before/README.md
++++ after/README.md
+@@ -43,7 +43,7 @@
+ 
+ ```bash
+ cd CityU-AgenticRAG-小组作业
+-python -m venv .venv && source .venv/Scripts/activate      # Windows bash
++py -3.12 -m venv .venv && source .venv/Scripts/activate   # Windows bash，接收方自行重建
+ pip install -r requirements.txt
+ scrapling install                                          # 下载无头浏览器（约 300MB，仅 live 抓取需要）
+ 
+@@ -53,9 +53,10 @@
+ python -m src.main --live --column fees                    # 真实抓取某一栏目
+ python -m src.main --smoke https://www.cityu.edu.hk/admo/faq   # 单页连通性验证
+ python -m src.main --status                                # 查看库内统计
++python -m src.main --quality                               # 13 个种子覆盖核查，生成 data/quality_report.json
++python -m src.main --migrate                               # 合格语料同步至 documents
+ python -m src.main --export data/corpus.jsonl              # 去重+规范化后导出 RAG 语料（JSONL）
+-python -m src.main --live --repair-loops 1                # 八栏目 live 抓取，失败详情页回放 1 次
+-python -m src.main --migrate                             # records -> documents 四表迁移（schema.sql，含 academic_year 下沉）
++python -m src.main --live --full --repair-loops 2          # 八栏目补齐：所有种子优先，已有 URL 不终止
+ 
+ export DEEPSEEK_API_KEY=<your-key>                         # 联网问答需要（Key 走环境变量，不入仓）
+ python -m src.main --ask "非本地本科生学费是多少？"          # DeepSeek + web_search 联网问答
+@@ -118,6 +119,12 @@
+ 
+ ## 九、RAG 接入（下一步）
+ 
++交接包不得包含 `.venv*`：虚拟环境含本机路径，无法跨机器移植。
++接收方安装 Python 3.12 后自行建环境；`requirements.txt` 通过
++`requirements-lock.txt` 锁定依赖版本，浏览器另行执行 `scrapling install`。
++全量模式审计保存在 `data/crawl_audit.jsonl`，失败记录留在 `records.error`，
++导出时排除失败/空白/导航薄页；`crawl_runs` 保存栏目级统计。
++
+ `--export data/corpus.jsonl` 产出的记录字段（`url/title/source/content/date/crawled_at/topic/column/academic_year`）
+ 可直接切块（chunk）后向量化；建议：
+ - 元数据保留 `url + academic_year + crawled_at`，用于时效性标注与引用溯源；
+--- before/requirements-lock.txt
++++ after/requirements-lock.txt
+@@ -0,0 +1,21 @@
++# Python 3.12, 2026-10-11 verified runtime dependencies
++apify_fingerprint_datapoints==0.15.0
++browserforge==1.2.4
++certifi==2026.7.22
++cffi==2.1.1
++click==8.5.0
++cssselect==1.6.0
++curl_cffi==0.16.3
++greenlet==3.5.6
++lxml==6.1.3
++msgspec==0.22.0
++orjson==3.13.0
++patchright==1.63.0
++playwright==1.63.0
++pycparser==3.11
++pyee==13.0.1
++PyYAML==6.0.3
++scrapling==0.4.15
++tld==0.13.2
++typing_extensions==4.16.0
++w3lib==2.5.0
+--- before/requirements.txt
++++ after/requirements.txt
+@@ -1,5 +1,6 @@
+ # 抓取必需（scrapling 0.4.x 需一并安装下列依赖才能 import 对应 fetcher）
+-scrapling>=0.4.15
++-c requirements-lock.txt
++scrapling==0.4.15
+ curl_cffi
+ playwright
+ patchright
+--- before/src\corpus.py
++++ after/src\corpus.py
+@@ -15,6 +15,7 @@
+ from urllib.parse import parse_qsl, urlencode, urlsplit, urlunsplit
+ 
+ from .storage import Record
++from .parser import is_navigation_only, clean_title
+ 
+ _TRACKING_PARAMS = {"utm_source", "utm_medium", "utm_campaign", "utm_term", "utm_content",
+                     "gclid", "fbclid", "_ga"}
+@@ -69,6 +70,9 @@
+ def deduplicate(records: Iterable[Record]) -> Tuple[List[Record], dict]:
+     """按规范化 URL + 正文指纹去重，返回稳定排序的记录和质检统计。"""
+     records = list(records)
++    input_count = len(records)
++    records = [r for r in records if not r.error and r.content.strip()
++               and not is_navigation_only(r.content)]
+     by_url = {}
+     dropped_url = 0
+     for record in records:
+@@ -95,7 +99,8 @@
+ 
+     output = sorted(by_content.values(), key=lambda r: (r.column, canonicalize_url(r.url)))
+     return output, {
+-        "input": len(records),
++        "input": input_count,
++        "rejected": input_count - len(records),
+         "output": len(output),
+         "dropped_url": dropped_url,
+         "dropped_content": dropped_content,
+@@ -106,7 +111,7 @@
+     row = asdict(record)
+     row["url"] = canonicalize_url(record.url)
+     row["content"] = record.content.strip()
+-    row["title"] = _WS_RE.sub(" ", record.title or "").strip()
++    row["title"] = clean_title(record.title or "")
+     row["source"] = urlsplit(record.url).netloc.lower()
+     row["academic_year"] = infer_academic_year(record)
+     return row
+@@ -122,3 +127,28 @@
+             fh.write(json.dumps(record_to_corpus_row(record), ensure_ascii=False) + "\n")
+     stats["path"] = str(target)
+     return stats
++
++
++def quality_report(records: Iterable[Record], columns) -> dict:
++    records = list(records)
++    unique, stats = deduplicate(records)
++    valid_urls = {canonicalize_url(r.url) for r in unique}
++    fingerprints = {normalize_text(r.content) for r in unique}
++    by_url = {canonicalize_url(r.url): r for r in records}
++    seeds = []
++    for column in columns:
++        for url in column.seeds:
++            row = by_url.get(canonicalize_url(url))
++            status = 'missing'
++            if row and row.error:
++                status = 'error'
++            elif row and canonicalize_url(url) in valid_urls:
++                status = 'ok'
++            elif row and normalize_text(row.content) in fingerprints:
++                status = 'deduplicated_alias'
++            seeds.append(dict(column=column.name, url=url, status=status,
++                              chars=len(row.content) if row else 0,
++                              error=row.error if row else ''))
++    return dict(stats=stats, seeds=seeds,
++                coverage={c.name: sum(r.column == c.name for r in unique) for c in columns},
++                seed_success=sum(s['status'] in ('ok', 'deduplicated_alias') for s in seeds))
+--- before/src\crawler.py
++++ after/src\crawler.py
+@@ -127,6 +127,9 @@
+             except FetchError as exc:
+                 consecutive_404 += 1
+                 stats.errors.append(f"list:{list_url}: {exc}")
++                if not self.storage.exists(list_url):
++                    self.storage.upsert(Record(url=list_url, error=str(exc), column=self.column.name,
++                                              topic=self.column.topic, crawled_at=self.now()))
+                 if consecutive_404 >= self.max_consecutive_404:
+                     stats.stop_reason = f"连续 {consecutive_404} 次列表页失败"
+                     break
+@@ -167,10 +170,75 @@
+                 retry_stack.append(url)
+             stats.errors = [e for e in stats.errors if not e.startswith("detail:")]
+             self._drain(retry_stack, stats)
+-            if len(stats.errors) >= before:
+-                break
+-            stats.repaired += len(retry_stack)
++            stats.repaired += before - len(stats.errors)
+         return stats
++
++    def crawl_full(self, repair_loops: int = 2) -> CrawlStats:
++        """所有种子优先采集，已有链接跳过但不终止；预算包含种子。"""
++        import json
++        from pathlib import Path
++        stats = CrawlStats(column=self.column.name)
++        links = []
++        events = []
++        def collect(url):
++            for attempt in range(repair_loops + 1):
++                try:
++                    html = self.fetcher.fetch(url)
++                    record = _parser.parse_detail(html, url, self.column.topic, self.column.name)
++                    record.crawled_at = self.now()
++                    record.date = record.date or record.crawled_at
++                    if self.min_date and record.date < self.min_date:
++                        stats.skipped_old += 1
++                        events.append(dict(url=url, attempt=attempt, status="old"))
++                        return html
++                    if len(record.content) < self.min_content_len or _parser.is_navigation_only(record.content):
++                        raise FetchError(f"thin/navigation content ({len(record.content)} chars)")
++                    if self.storage.upsert(record):
++                        stats.new_records += 1
++                    else:
++                        stats.updated_records += 1
++                    stats.detail_pages += 1
++                    stats.repaired += int(attempt > 0)
++                    events.append(dict(url=url, attempt=attempt, status="ok", chars=len(record.content)))
++                    return html
++                except FetchError as exc:
++                    events.append(dict(url=url, attempt=attempt, status="error", error=str(exc)))
++                    if any(marker in str(exc) for marker in ('HTTP 404:', 'HTTP 403:', 'redirect to authentication:')):
++                        break
++            message = str(events[-1]["error"])
++            if message.startswith("thin/navigation"):
++                stats.skipped_thin += 1
++            # 成功原文保留；失败审计始终落日志，首次失败另存 error 记录。
++            if not self.storage.exists(url):
++                self.storage.upsert(Record(url=url, source=urlparse(url).netloc,
++                                          topic=self.column.topic, column=self.column.name,
++                                          error=message, crawled_at=self.now()))
++            stats.errors.append(f"detail:{url}: {message}")
++            return ""
++        try:
++            for seed in self.column.seeds:
++                html = collect(seed)
++                stats.list_pages += 1
++                if html:
++                    links.extend(u for u in _parser.extract_links(html, seed)
++                                 if self.is_detail_link(u, seed))
++            budget = max(0, self.column.max_pages - len(self.column.seeds))
++            attempted = 0
++            for url in dict.fromkeys(links):
++                if url in self.column.seeds or self.storage.exists(url):
++                    continue
++                if attempted >= budget:
++                    break
++                collect(url)
++                attempted += 1
++            stats.stop_reason = f"全量种子扫描完成；新详情尝试={attempted}/{budget}"
++            return stats
++        finally:
++            path = Path("data/crawl_audit.jsonl")
++            path.parent.mkdir(parents=True, exist_ok=True)
++            with path.open("a", encoding="utf-8") as fh:
++                fh.write(json.dumps(dict(column=self.column.name, time=self.now(),
++                                         events=events, stats=stats.__dict__), ensure_ascii=False) + "\n")
+ 
+     def _drain(self, stack: List[str], stats: CrawlStats) -> None:
+         """LIFO 出栈抓详情：先入后出，保证幂等与"从旧到新"入库顺序。"""
+@@ -180,12 +248,15 @@
+                 record = self.fetch_detail(url)
+             except FetchError as exc:
+                 stats.errors.append(f"detail:{url}: {exc}")
++                if not self.storage.exists(url):
++                    self.storage.upsert(Record(url=url, error=str(exc), column=self.column.name,
++                                              topic=self.column.topic, crawled_at=self.now()))
+                 continue
+             stats.detail_pages += 1
+             if self.min_date and record.date and record.date < self.min_date:
+                 stats.skipped_old += 1
+                 continue
+-            if len(record.content) < self.min_content_len:   # 空壳页/纯导航页不入库
++            if len(record.content) < self.min_content_len or _parser.is_navigation_only(record.content):
+                 stats.skipped_thin += 1
+                 continue
+             if self.storage.upsert(record):
+@@ -210,12 +281,22 @@
+         self.max_consecutive_404 = max_consecutive_404
+         self.min_content_len = min_content_len
+ 
+-    def crawl(self, repair_loops: int = 1) -> Dict[str, CrawlStats]:
++    def crawl(self, repair_loops: int = 1, full: bool = False) -> Dict[str, CrawlStats]:
+         results: Dict[str, CrawlStats] = {}
+         for column in self.columns:
++            started_at = self.now()
+             crawler = ColumnCrawler(column, self.fetcher, self.storage, now=self.now,
+                                     min_date=self.min_date,
+                                     max_consecutive_404=self.max_consecutive_404,
+                                     min_content_len=self.min_content_len)
+-            results[column.name] = crawler.crawl(repair_loops=repair_loops)
++            results[column.name] = (crawler.crawl_full(repair_loops) if full
++                                    else crawler.crawl(repair_loops=repair_loops))
++            if hasattr(self.storage, "path"):
++                import sqlite3
++                from .db import init_schema, log_crawl_run
++                stats = results[column.name]
++                with sqlite3.connect(self.storage.path) as conn:
++                    init_schema(conn)
++                    log_crawl_run(conn, column.name, started_at, self.now(), stats.new_records,
++                                  stats.skipped_old + stats.skipped_thin, len(stats.errors))
+         return results
+--- before/src\db.py
++++ after/src\db.py
+@@ -18,6 +18,7 @@
+ 
+ from .corpus import canonicalize_url, deduplicate, infer_academic_year
+ from .storage import Record
++from .parser import clean_title
+ 
+ SCHEMA_PATH = Path(__file__).resolve().parent.parent / "schema.sql"
+ 
+@@ -37,10 +38,16 @@
+     幂等：重复迁移按 url 覆盖（INSERT OR REPLACE），documents 与 corpus.jsonl 同源同数。
+     """
+     unique, stats = deduplicate(list(records))
++    keep_urls = {canonicalize_url(record.url) for record in unique}
++    # 清理上次迁移留下且已被质检排除的文档；有 chunk 引用的交给检索层重建。
++    for (url,) in conn.execute("SELECT url FROM documents WHERE NOT EXISTS "
++                               "(SELECT 1 FROM chunks WHERE doc_id=documents.url)").fetchall():
++        if url not in keep_urls:
++            conn.execute("DELETE FROM documents WHERE url=?", (url,))
+     for record in unique:
+         row = {
+             "url": canonicalize_url(record.url),
+-            "title": record.title,
++            "title": clean_title(record.title),
+             "source": record.source,
+             "topic": record.topic,
+             "academic_year": infer_academic_year(record),
+@@ -51,9 +58,10 @@
+             "file_urls": json.dumps(record.file_urls, ensure_ascii=False),
+         }
+         conn.execute(
+-            "INSERT OR REPLACE INTO documents ("
++            "INSERT INTO documents ("
+             + ", ".join(DOCUMENT_COLS) + ") VALUES ("
+-            + ", ".join(":" + c for c in DOCUMENT_COLS) + ")",
++            + ", ".join(":" + c for c in DOCUMENT_COLS) + ") ON CONFLICT(url) DO UPDATE SET "
++            + ", ".join(c + "=excluded." + c for c in DOCUMENT_COLS if c != "url"),
+             row,
+         )
+     conn.commit()
+--- before/src\fetcher.py
++++ after/src\fetcher.py
+@@ -41,16 +41,18 @@
+                  timeout_ms: int = 30000) -> None:
+         from scrapling.fetchers import StealthyFetcher  # 延迟导入：测试环境无需安装
+ 
+-        self._fetcher = StealthyFetcher()
++        self._fetcher = StealthyFetcher
+         self._options = dict(
+             headless=headless,
+-            network_idle=True,
++            network_idle=False,
+             disable_resources=disable_resources,  # 关键：否则部分页面 goto 永远超时
+             timeout=timeout_ms,
+         )
+ 
+     def fetch(self, url: str) -> str:
+         page = self._fetcher.fetch(url, **self._options)
++        if page.status >= 400:
++            raise FetchError(f"HTTP {page.status}: {url}")
+         return getattr(page, "html_content", None) or str(page)
+ 
+ 
+@@ -67,6 +69,11 @@
+ 
+     def fetch(self, url: str) -> str:
+         page = self._fetcher.get(url, timeout=self._timeout)
++        final_url = str(getattr(page, 'url', url)).lower()
++        if any(marker in final_url for marker in ('auth.cityu.edu.hk', '/sso/', '/login', '/signin')):
++            raise FetchError(f"redirect to authentication: {url}")
++        if page.status >= 400:
++            raise FetchError(f"HTTP {page.status}: {url}")
+         return getattr(page, "html_content", None) or str(page)
+ 
+ 
+@@ -121,10 +128,12 @@
+             self.stats.requests += 1
+             try:
+                 html = self.adapter.fetch(url)
+-            except FetchError as exc:
++            except Exception as exc:
+                 last_error = str(exc)
+                 self.stats.failures += 1
+                 self.stats.errors.append(f"{url}: {last_error}")
++                if last_error.startswith(('HTTP 404:', 'HTTP 403:', 'redirect to authentication:')):
++                    break
+                 continue
+ 
+             if looks_like_challenge(html):
+--- before/src\main.py
++++ after/src\main.py
+@@ -78,6 +78,7 @@
+     stats = export_jsonl(storage.all_records(), path)
+     print(f"已导出 {stats['output']}/{stats['input']} 条规范化记录 -> {path}")
+     print(f"去重：URL {stats['dropped_url']} 条，正文指纹 {stats['dropped_content']} 条")
++    print(f"质检排除：失败/空白/导航薄页 {stats['rejected']} 条")
+     return 0
+ 
+ 
+@@ -130,10 +131,12 @@
+     ap.add_argument("--config", default=cfg.DEFAULT_CONFIG)
+     ap.add_argument("--column", action="append", default=[], help="只抓指定栏目，可重复")
+     ap.add_argument("--live", action="store_true", help="实际联网抓取；缺省为 dry-run")
++    ap.add_argument("--full", action="store_true", help="种子优先全量补齐，已有链接不终止扫描")
+     ap.add_argument("--dry-run", action="store_true", help="只打印抓取计划（缺省行为）")
+     ap.add_argument("--mode", choices=["stealthy", "http", "fake"], default=None)
+     ap.add_argument("--smoke", metavar="URL", help="只抓一页做连通性验证")
+     ap.add_argument("--status", action="store_true", help="查看库内统计")
++    ap.add_argument("--quality", action="store_true", help="核查全部种子与合格语料覆盖并保存 JSON 报告")
+     ap.add_argument("--export", metavar="PATH", help="导出 JSONL 语料")
+     ap.add_argument("--migrate", action="store_true",
+                     help="records -> documents 迁移（建四表 schema + academic_year 下沉）")
+@@ -167,6 +170,14 @@
+     try:
+         if args.status:
+             return cmd_status(storage)
++        if args.quality:
++            from .corpus import quality_report
++            report = quality_report(storage.all_records(), columns)
++            cfg.ensure_parent_dir('data/quality_report.json')
++            with open('data/quality_report.json', 'w', encoding='utf-8') as fh:
++                json.dump(report, fh, ensure_ascii=False, indent=2)
++            print(json.dumps(report, ensure_ascii=False, indent=2))
++            return int(report['seed_success'] != len(report['seeds']))
+         if args.export:
+             return cmd_export(storage, args.export)
+         if args.migrate:
+@@ -196,7 +207,7 @@
+             max_consecutive_404=int(limits.get("max_consecutive_404", 3)),
+             min_content_len=int(limits.get("min_content_len", 300)),
+         )
+-        results = crawler.crawl(repair_loops=max(0, args.repair_loops))
++        results = crawler.crawl(repair_loops=max(0, args.repair_loops), full=args.full)
+         print("=== 抓取完成 ===")
+         for stats in results.values():
+             print(stats.summary())
+--- before/src\parser.py
++++ after/src\parser.py
+@@ -9,6 +9,7 @@
+ 
+ import re
+ from html.parser import HTMLParser
++from html import unescape
+ from typing import List, Optional
+ from urllib.parse import urljoin, urlparse
+ 
+@@ -35,9 +36,12 @@
+         self.chunks: List[str] = []
+         self.links: List[str] = []
+         self.images: List[str] = []
++        self.base = ""
+ 
+     def handle_starttag(self, tag: str, attrs) -> None:
+         attr = dict(attrs)
++        if tag == "base" and attr.get("href"):
++            self.base = attr["href"]
+         if tag in SKIP_TAGS:
+             self._skip_depth += 1
+         if tag == "title":
+@@ -84,8 +88,16 @@
+ 
+ 
+ def extract_title(html: str, fallback: str = "") -> str:
+-    title = re.sub(r"\s+", " ", _extract(html).title).strip()
+-    return title or fallback
++    titles = re.findall(r"<title\b[^>]*>(.*?)</title>", html, re.I | re.S)
++    title = re.sub(r"\s+", " ", titles[0]).strip() if titles else ""
++    return clean_title(title) or fallback
++
++
++def clean_title(title: str) -> str:
++    title = re.sub(r"\s+", " ", unescape(title)).strip()
++    if len(title) % 2 == 0 and title[:len(title)//2] == title[len(title)//2:]:
++        title = title[:len(title)//2].strip()
++    return title
+ 
+ 
+ def extract_text(html: str) -> str:
+@@ -94,14 +106,25 @@
+ 
+ def extract_links(html: str, base_url: str) -> List[str]:
+     seen, out = set(), []
+-    for href in _extract(html).links:
++    extracted = _extract(html)
++    base_url = urljoin(base_url, extracted.base) if extracted.base else base_url
++    for href in extracted.links:
++        href = href.strip()
+         if href.startswith(("javascript:", "mailto:", "tel:", "#")):
+             continue
+         abs_url = urljoin(base_url, href).split("#")[0]
++        if urlparse(abs_url).scheme not in ('http', 'https'):
++            continue
+         if abs_url and abs_url not in seen:
+             seen.add(abs_url)
+             out.append(abs_url)
+     return out
++
++
++def is_navigation_only(content: str) -> bool:
++    lines = [line.strip() for line in content.splitlines() if line.strip()]
++    return (len(content) < 400 and len(lines) >= 6
++            and not any(len(line) >= 100 for line in lines))
+ 
+ 
+ def extract_images(html: str, base_url: str) -> List[str]:
+--- before/src\storage.py
++++ after/src\storage.py
+@@ -58,7 +58,7 @@
+ 
+     def exists(self, url: str) -> bool:
+         self.exists_calls += 1
+-        cur = self._conn.execute("SELECT 1 FROM records WHERE url = ? LIMIT 1", (url,))
++        cur = self._conn.execute("SELECT 1 FROM records WHERE url = ? AND COALESCE(error, '') = '' LIMIT 1", (url,))
+         return cur.fetchone() is not None
+ 
+     def upsert(self, record: Record) -> bool:
+@@ -117,7 +117,7 @@
+         self.exists_calls += 1
+         if self.exists_after is not None and self.exists_calls >= self.exists_after:
+             return True
+-        return url in self.rows
++        return url in self.rows and not self.rows[url].error
+ 
+     def upsert(self, record: Record) -> bool:
+         self.upsert_calls += 1
+--- before/tests\test_acceptance_repairs.py
++++ after/tests\test_acceptance_repairs.py
+@@ -0,0 +1,61 @@
++import unittest
++from unittest.mock import patch, mock_open
++from src.crawler import ColumnCrawler, ColumnSpec
++from src.fetcher import FakeFetcher, FetchError
++from src.storage import MockStorage, Record
++from src.parser import extract_links, extract_title, is_navigation_only
++from src.corpus import deduplicate
++
++
++class AcceptanceRepairs(unittest.TestCase):
++    def test_duplicate_title_elements(self):
++        self.assertEqual(extract_title('<title>ARRO</title><title>ARRO</title>'), 'ARRO')
++        self.assertEqual(extract_title('<title>ARROARRO</title>'), 'ARRO')
++
++    def test_base_href_resolves_arro_relative_links(self):
++        html = '<base href="https://www.cityu.edu.hk/arro/"><a href="enrl/enrl_main.htm">Enroll</a>'
++        self.assertEqual(extract_links(html, 'https://www.cityu.edu.hk/arro/regu/regu_rule.htm'),
++                         ['https://www.cityu.edu.hk/arro/enrl/enrl_main.htm'])
++
++    def test_navigation_and_failure_not_exported(self):
++        content = '\n'.join(['Hall ' + str(i) + ' ' + 'name ' * 5 for i in range(10)])
++        self.assertTrue(is_navigation_only(content))
++        rows, stats = deduplicate([Record(url='https://x/a', content=content),
++                                   Record(url='https://x/b', error='404')])
++        self.assertEqual(rows, [])
++        self.assertEqual(stats['rejected'], 2)
++
++    def test_full_scan_all_seeds_despite_existing_link(self):
++        seeds = ['https://x/a', 'https://x/b']
++        body = '<p>' + 'Useful student information. ' * 30 + '</p>'
++        pages = {seeds[0]: '<a href="/old">old</a>' + body, seeds[1]: body}
++        storage = MockStorage()
++        storage.upsert(Record(url='https://x/old', content='old'))
++        column = ColumnSpec(name='test', seeds=seeds, max_pages=2)
++        with patch('pathlib.Path.open', mock_open()):
++            stats = ColumnCrawler(column, FakeFetcher(pages), storage).crawl_full(0)
++        self.assertEqual(stats.list_pages, 2)
++        self.assertTrue(all(storage.exists(u) for u in seeds))
++
++    def test_failed_record_is_retryable(self):
++        storage = MockStorage()
++        storage.upsert(Record(url='https://x/a', error='timeout'))
++        self.assertFalse(storage.exists('https://x/a'))
++
++    def test_two_repair_loops_recover_persisted_failure(self):
++        class Flaky:
++            attempts = 0
++            def fetch(self, url):
++                if url.endswith('/seed'):
++                    return '<a href="/detail">detail</a>'
++                self.attempts += 1
++                if self.attempts < 3:
++                    raise FetchError('timeout')
++                return '<p>' + 'Student information. ' * 30 + '</p>'
++        storage = MockStorage()
++        column = ColumnSpec(name='retry', seeds=['https://x/seed'])
++        stats = ColumnCrawler(column, Flaky(), storage).crawl(repair_loops=2)
++        self.assertEqual(stats.errors, [])
++        self.assertEqual(stats.repaired, 1)
++        self.assertTrue(storage.exists('https://x/detail'))
++        self.assertEqual(storage.rows['https://x/detail'].error, '')
+--- before/tests\test_db.py
++++ after/tests\test_db.py
+@@ -72,6 +72,18 @@
+         cites = self.conn.execute("SELECT citations FROM qa_logs").fetchone()[0]
+         self.assertIn("x.test/b", cites)
+ 
++    def test_06_quality_refresh_prunes_only_unreferenced_documents(self):
++        init_schema(self.conn)
++        records = [Record(url='https://x/a', content='valid body ' * 50),
++                   Record(url='https://x/b', content='another body ' * 50)]
++        migrate_from_records(records, self.conn)
++        self.conn.execute("INSERT INTO chunks (chunk_id, doc_id, text) VALUES ('c', 'https://x/a', 'chunk')")
++        self.conn.commit()
++        migrate_from_records([], self.conn)
++        self.assertEqual(self.conn.execute('SELECT url FROM documents').fetchall(), [('https://x/a',)])
++        migrate_from_records([records[0]], self.conn)
++        self.assertEqual(self.conn.execute('SELECT COUNT(*) FROM chunks').fetchone()[0], 1)
++
+ 
+ if __name__ == "__main__":
+     unittest.main()
+--- before/交付说明_成员2返工包.md
++++ after/交付说明_成员2返工包.md
+@@ -0,0 +1,37 @@
++# 成员2返工增量包（2026-10-11）
++
++本包用于覆盖已有 CityU-AgenticRAG 项目，不是完整独立项目。保留原目录结构，将 src、tests、docs、data 等目录合入接收方已有项目。覆盖前备份同名文件；若接收方已修改同一文件，请对比合并。
++
++## 包含内容
++
++- 本轮修改：src/corpus.py、crawler.py、parser.py、fetcher.py、storage.py、db.py、main.py；tests/test_acceptance_repairs.py、test_db.py；requirements.txt、requirements-lock.txt；README.md；两份成员2交接/返工文档。
++- 配套文件：src/config.py、config.yaml、schema.sql、tests/test_corpus.py、.gitignore。它们用于保证早期原型也具备当前字段配置、数据库 schema 和质检测试，不代表本轮全部重新修改。
++- 最新数据：data/corpus.jsonl（159 条）、data/quality_report.json（13/13 种子覆盖）、data/crawl_audit.jsonl（采集审计）。审计文件为本机累计记录，以配置中的八个栏目为正式采集证据。
++- 不包含虚拟环境、浏览器缓存、SQLite 数据库、API 密钥及其他未修改模块。
++
++## 接收方操作
++
++安装 Python 3.12，在原项目根目录运行：
++
++```powershell
++py -3.12 -m venv .venv
++.venv\Scripts\python.exe -m pip install -r requirements.txt
++.venv\Scripts\python.exe -m unittest discover -s tests -q
++```
++
++对应项目基线的预期测试结果为 35 项通过；如接收方另有新增测试，总数会变化。
++需要浏览器抓取时另运行 `.venv\Scripts\scrapling.exe install`；仅使用已交付语料或运行离线测试无需下载浏览器。
++
++成员③直接使用 data/corpus.jsonl 开发检索层。data/quality_report.json 是本次采集快照，不依赖接收方数据库。
++本包不携带 .db；接收方空数据库下运行 --status/--quality 不会自动显示本次采集结果，--export 会按接收方自己的数据库重新生成语料，不应在未导入/抓取时覆盖交付的 corpus.jsonl。
++
++需要重新采集时：
++
++```powershell
++.venv\Scripts\python.exe -m src.main --live --full --mode http --repair-loops 2
++.venv\Scripts\python.exe -m src.main --export data/corpus.jsonl
++.venv\Scripts\python.exe -m src.main --quality
++.venv\Scripts\python.exe -m src.main --migrate
++```
++
++本次验证使用 HTTP 模式；若接收方网络返回 WAF 挑战，可改用 --mode stealthy。预算扫描和种子覆盖不表示全站递归穷尽，详见 docs/返工核查报告_成员2_语料质检.md。

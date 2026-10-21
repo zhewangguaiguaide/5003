@@ -1,0 +1,24 @@
+{
+  "fixture": "Production database opened read-only then copied into an in-memory SQLite connection; no FAISS update was executed in this lifecycle control",
+  "removed_document": "https://www.cityu.edu.hk/admo/non-local-students/visa/student-visa",
+  "removal": {
+    "import_summary": {
+      "input": 158,
+      "active_documents": 158,
+      "retained_inactive": 1,
+      "removed_unreferenced": 0
+    },
+    "retained_document_state": {
+      "active": 0,
+      "index_dirty": 1
+    },
+    "stale_chunks_without_active_filter": 1,
+    "queryable_chunks_with_active_filter": 0
+  },
+  "reactivation": {
+    "active": 1,
+    "index_dirty": 1,
+    "corpus_sha256": "2c3f9a2d9dc116062791e8c646ad7e343fd8e22f5a59c91581f84808b0620752"
+  },
+  "production_db_unchanged": true
+}

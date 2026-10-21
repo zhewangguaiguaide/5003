@@ -1,0 +1,407 @@
+[
+  {
+    "file": ".gitattributes",
+    "sha256": "23302dd90b8bb74b44d365fafef8df20f809b61cb347023951ecf60a88a29651",
+    "bytes": 32
+  },
+  {
+    "file": ".gitignore",
+    "sha256": "6d920f31257c89af88327c14432cd622e719a9d32fba4c16df65b118604762a4",
+    "bytes": 544
+  },
+  {
+    "file": "CityU-AgenticRAG-小组作业-成员1集成/.agents/skills/team-handoff/SKILL.md",
+    "sha256": "16422ebc3d902cc1e6ede1c4483dd7acc7a29e20f272efe1e75e316f39b4d4f5",
+    "bytes": 6721
+  },
+  {
+    "file": "CityU-AgenticRAG-小组作业-成员1集成/.agents/skills/team-handoff/agents/openai.yaml",
+    "sha256": "703eb8e024e880f94b646d3f0379977e19735a9c2f571d2ed9486437afa94efe",
+    "bytes": 341
+  },
+  {
+    "file": "CityU-AgenticRAG-小组作业-成员1集成/.agents/skills/team-handoff/assets/交接报告模板.md",
+    "sha256": "28b849580424f540e10fc69201c5fe09e627e11b3df3ef2382e962448540c495",
+    "bytes": 3278
+  },
+  {
+    "file": "CityU-AgenticRAG-小组作业-成员1集成/.agents/skills/team-handoff/assets/返工清单模板.md",
+    "sha256": "99229ac6818199ad403756e22d1765668a0a1d3094def3140ae61f9e94baef46",
+    "bytes": 2497
+  },
+  {
+    "file": "CityU-AgenticRAG-小组作业-成员1集成/.agents/skills/team-handoff/references/组员调用.md",
+    "sha256": "69cd5e5f2ff74b8aa29a055227ea34e21659be45b01a8662be16928adafe5cac",
+    "bytes": 3991
+  },
+  {
+    "file": "CityU-AgenticRAG-小组作业-成员1集成/.agents/skills/team-handoff/references/经验与依据.md",
+    "sha256": "5274620bc9543728a4c47ddaa906ae8ed597be444d6cfbc05826a6218f2d22eb",
+    "bytes": 5685
+  },
+  {
+    "file": "CityU-AgenticRAG-小组作业-成员1集成/.gitignore",
+    "sha256": "6d920f31257c89af88327c14432cd622e719a9d32fba4c16df65b118604762a4",
+    "bytes": 544
+  },
+  {
+    "file": "CityU-AgenticRAG-小组作业-成员1集成/README.md",
+    "sha256": "2a5014a164ea59dbfcd7d603cd9a9a01aa2e3b3d9748e3cdc89c59e9b5f876aa",
+    "bytes": 13722
+  },
+  {
+    "file": "CityU-AgenticRAG-小组作业-成员1集成/config.yaml",
+    "sha256": "d6349814cd031fba5b00789468ff3d80415c87b33a1cad0f15f37f7de99ac955",
+    "bytes": 4562
+  },
+  {
+    "file": "CityU-AgenticRAG-小组作业-成员1集成/data/.gitkeep",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "bytes": 0
+  },
+  {
+    "file": "CityU-AgenticRAG-小组作业-成员1集成/docs/Harness开发指导.md",
+    "sha256": "feb169f8883ed483adf77a64920648f427e16e94a1369ac49887044572ac5a32",
+    "bytes": 4182
+  },
+  {
+    "file": "CityU-AgenticRAG-小组作业-成员1集成/docs/evidence/coverage_probe.py",
+    "sha256": "d0ef02ad8ddc68b0d0de2c6a8d8a34ed4d1461eb4f58c8fb1d185b3b462fe831",
+    "bytes": 5079
+  },
+  {
+    "file": "CityU-AgenticRAG-小组作业-成员1集成/docs/evidence/scrapling_probe.py",
+    "sha256": "fd570b53d4844d260294516e2d2199c3bf2230763e5422475adfe934f4f8b772",
+    "bytes": 1636
+  },
+  {
+    "file": "CityU-AgenticRAG-小组作业-成员1集成/docs/figures/工作依赖与验收图_2026-10-12.png",
+    "sha256": "07c54351861abe0f294280edbeecf2f7525de05dc47aabec8714b9ffba56ade9",
+    "bytes": 410393
+  },
+  {
+    "file": "CityU-AgenticRAG-小组作业-成员1集成/docs/figures/组员工作甘特图_2026-10-12.png",
+    "sha256": "afa49fe1219f6f191abb144ef63c6ef005f8084d98578989833e8477be79fedb",
+    "bytes": 469660
+  },
+  {
+    "file": "CityU-AgenticRAG-小组作业-成员1集成/docs/figures/组员工时负荷图_2026-10-12.png",
+    "sha256": "d372b04f96099c7573f8d1d5aecb444b2fea4bbecf5709faf80e9805825021c7",
+    "bytes": 227112
+  },
+  {
+    "file": "CityU-AgenticRAG-小组作业-成员1集成/docs/交接单_成员1与成员2实施_至成员3.md",
+    "sha256": "1db07c96a1e1f7b85f9b1c826ca13b57659b47aee68d40fb79809ad297304871",
+    "bytes": 9709
+  },
+  {
+    "file": "CityU-AgenticRAG-小组作业-成员1集成/docs/交接单_成员2_语料质检.md",
+    "sha256": "36f641f186d79927a714bfd83d424788c6633b26bd7aeecd4aa717647f85eca2",
+    "bytes": 3309
+  },
+  {
+    "file": "CityU-AgenticRAG-小组作业-成员1集成/docs/内容覆盖核查.md",
+    "sha256": "232b62c4c7dc662f66ca1e99b994c96b0fadb6c2247e1e93295a29bdddd690a5",
+    "bytes": 7173
+  },
+  {
+    "file": "CityU-AgenticRAG-小组作业-成员1集成/docs/分工与交接方案.md",
+    "sha256": "f8ff7d407d48f6a848ee6ab28a7e60e74df630491d55c59070dbaa387a49a0fb",
+    "bytes": 12487
+  },
+  {
+    "file": "CityU-AgenticRAG-小组作业-成员1集成/docs/反馈_成员3_检索层推进与技术选型_2026-10-17.md",
+    "sha256": "50023ea8051866671f50f48e55e713642df36c8bcf8dc2972cebf9b66a5a40f6",
+    "bytes": 20225
+  },
+  {
+    "file": "CityU-AgenticRAG-小组作业-成员1集成/docs/可行性研究.md",
+    "sha256": "d813639f10065e1caee899f3c69cc30d6f621d9260c3a94e75901c8f80ef303e",
+    "bytes": 11949
+  },
+  {
+    "file": "CityU-AgenticRAG-小组作业-成员1集成/docs/组员排期与甘特图.md",
+    "sha256": "d6283f1b5f0192b09c8c491620ceb891a51041bd0933fd45805dde978aef59d0",
+    "bytes": 38279
+  },
+  {
+    "file": "CityU-AgenticRAG-小组作业-成员1集成/docs/返工核查报告_成员2_语料质检.md",
+    "sha256": "1a6a101cccd85ef5802946182a988bf317ffbb8df850c21d9e66137fbc78d39d",
+    "bytes": 5033
+  },
+  {
+    "file": "CityU-AgenticRAG-小组作业-成员1集成/docs/选题说明.md",
+    "sha256": "6884d6129c2cf9671318e3c9dd9e1757638a20767430ce5d719e3175ac2ca10c",
+    "bytes": 10756
+  },
+  {
+    "file": "CityU-AgenticRAG-小组作业-成员1集成/requirements-lock.txt",
+    "sha256": "9ccafa13dd559346d2aa4a5dfcb78280750f8e743436880fac6e5ff6ded0963f",
+    "bytes": 401
+  },
+  {
+    "file": "CityU-AgenticRAG-小组作业-成员1集成/requirements.txt",
+    "sha256": "efdb835950c9582a4ea60af4c1fb1c7785b440f3a7bd099720aa15897ff17912",
+    "bytes": 294
+  },
+  {
+    "file": "CityU-AgenticRAG-小组作业-成员1集成/schema.sql",
+    "sha256": "89811346b644dc90eb61d90dd4fc8f1349be4f67cd4c50436cfd1c2994b224b9",
+    "bytes": 2782
+  },
+  {
+    "file": "CityU-AgenticRAG-小组作业-成员1集成/src/__init__.py",
+    "sha256": "ae2a3d93a4a2d53da908270766212c316f3eb8dfefdc5143037ab529c83fbe53",
+    "bytes": 573
+  },
+  {
+    "file": "CityU-AgenticRAG-小组作业-成员1集成/src/agent.py",
+    "sha256": "59b0dda5a024152eb8a7e234524747d15a13b1c09dd45049caccfa94dc84c52a",
+    "bytes": 4763
+  },
+  {
+    "file": "CityU-AgenticRAG-小组作业-成员1集成/src/config.py",
+    "sha256": "9c78e02a752b993860f31280e306d65ce90bc88063633f09f6de8d4bf6749073",
+    "bytes": 1357
+  },
+  {
+    "file": "CityU-AgenticRAG-小组作业-成员1集成/src/corpus.py",
+    "sha256": "9288be7ffc936d85449a6710122c4a1ea78f1f5751e3aae648d21f29c74a01a1",
+    "bytes": 6116
+  },
+  {
+    "file": "CityU-AgenticRAG-小组作业-成员1集成/src/corpus_import.py",
+    "sha256": "27521d1a01fb5c96ec3b0f5fbe4c583d821f39088ea2cb08fa335e3d14131aae",
+    "bytes": 7789
+  },
+  {
+    "file": "CityU-AgenticRAG-小组作业-成员1集成/src/crawler.py",
+    "sha256": "1ad972843545fe3a829e63727c305a76985688d55f40e6c46fcde65dc31e0d9f",
+    "bytes": 13822
+  },
+  {
+    "file": "CityU-AgenticRAG-小组作业-成员1集成/src/db.py",
+    "sha256": "793adc73c29c26d669d34f5f1c117b0d92a047c4d55d4705856d574549cdc074",
+    "bytes": 5470
+  },
+  {
+    "file": "CityU-AgenticRAG-小组作业-成员1集成/src/fetcher.py",
+    "sha256": "f2f4f9ad7114b0ba267d69ca117fd3ff82293c3f733a17b878b01e478ce0998f",
+    "bytes": 6390
+  },
+  {
+    "file": "CityU-AgenticRAG-小组作业-成员1集成/src/llm.py",
+    "sha256": "d476423dd6b8b26d5945e34cd4ae8b34c80af72f6c85252de520950a1eb9d76c",
+    "bytes": 3917
+  },
+  {
+    "file": "CityU-AgenticRAG-小组作业-成员1集成/src/main.py",
+    "sha256": "5c8381371d22130ea545781b43804362d725cf68d9920694180509823f78454d",
+    "bytes": 13048
+  },
+  {
+    "file": "CityU-AgenticRAG-小组作业-成员1集成/src/parser.py",
+    "sha256": "289806dbc451e9cb6e25ffb34d428536087c284a335d3fc1e96618428c1f3f5c",
+    "bytes": 5580
+  },
+  {
+    "file": "CityU-AgenticRAG-小组作业-成员1集成/src/storage.py",
+    "sha256": "e3e0c22a4732a82986b1a5479d928efc3a88c95b01793e767e3e37c49fd18387",
+    "bytes": 4888
+  },
+  {
+    "file": "CityU-AgenticRAG-小组作业-成员1集成/src/websearch.py",
+    "sha256": "8462841f026d3729f63b83906e1fa18a3eef4f85e06e66bde78a4aa95f18ffef",
+    "bytes": 4309
+  },
+  {
+    "file": "CityU-AgenticRAG-小组作业-成员1集成/tests/__init__.py",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "bytes": 0
+  },
+  {
+    "file": "CityU-AgenticRAG-小组作业-成员1集成/tests/mock_site.py",
+    "sha256": "1f12cddb72c50c7f8c52a7f7df6f7e2d4b034598280c7cd3abfe4e12e1bd3307",
+    "bytes": 2090
+  },
+  {
+    "file": "CityU-AgenticRAG-小组作业-成员1集成/tests/test_acceptance_repairs.py",
+    "sha256": "baeb504b65e3e43240e040be27937eed4e2d4ba4fba120b8d752c0c83d766ade",
+    "bytes": 3035
+  },
+  {
+    "file": "CityU-AgenticRAG-小组作业-成员1集成/tests/test_corpus.py",
+    "sha256": "e70330ddde9b0e626ae193685b6438962ad8e49f114f566fc6cc3725d1475703",
+    "bytes": 1735
+  },
+  {
+    "file": "CityU-AgenticRAG-小组作业-成员1集成/tests/test_corpus_import.py",
+    "sha256": "81a5a1b21b6da341668e618510a09b111568ec50906c44bab6fe15185597ad50",
+    "bytes": 8126
+  },
+  {
+    "file": "CityU-AgenticRAG-小组作业-成员1集成/tests/test_db.py",
+    "sha256": "5dce8f8ff1d1ddb13aa562f8e9ada4e6a47b71bc74df15d6846fd279ececf1b3",
+    "bytes": 4257
+  },
+  {
+    "file": "CityU-AgenticRAG-小组作业-成员1集成/tests/test_standard.py",
+    "sha256": "4c952d6089ff87f722a1416461048a1bdd0609b3b8c41ec3494f22baac5a03f6",
+    "bytes": 9504
+  },
+  {
+    "file": "CityU-AgenticRAG-小组作业-成员1集成/tests/test_websearch.py",
+    "sha256": "1ba95a70627a9ba7eca4658c98990584c3891ed978e88e17e55f121f877a228c",
+    "bytes": 6085
+  },
+  {
+    "file": "CityU-AgenticRAG-小组作业-成员1集成/交付说明_成员2返工包.md",
+    "sha256": "ba735ef6eb588f1ba5fdf89c0869461a9b77054f176891f10ea391607f280dca",
+    "bytes": 2477
+  },
+  {
+    "file": "PUBLICATION_REVIEW.md",
+    "sha256": "7052d794b2872e5e5525310ded355074f1c61c3b5ba8a97923edf5e91fb7a1a6",
+    "bytes": 1924
+  },
+  {
+    "file": "README.md",
+    "sha256": "663da1631d76f4ed95bc123fce4406d98f91c5d4fc8b4f1abd8968d6aed45b5e",
+    "bytes": 1766
+  },
+  {
+    "file": "交接文件_2026-10-12/01_给成员2_返工与补交清单.md",
+    "sha256": "66f1b4f1d8a5b3eced3b26efb008f7fdf490d02c355f6a6b1307d0f1f3929478",
+    "bytes": 6502
+  },
+  {
+    "file": "交接文件_2026-10-12/02_成员1与成员2实施_至成员3交接报告.md",
+    "sha256": "b063ba12524803e226c2df355c97113fdf46c0dc8d284df98a9e8f834393b78e",
+    "bytes": 9468
+  },
+  {
+    "file": "交接文件_2026-10-12/附件/pip-check.log",
+    "sha256": "9261363b733079a641c2e4cc9bc46ffa1d8336945a87f807b6cf68847dbc9b09",
+    "bytes": 30
+  },
+  {
+    "file": "交接文件_2026-10-12/附件/交付文件清单.json",
+    "sha256": "61256ca1b3afa3466de4d4178bd0ac7faf02b3a28f0f75614b9434630c376916",
+    "bytes": 9876
+  },
+  {
+    "file": "交接文件_2026-10-12/附件/复核证据.json",
+    "sha256": "d95c485818771a520f6ead7d30592a5fa002307bf7f677a7cff4a2a6bad9c0f2",
+    "bytes": 50531
+  },
+  {
+    "file": "交接文件_2026-10-12/附件/工作依赖与验收图_2026-10-12.png",
+    "sha256": "07c54351861abe0f294280edbeecf2f7525de05dc47aabec8714b9ffba56ade9",
+    "bytes": 410393
+  },
+  {
+    "file": "交接文件_2026-10-12/附件/成员1改动.diff",
+    "sha256": "f0cd9dfaedf8c118f0fae843764e1cae0154dec6e0a1e1846861a313d3e90f6a",
+    "bytes": 148892
+  },
+  {
+    "file": "交接文件_2026-10-12/附件/环境冻结.txt",
+    "sha256": "0c27480775a7da6edb97fda413ae47ee69be652955057bf6fb94d12238c09560",
+    "bytes": 357
+  },
+  {
+    "file": "交接文件_2026-10-12/附件/离线测试.log",
+    "sha256": "4b10773de8ef8a40defe9a1a582e5c69db3de54a4bcfd694251e04b89f29a6ce",
+    "bytes": 8402
+  },
+  {
+    "file": "交接文件_2026-10-12/附件/组员工作甘特图_2026-10-12.png",
+    "sha256": "afa49fe1219f6f191abb144ef63c6ef005f8084d98578989833e8477be79fedb",
+    "bytes": 469660
+  },
+  {
+    "file": "交接文件_2026-10-12/附件/组员工时负荷图_2026-10-12.png",
+    "sha256": "d372b04f96099c7573f8d1d5aecb444b2fea4bbecf5709faf80e9805825021c7",
+    "bytes": 227112
+  },
+  {
+    "file": "交接文件_2026-10-12/附件/组员排期与甘特图.md",
+    "sha256": "a3b486184aa17b64bf7dc7ee25ab6d27878bbbfa07c83b832eb74b2d1fd7d4c2",
+    "bytes": 38255
+  },
+  {
+    "file": "交接文件_2026-10-12/附件/边界问题复现.json",
+    "sha256": "c27698126d2f27acbf62ebd5d304f0f743c10429d3cdde3213294512d891264b",
+    "bytes": 4052
+  },
+  {
+    "file": "交接文件_2026-10-12/附件/返工复核报告_详细依据.md",
+    "sha256": "899c06d6f2163599e409da7a135016fb23966965963aa8e8304847af6463c719",
+    "bytes": 26786
+  },
+  {
+    "file": "交接文件_2026-10-12/附件/集成验收结果.json",
+    "sha256": "591dc89b823f7710377359c2ac260c6aa7f3c5506dfe9c21dbdd68725a45754e",
+    "bytes": 8839
+  },
+  {
+    "file": "检索层小实验_2026-10-17/README.md",
+    "sha256": "5f53636c17654d727d0ece05a2737319b22459eb1b5e5b1212f2a08d77bf4b68",
+    "bytes": 5342
+  },
+  {
+    "file": "检索层小实验_2026-10-17/lifecycle_experiment.py",
+    "sha256": "ccb489753d1843e3584adf3964a0cd932d7eb6c754c1f747937c29520f4ded8a",
+    "bytes": 2703
+  },
+  {
+    "file": "检索层小实验_2026-10-17/run_experiments.py",
+    "sha256": "214343480d45087622ce8b2f0c437347c26c2180746e0f55bec449f653bdd8a3",
+    "bytes": 17538
+  },
+  {
+    "file": "检索层小实验_2026-10-17/实验结果.json",
+    "sha256": "88019ce17b5551eea19e243053cea19b33db18613f56fc0a75f2ba67d4f73345",
+    "bytes": 41835
+  },
+  {
+    "file": "检索层小实验_2026-10-17/开发探针.json",
+    "sha256": "f7de2820a871a28e63b1e17b108f7957b4b7d396b7a33e302d6607cfcf1770d1",
+    "bytes": 3047
+  },
+  {
+    "file": "检索层小实验_2026-10-17/最终核验.json",
+    "sha256": "21ba413465773071dbee6dd03a8e3472c62888f2a856276dc7973d14a4a59175",
+    "bytes": 220
+  },
+  {
+    "file": "检索层小实验_2026-10-17/环境与下载状态.json",
+    "sha256": "9251ea51b48aaf3622a780795f49977228622df3958bc4607bf9bc6e94c517c2",
+    "bytes": 419
+  },
+  {
+    "file": "检索层小实验_2026-10-17/索引生命周期实验.json",
+    "sha256": "488745a22beb4a7e6c7716cb65dd44add37081b7c51fe1934c2299e9d92609f2",
+    "bytes": 775
+  },
+  {
+    "file": "返工复核_成员2_2026-10-12/代码与文档差异.diff",
+    "sha256": "a3fefd1bd606fc5f7420c1f88e84e6dea3b69d4251b8eabe05d69cbdb84b8c44",
+    "bytes": 37224
+  },
+  {
+    "file": "返工复核_成员2_2026-10-12/复核脚本.py",
+    "sha256": "23687f5431ea7358932ed1454e7f42f8e5f66bae3565dd40eb019154a31269a8",
+    "bytes": 4881
+  },
+  {
+    "file": "返工复核_成员2_2026-10-12/边界问题复现.py",
+    "sha256": "b6f6c7fa8250f75f7c0375ce66451a82e3eaff6137ff5bbfbffbe0e381bde801",
+    "bytes": 3404
+  },
+  {
+    "file": "验收报告_成员2_语料质检.md",
+    "sha256": "b9be689e54110f7a52bb1c6248c8ff51279ec3075a9a20f7f4bf8766ace8a2af",
+    "bytes": 20449
+  }
+]

@@ -1,0 +1,4 @@
+interface:
+  display_name: "组员交接与返工复核"
+  short_description: "核对实施成果、区分返工与下游任务，生成简明交接及文件落位说明"
+  default_prompt: "使用 $team-handoff，根据项目文件和验收要求核对交付，明确返工与下游责任，更新交接文档并说明附件放置位置。"

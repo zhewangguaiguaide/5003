@@ -1,0 +1,1607 @@
+{
+  "date": "2026-10-17",
+  "source": {
+    "corpus_sha256": "2c3f9a2d9dc116062791e8c646ad7e343fd8e22f5a59c91581f84808b0620752",
+    "documents": 159,
+    "database": {
+      "active": 159,
+      "dirty": 159,
+      "chunks": 0,
+      "versions": [
+        "2c3f9a2d9dc116062791e8c646ad7e343fd8e22f5a59c91581f84808b0620752"
+      ]
+    },
+    "columns": {
+      "admission": 25,
+      "calendar": 8,
+      "fees": 13,
+      "library": 40,
+      "registration": 18,
+      "residence": 24,
+      "scholarship": 19,
+      "visa_geo": 12
+    },
+    "total_proxy_units": 164803,
+    "tokenization": "regex English words/numbers/punctuation proxy, NOT BGE-M3 tokens; official tokenizer download failed",
+    "model_status": "No local BGE-M3 weights or torch/sentence-transformers runtime; no BGE inference performed",
+    "hardware": "Intel64 Family 6 Model 197 Stepping 2, GenuineIntel",
+    "python": "3.12.14"
+  },
+  "chunking": [
+    {
+      "config": "fixed_300_40",
+      "chunks": 695,
+      "uncovered_proxy_units": 0,
+      "proxy_units": 186243,
+      "expansion": 1.1301,
+      "p50": 300.0,
+      "p95": 300.0,
+      "maximum": 300,
+      "probes_preserved": 13,
+      "probes_total": 14,
+      "vector_payload_1024_float32_mib": 2.715,
+      "failed": [
+        "p14"
+      ]
+    },
+    {
+      "config": "fixed_500_0",
+      "chunks": 410,
+      "uncovered_proxy_units": 0,
+      "proxy_units": 164803,
+      "expansion": 1.0,
+      "p50": 500.0,
+      "p95": 500.0,
+      "maximum": 500,
+      "probes_preserved": 13,
+      "probes_total": 14,
+      "vector_payload_1024_float32_mib": 1.602,
+      "failed": [
+        "p06"
+      ]
+    },
+    {
+      "config": "fixed_500_80",
+      "chunks": 447,
+      "uncovered_proxy_units": 0,
+      "proxy_units": 187843,
+      "expansion": 1.1398,
+      "p50": 500.0,
+      "p95": 500.0,
+      "maximum": 500,
+      "probes_preserved": 14,
+      "probes_total": 14,
+      "vector_payload_1024_float32_mib": 1.746,
+      "failed": []
+    },
+    {
+      "config": "fixed_800_80",
+      "chunks": 310,
+      "uncovered_proxy_units": 0,
+      "proxy_units": 176883,
+      "expansion": 1.0733,
+      "p50": 757.0,
+      "p95": 800.0,
+      "maximum": 800,
+      "probes_preserved": 14,
+      "probes_total": 14,
+      "vector_payload_1024_float32_mib": 1.211,
+      "failed": []
+    },
+    {
+      "config": "structure_500_80",
+      "chunks": 435,
+      "uncovered_proxy_units": 0,
+      "proxy_units": 167043,
+      "expansion": 1.0136,
+      "p50": 443.0,
+      "p95": 500.0,
+      "maximum": 500,
+      "probes_preserved": 13,
+      "probes_total": 14,
+      "vector_payload_1024_float32_mib": 1.699,
+      "failed": [
+        "p12"
+      ]
+    },
+    {
+      "config": "structure_v2_500_80",
+      "chunks": 435,
+      "uncovered_proxy_units": 0,
+      "proxy_units": 167043,
+      "expansion": 1.0136,
+      "p50": 444.0,
+      "p95": 500.0,
+      "maximum": 500,
+      "probes_preserved": 14,
+      "probes_total": 14,
+      "vector_payload_1024_float32_mib": 1.699,
+      "failed": []
+    }
+  ],
+  "span_coverage": [
+    {
+      "config": "fixed_300_40",
+      "probe": "p01",
+      "preserved": true,
+      "chunk_ids": [
+        "5f88a52ddb17c89e4e966bd6"
+      ]
+    },
+    {
+      "config": "fixed_300_40",
+      "probe": "p02",
+      "preserved": true,
+      "chunk_ids": [
+        "b129df8c7057d59ed3cf72d4"
+      ]
+    },
+    {
+      "config": "fixed_300_40",
+      "probe": "p03",
+      "preserved": true,
+      "chunk_ids": [
+        "b129df8c7057d59ed3cf72d4",
+        "cac787f7bc2654c71bb75326"
+      ]
+    },
+    {
+      "config": "fixed_300_40",
+      "probe": "p04",
+      "preserved": true,
+      "chunk_ids": [
+        "cac787f7bc2654c71bb75326"
+      ]
+    },
+    {
+      "config": "fixed_300_40",
+      "probe": "p05",
+      "preserved": true,
+      "chunk_ids": [
+        "cac787f7bc2654c71bb75326"
+      ]
+    },
+    {
+      "config": "fixed_300_40",
+      "probe": "p06",
+      "preserved": true,
+      "chunk_ids": [
+        "d83206aec8fa6d0a5cb1d5dd"
+      ]
+    },
+    {
+      "config": "fixed_300_40",
+      "probe": "p07",
+      "preserved": true,
+      "chunk_ids": [
+        "263e347560ebacde6440c829",
+        "31d8fb8b4dfba961ffb20f91"
+      ]
+    },
+    {
+      "config": "fixed_300_40",
+      "probe": "p08",
+      "preserved": true,
+      "chunk_ids": [
+        "097b390efe089a2d0a17f8c7"
+      ]
+    },
+    {
+      "config": "fixed_300_40",
+      "probe": "p09",
+      "preserved": true,
+      "chunk_ids": [
+        "000033161cc8e66c9a1a1f77"
+      ]
+    },
+    {
+      "config": "fixed_300_40",
+      "probe": "p10",
+      "preserved": true,
+      "chunk_ids": [
+        "44b1ae73c177b442117c78ba"
+      ]
+    },
+    {
+      "config": "fixed_300_40",
+      "probe": "p11",
+      "preserved": true,
+      "chunk_ids": [
+        "9369d93a309e4f8bcbdfec98"
+      ]
+    },
+    {
+      "config": "fixed_300_40",
+      "probe": "p12",
+      "preserved": true,
+      "chunk_ids": [
+        "9369d93a309e4f8bcbdfec98"
+      ]
+    },
+    {
+      "config": "fixed_300_40",
+      "probe": "p13",
+      "preserved": true,
+      "chunk_ids": [
+        "7e5f355efc57c80f10004c78"
+      ]
+    },
+    {
+      "config": "fixed_300_40",
+      "probe": "p14",
+      "preserved": false,
+      "chunk_ids": []
+    },
+    {
+      "config": "fixed_500_0",
+      "probe": "p01",
+      "preserved": true,
+      "chunk_ids": [
+        "3dc02b7b8bc8715ef8f35c25"
+      ]
+    },
+    {
+      "config": "fixed_500_0",
+      "probe": "p02",
+      "preserved": true,
+      "chunk_ids": [
+        "3dc02b7b8bc8715ef8f35c25"
+      ]
+    },
+    {
+      "config": "fixed_500_0",
+      "probe": "p03",
+      "preserved": true,
+      "chunk_ids": [
+        "741d7a4fd79dcdd5c01c81c5"
+      ]
+    },
+    {
+      "config": "fixed_500_0",
+      "probe": "p04",
+      "preserved": true,
+      "chunk_ids": [
+        "741d7a4fd79dcdd5c01c81c5"
+      ]
+    },
+    {
+      "config": "fixed_500_0",
+      "probe": "p05",
+      "preserved": true,
+      "chunk_ids": [
+        "741d7a4fd79dcdd5c01c81c5"
+      ]
+    },
+    {
+      "config": "fixed_500_0",
+      "probe": "p06",
+      "preserved": false,
+      "chunk_ids": []
+    },
+    {
+      "config": "fixed_500_0",
+      "probe": "p07",
+      "preserved": true,
+      "chunk_ids": [
+        "c7cb0e792a016c0492a2c256"
+      ]
+    },
+    {
+      "config": "fixed_500_0",
+      "probe": "p08",
+      "preserved": true,
+      "chunk_ids": [
+        "ed670f8aa66159cbf5084e62"
+      ]
+    },
+    {
+      "config": "fixed_500_0",
+      "probe": "p09",
+      "preserved": true,
+      "chunk_ids": [
+        "0a5b8e8af54453bb8a35565b"
+      ]
+    },
+    {
+      "config": "fixed_500_0",
+      "probe": "p10",
+      "preserved": true,
+      "chunk_ids": [
+        "1a1f8713ed1d677576fec602"
+      ]
+    },
+    {
+      "config": "fixed_500_0",
+      "probe": "p11",
+      "preserved": true,
+      "chunk_ids": [
+        "16529c58f43da1654593f592"
+      ]
+    },
+    {
+      "config": "fixed_500_0",
+      "probe": "p12",
+      "preserved": true,
+      "chunk_ids": [
+        "449689ed85a64ffed7481ed5"
+      ]
+    },
+    {
+      "config": "fixed_500_0",
+      "probe": "p13",
+      "preserved": true,
+      "chunk_ids": [
+        "a6e176c702c9b2a5db9f6d24"
+      ]
+    },
+    {
+      "config": "fixed_500_0",
+      "probe": "p14",
+      "preserved": true,
+      "chunk_ids": [
+        "a6e176c702c9b2a5db9f6d24"
+      ]
+    },
+    {
+      "config": "fixed_500_80",
+      "probe": "p01",
+      "preserved": true,
+      "chunk_ids": [
+        "96c6ac6d2758b299dd21c187"
+      ]
+    },
+    {
+      "config": "fixed_500_80",
+      "probe": "p02",
+      "preserved": true,
+      "chunk_ids": [
+        "96c6ac6d2758b299dd21c187"
+      ]
+    },
+    {
+      "config": "fixed_500_80",
+      "probe": "p03",
+      "preserved": true,
+      "chunk_ids": [
+        "af6d51084f8b66664822c0ca"
+      ]
+    },
+    {
+      "config": "fixed_500_80",
+      "probe": "p04",
+      "preserved": true,
+      "chunk_ids": [
+        "af6d51084f8b66664822c0ca"
+      ]
+    },
+    {
+      "config": "fixed_500_80",
+      "probe": "p05",
+      "preserved": true,
+      "chunk_ids": [
+        "af6d51084f8b66664822c0ca"
+      ]
+    },
+    {
+      "config": "fixed_500_80",
+      "probe": "p06",
+      "preserved": true,
+      "chunk_ids": [
+        "330fafeaa2b3893a83dc985f"
+      ]
+    },
+    {
+      "config": "fixed_500_80",
+      "probe": "p07",
+      "preserved": true,
+      "chunk_ids": [
+        "330fafeaa2b3893a83dc985f"
+      ]
+    },
+    {
+      "config": "fixed_500_80",
+      "probe": "p08",
+      "preserved": true,
+      "chunk_ids": [
+        "c24e0d541d46abe93cd309fa"
+      ]
+    },
+    {
+      "config": "fixed_500_80",
+      "probe": "p09",
+      "preserved": true,
+      "chunk_ids": [
+        "0a83dd895c92811716786e59"
+      ]
+    },
+    {
+      "config": "fixed_500_80",
+      "probe": "p10",
+      "preserved": true,
+      "chunk_ids": [
+        "db4c812d4591c9e6896eff76"
+      ]
+    },
+    {
+      "config": "fixed_500_80",
+      "probe": "p11",
+      "preserved": true,
+      "chunk_ids": [
+        "c53fe1e18dd586a55620caaf"
+      ]
+    },
+    {
+      "config": "fixed_500_80",
+      "probe": "p12",
+      "preserved": true,
+      "chunk_ids": [
+        "3a494c7242f186422a1572d4"
+      ]
+    },
+    {
+      "config": "fixed_500_80",
+      "probe": "p13",
+      "preserved": true,
+      "chunk_ids": [
+        "dfff592f4f691ef18344b08a"
+      ]
+    },
+    {
+      "config": "fixed_500_80",
+      "probe": "p14",
+      "preserved": true,
+      "chunk_ids": [
+        "dfff592f4f691ef18344b08a"
+      ]
+    },
+    {
+      "config": "fixed_800_80",
+      "probe": "p01",
+      "preserved": true,
+      "chunk_ids": [
+        "7c69a16b736dbc3ef6b4e0ff"
+      ]
+    },
+    {
+      "config": "fixed_800_80",
+      "probe": "p02",
+      "preserved": true,
+      "chunk_ids": [
+        "7c69a16b736dbc3ef6b4e0ff"
+      ]
+    },
+    {
+      "config": "fixed_800_80",
+      "probe": "p03",
+      "preserved": true,
+      "chunk_ids": [
+        "7c69a16b736dbc3ef6b4e0ff"
+      ]
+    },
+    {
+      "config": "fixed_800_80",
+      "probe": "p04",
+      "preserved": true,
+      "chunk_ids": [
+        "7c69a16b736dbc3ef6b4e0ff"
+      ]
+    },
+    {
+      "config": "fixed_800_80",
+      "probe": "p05",
+      "preserved": true,
+      "chunk_ids": [
+        "7c69a16b736dbc3ef6b4e0ff",
+        "e8efbd33eb3a82f94a29b02b"
+      ]
+    },
+    {
+      "config": "fixed_800_80",
+      "probe": "p06",
+      "preserved": true,
+      "chunk_ids": [
+        "d289c07cb3b334979d36c8b1"
+      ]
+    },
+    {
+      "config": "fixed_800_80",
+      "probe": "p07",
+      "preserved": true,
+      "chunk_ids": [
+        "d289c07cb3b334979d36c8b1",
+        "b59fb2334b5d78b4b9c74009"
+      ]
+    },
+    {
+      "config": "fixed_800_80",
+      "probe": "p08",
+      "preserved": true,
+      "chunk_ids": [
+        "aafa781417c6d29102abf239"
+      ]
+    },
+    {
+      "config": "fixed_800_80",
+      "probe": "p09",
+      "preserved": true,
+      "chunk_ids": [
+        "aafa781417c6d29102abf239"
+      ]
+    },
+    {
+      "config": "fixed_800_80",
+      "probe": "p10",
+      "preserved": true,
+      "chunk_ids": [
+        "8bc6dac7bfde96f74d9428a3"
+      ]
+    },
+    {
+      "config": "fixed_800_80",
+      "probe": "p11",
+      "preserved": true,
+      "chunk_ids": [
+        "56c95da9f7ed2d0b1452e7ef"
+      ]
+    },
+    {
+      "config": "fixed_800_80",
+      "probe": "p12",
+      "preserved": true,
+      "chunk_ids": [
+        "56c95da9f7ed2d0b1452e7ef"
+      ]
+    },
+    {
+      "config": "fixed_800_80",
+      "probe": "p13",
+      "preserved": true,
+      "chunk_ids": [
+        "99a0d96ffb56dc158845d50b"
+      ]
+    },
+    {
+      "config": "fixed_800_80",
+      "probe": "p14",
+      "preserved": true,
+      "chunk_ids": [
+        "99a0d96ffb56dc158845d50b"
+      ]
+    },
+    {
+      "config": "structure_500_80",
+      "probe": "p01",
+      "preserved": true,
+      "chunk_ids": [
+        "40027e1d464771e7429ed41a"
+      ]
+    },
+    {
+      "config": "structure_500_80",
+      "probe": "p02",
+      "preserved": true,
+      "chunk_ids": [
+        "40027e1d464771e7429ed41a"
+      ]
+    },
+    {
+      "config": "structure_500_80",
+      "probe": "p03",
+      "preserved": true,
+      "chunk_ids": [
+        "27cebb333f9009c65d33e45d"
+      ]
+    },
+    {
+      "config": "structure_500_80",
+      "probe": "p04",
+      "preserved": true,
+      "chunk_ids": [
+        "27cebb333f9009c65d33e45d"
+      ]
+    },
+    {
+      "config": "structure_500_80",
+      "probe": "p05",
+      "preserved": true,
+      "chunk_ids": [
+        "27cebb333f9009c65d33e45d"
+      ]
+    },
+    {
+      "config": "structure_500_80",
+      "probe": "p06",
+      "preserved": true,
+      "chunk_ids": [
+        "9b561c30ba7cff6b5ced6573"
+      ]
+    },
+    {
+      "config": "structure_500_80",
+      "probe": "p07",
+      "preserved": true,
+      "chunk_ids": [
+        "9b561c30ba7cff6b5ced6573"
+      ]
+    },
+    {
+      "config": "structure_500_80",
+      "probe": "p08",
+      "preserved": true,
+      "chunk_ids": [
+        "39e867e96c8cd57a41018024"
+      ]
+    },
+    {
+      "config": "structure_500_80",
+      "probe": "p09",
+      "preserved": true,
+      "chunk_ids": [
+        "d82293085c6b6d2a301e5571"
+      ]
+    },
+    {
+      "config": "structure_500_80",
+      "probe": "p10",
+      "preserved": true,
+      "chunk_ids": [
+        "9891810882b6165b0356abee"
+      ]
+    },
+    {
+      "config": "structure_500_80",
+      "probe": "p11",
+      "preserved": true,
+      "chunk_ids": [
+        "8c03f9611255fe75a230f60d"
+      ]
+    },
+    {
+      "config": "structure_500_80",
+      "probe": "p12",
+      "preserved": false,
+      "chunk_ids": []
+    },
+    {
+      "config": "structure_500_80",
+      "probe": "p13",
+      "preserved": true,
+      "chunk_ids": [
+        "444403b2f218e2e667238c3c"
+      ]
+    },
+    {
+      "config": "structure_500_80",
+      "probe": "p14",
+      "preserved": true,
+      "chunk_ids": [
+        "444403b2f218e2e667238c3c"
+      ]
+    },
+    {
+      "config": "structure_v2_500_80",
+      "probe": "p01",
+      "preserved": true,
+      "chunk_ids": [
+        "51aea8cb018f1763b2069393"
+      ]
+    },
+    {
+      "config": "structure_v2_500_80",
+      "probe": "p02",
+      "preserved": true,
+      "chunk_ids": [
+        "51aea8cb018f1763b2069393"
+      ]
+    },
+    {
+      "config": "structure_v2_500_80",
+      "probe": "p03",
+      "preserved": true,
+      "chunk_ids": [
+        "94f51f2bf5304958b815843c"
+      ]
+    },
+    {
+      "config": "structure_v2_500_80",
+      "probe": "p04",
+      "preserved": true,
+      "chunk_ids": [
+        "94f51f2bf5304958b815843c"
+      ]
+    },
+    {
+      "config": "structure_v2_500_80",
+      "probe": "p05",
+      "preserved": true,
+      "chunk_ids": [
+        "94f51f2bf5304958b815843c"
+      ]
+    },
+    {
+      "config": "structure_v2_500_80",
+      "probe": "p06",
+      "preserved": true,
+      "chunk_ids": [
+        "45f04c88cca4abc0378af0aa"
+      ]
+    },
+    {
+      "config": "structure_v2_500_80",
+      "probe": "p07",
+      "preserved": true,
+      "chunk_ids": [
+        "45f04c88cca4abc0378af0aa"
+      ]
+    },
+    {
+      "config": "structure_v2_500_80",
+      "probe": "p08",
+      "preserved": true,
+      "chunk_ids": [
+        "671d19360af5344da7cbf62c"
+      ]
+    },
+    {
+      "config": "structure_v2_500_80",
+      "probe": "p09",
+      "preserved": true,
+      "chunk_ids": [
+        "d21ed9ad6e3562f910594ccd"
+      ]
+    },
+    {
+      "config": "structure_v2_500_80",
+      "probe": "p10",
+      "preserved": true,
+      "chunk_ids": [
+        "7ab09ebd80f7616f38a963bc"
+      ]
+    },
+    {
+      "config": "structure_v2_500_80",
+      "probe": "p11",
+      "preserved": true,
+      "chunk_ids": [
+        "78d1db269f32fcc3722f7660"
+      ]
+    },
+    {
+      "config": "structure_v2_500_80",
+      "probe": "p12",
+      "preserved": true,
+      "chunk_ids": [
+        "7fb0b6a80eeffb19d04f3e82"
+      ]
+    },
+    {
+      "config": "structure_v2_500_80",
+      "probe": "p13",
+      "preserved": true,
+      "chunk_ids": [
+        "674ac62af92e42cca8e180b1"
+      ]
+    },
+    {
+      "config": "structure_v2_500_80",
+      "probe": "p14",
+      "preserved": true,
+      "chunk_ids": [
+        "674ac62af92e42cca8e180b1"
+      ]
+    }
+  ],
+  "navigation_audit": {
+    "fee_doc": "https://www.cityu.edu.hk/fo/htm/degree_fees.htm",
+    "prefix_proxy_units": 223,
+    "total_proxy_units": 1262,
+    "prefix_fraction": 0.1767,
+    "marker": "Fees and Charges\n1.\nTuition Fees",
+    "repeated_short_lines_ge10": 130,
+    "examples": [
+      {
+        "document_count": 46
+      },
+      {
+        "document_count": 40
+      },
+      {
+        "document_count": 40
+      },
+      {
+        "document_count": 39
+      },
+      {
+        "document_count": 38
+      },
+      {
+        "document_count": 35
+      },
+      {
+        "document_count": 35
+      },
+      {
+        "document_count": 32
+      },
+      {
+        "document_count": 32
+      },
+      {
+        "document_count": 31
+      },
+      {
+        "document_count": 29
+      },
+      {
+        "document_count": 29
+      },
+      {
+        "document_count": 29
+      },
+      {
+        "document_count": 29
+      },
+      {
+        "document_count": 29
+      },
+      {
+        "document_count": 29
+      },
+      {
+        "document_count": 26
+      },
+      {
+        "document_count": 25
+      },
+      {
+        "document_count": 25
+      },
+      {
+        "document_count": 25
+      },
+      {
+        "document_count": 25
+      },
+      {
+        "document_count": 22
+      },
+      {
+        "document_count": 21
+      },
+      {
+        "document_count": 19
+      },
+      {
+        "document_count": 17
+      }
+    ]
+  },
+  "faq_audit": {
+    "heuristic_question_to_next_question_spans": 500,
+    "over_500_proxy_units": 2,
+    "largest": [
+      {
+        "doc": 47,
+        "proxy_units": 2518,
+        "start": 8409,
+        "end": 21199
+      },
+      {
+        "doc": 47,
+        "proxy_units": 969,
+        "start": 2686,
+        "end": 8409
+      },
+      {
+        "doc": 16,
+        "proxy_units": 377,
+        "start": 60581,
+        "end": 62817
+      },
+      {
+        "doc": 30,
+        "proxy_units": 375,
+        "start": 4766,
+        "end": 6430
+      },
+      {
+        "doc": 31,
+        "proxy_units": 375,
+        "start": 4819,
+        "end": 6483
+      }
+    ]
+  },
+  "index_control": {
+    "kind": "1024-d TF-IDF lexical control, not BGE-M3",
+    "faiss_version": "1.15.1",
+    "numpy_version": "2.3.5",
+    "dimensions": 1024,
+    "actual_vocabulary": 1024,
+    "n": 447,
+    "threads": 1,
+    "flat_build_ms": 0.707,
+    "hnsw_build_ms": 19.609,
+    "flat_index_bytes": 1830957,
+    "hnsw_index_bytes": 1895278,
+    "flat_latency": {
+      "median_ms": 0.0377,
+      "p95_ms": 0.0393,
+      "runs": 100
+    },
+    "hnsw_latency": {
+      "median_ms": 0.0255,
+      "p95_ms": 0.0352,
+      "runs": 100
+    },
+    "hnsw_recall_at5_ids": 1.0,
+    "flat_numpy_score_max_error": 2.9802322387695312e-08,
+    "reload_exact": true,
+    "excluded": "No tokenization, query encoding, model loading, DB access or application overhead included in index timings; lexical queries chosen from corpus, no held-out semantic conclusions."
+  },
+  "lexical_probe_results": [
+    {
+      "probe": "p01",
+      "query": "What is the local undergraduate annual tuition fee for 2026/27?",
+      "source_doc_top5": false,
+      "full_probe_top5": false,
+      "hits": [
+        {
+          "chunk_id": "2283d1c5d68055b5ba819c03",
+          "doc": 17,
+          "score": 0.268420934677124,
+          "url": "https://www.cityu.edu.hk/admo/fees-and-scholarships",
+          "contains_full_probe": false
+        },
+        {
+          "chunk_id": "be3506b91a6f06a2abf7b984",
+          "doc": 39,
+          "score": 0.23393499851226807,
+          "url": "https://www.cityu.edu.hk/fo/htm/TPg_PaySchedule.htm",
+          "contains_full_probe": false
+        },
+        {
+          "chunk_id": "fe338ce8912e0c71fbdac004",
+          "doc": 119,
+          "score": 0.2301509529352188,
+          "url": "https://www.cityu.edu.hk/sro/StudentHousing/UGHalls/HallAdmission/KLT/FeePay",
+          "contains_full_probe": false
+        },
+        {
+          "chunk_id": "ea1bf3978b4a97a39ab0d3c8",
+          "doc": 8,
+          "score": 0.2181282490491867,
+          "url": "https://www.cityu.edu.hk/admo/admissions/visiting-students",
+          "contains_full_probe": false
+        },
+        {
+          "chunk_id": "29efc2232b1cb3fb98fea161",
+          "doc": 17,
+          "score": 0.21542392671108246,
+          "url": "https://www.cityu.edu.hk/admo/fees-and-scholarships",
+          "contains_full_probe": false
+        }
+      ]
+    },
+    {
+      "probe": "p02",
+      "query": "What is the 2026 admitted non-local undergraduate tuition fee for other programmes?",
+      "source_doc_top5": true,
+      "full_probe_top5": true,
+      "hits": [
+        {
+          "chunk_id": "29efc2232b1cb3fb98fea161",
+          "doc": 17,
+          "score": 0.2725064158439636,
+          "url": "https://www.cityu.edu.hk/admo/fees-and-scholarships",
+          "contains_full_probe": false
+        },
+        {
+          "chunk_id": "be3506b91a6f06a2abf7b984",
+          "doc": 39,
+          "score": 0.2575734853744507,
+          "url": "https://www.cityu.edu.hk/fo/htm/TPg_PaySchedule.htm",
+          "contains_full_probe": false
+        },
+        {
+          "chunk_id": "2283d1c5d68055b5ba819c03",
+          "doc": 17,
+          "score": 0.23717498779296875,
+          "url": "https://www.cityu.edu.hk/admo/fees-and-scholarships",
+          "contains_full_probe": false
+        },
+        {
+          "chunk_id": "5ed728c6cd4997e03e1d8439",
+          "doc": 103,
+          "score": 0.23446562886238098,
+          "url": "https://www.cityu.edu.hk/sgs/student/masters/nonlocal",
+          "contains_full_probe": false
+        },
+        {
+          "chunk_id": "96c6ac6d2758b299dd21c187",
+          "doc": 42,
+          "score": 0.23360052704811096,
+          "url": "https://www.cityu.edu.hk/fo/htm/degree_fees.htm",
+          "contains_full_probe": true
+        }
+      ]
+    },
+    {
+      "probe": "p03",
+      "query": "How much is the graduation fee payable upon enrolment?",
+      "source_doc_top5": true,
+      "full_probe_top5": true,
+      "hits": [
+        {
+          "chunk_id": "af6d51084f8b66664822c0ca",
+          "doc": 42,
+          "score": 0.23588871955871582,
+          "url": "https://www.cityu.edu.hk/fo/htm/degree_fees.htm",
+          "contains_full_probe": true
+        },
+        {
+          "chunk_id": "7c3e641fb2a881cce45a3f5b",
+          "doc": 38,
+          "score": 0.18796372413635254,
+          "url": "https://www.cityu.edu.hk/fo/htm/TPg_Fees.htm",
+          "contains_full_probe": false
+        },
+        {
+          "chunk_id": "110983401781c3732d18914f",
+          "doc": 8,
+          "score": 0.18570774793624878,
+          "url": "https://www.cityu.edu.hk/admo/admissions/visiting-students",
+          "contains_full_probe": false
+        },
+        {
+          "chunk_id": "29efc2232b1cb3fb98fea161",
+          "doc": 17,
+          "score": 0.17563752830028534,
+          "url": "https://www.cityu.edu.hk/admo/fees-and-scholarships",
+          "contains_full_probe": false
+        },
+        {
+          "chunk_id": "800d0a6ae958388d73f0e7a0",
+          "doc": 6,
+          "score": 0.17394250631332397,
+          "url": "https://www.cityu.edu.hk/admo/admissions/non-jupas-senior-year-admission",
+          "contains_full_probe": false
+        }
+      ]
+    },
+    {
+      "probe": "p04",
+      "query": "How much is the late payment charge for overdue fees?",
+      "source_doc_top5": true,
+      "full_probe_top5": true,
+      "hits": [
+        {
+          "chunk_id": "916bb670e0b3664c81c35d48",
+          "doc": 126,
+          "score": 0.2531217932701111,
+          "url": "https://www.cityu.edu.hk/sro/StudentHousing/mos/feepay.html",
+          "contains_full_probe": false
+        },
+        {
+          "chunk_id": "05bbdd120b384e9eb98f92f3",
+          "doc": 38,
+          "score": 0.23348236083984375,
+          "url": "https://www.cityu.edu.hk/fo/htm/TPg_Fees.htm",
+          "contains_full_probe": false
+        },
+        {
+          "chunk_id": "c084eee3e26e397fc487f0c9",
+          "doc": 119,
+          "score": 0.2325648069381714,
+          "url": "https://www.cityu.edu.hk/sro/StudentHousing/UGHalls/HallAdmission/KLT/FeePay",
+          "contains_full_probe": false
+        },
+        {
+          "chunk_id": "af6d51084f8b66664822c0ca",
+          "doc": 42,
+          "score": 0.2292214184999466,
+          "url": "https://www.cityu.edu.hk/fo/htm/degree_fees.htm",
+          "contains_full_probe": true
+        },
+        {
+          "chunk_id": "7c3e641fb2a881cce45a3f5b",
+          "doc": 38,
+          "score": 0.2234993278980255,
+          "url": "https://www.cityu.edu.hk/fo/htm/TPg_Fees.htm",
+          "contains_full_probe": false
+        }
+      ]
+    },
+    {
+      "probe": "p05",
+      "query": "What is the fee to replace a student ID card?",
+      "source_doc_top5": false,
+      "full_probe_top5": false,
+      "hits": [
+        {
+          "chunk_id": "895d95839966405c113668d3",
+          "doc": 143,
+          "score": 0.2900093197822571,
+          "url": "https://www.cityu.edu.hk/sds/student-life-resources/student-finance/scholarships/scholarships-prizes-at-a-glance/outbound-exchange-scholarships",
+          "contains_full_probe": false
+        },
+        {
+          "chunk_id": "ea9f368a59d1c60385be6d0e",
+          "doc": 121,
+          "score": 0.26912423968315125,
+          "url": "https://www.cityu.edu.hk/sro/StudentHousing/UGHalls/HallAdmission/MOS/CheckIn",
+          "contains_full_probe": false
+        },
+        {
+          "chunk_id": "ee85009fe311d9fb7c287491",
+          "doc": 117,
+          "score": 0.2572673559188843,
+          "url": "https://www.cityu.edu.hk/sro/StudentHousing/UGHalls/HallAdmission/KLT/CheckIn",
+          "contains_full_probe": false
+        },
+        {
+          "chunk_id": "f2e43197327fec984ac53614",
+          "doc": 16,
+          "score": 0.21306057274341583,
+          "url": "https://www.cityu.edu.hk/admo/faq",
+          "contains_full_probe": false
+        },
+        {
+          "chunk_id": "78c53c10bba860b134677a50",
+          "doc": 16,
+          "score": 0.1975734382867813,
+          "url": "https://www.cityu.edu.hk/admo/faq",
+          "contains_full_probe": false
+        }
+      ]
+    },
+    {
+      "probe": "p06",
+      "query": "How long may a student visa application take?",
+      "source_doc_top5": true,
+      "full_probe_top5": false,
+      "hits": [
+        {
+          "chunk_id": "c5c5843b475a9e0e04291f3a",
+          "doc": 21,
+          "score": 0.2172357141971588,
+          "url": "https://www.cityu.edu.hk/admo/non-local-students/visa/student-visa",
+          "contains_full_probe": false
+        },
+        {
+          "chunk_id": "a802a3435cedd68313cde8dd",
+          "doc": 21,
+          "score": 0.2065921425819397,
+          "url": "https://www.cityu.edu.hk/admo/non-local-students/visa/student-visa",
+          "contains_full_probe": false
+        },
+        {
+          "chunk_id": "ba742f0328d15cec22372a9d",
+          "doc": 21,
+          "score": 0.20079393684864044,
+          "url": "https://www.cityu.edu.hk/admo/non-local-students/visa/student-visa",
+          "contains_full_probe": false
+        },
+        {
+          "chunk_id": "5026635afcd4ab5673537e8e",
+          "doc": 8,
+          "score": 0.19613592326641083,
+          "url": "https://www.cityu.edu.hk/admo/admissions/visiting-students",
+          "contains_full_probe": false
+        },
+        {
+          "chunk_id": "c20b2e73cbecedf5424d7ac7",
+          "doc": 16,
+          "score": 0.19379505515098572,
+          "url": "https://www.cityu.edu.hk/admo/faq",
+          "contains_full_probe": false
+        }
+      ]
+    },
+    {
+      "probe": "p07",
+      "query": "How much is the student visa application administrative fee?",
+      "source_doc_top5": true,
+      "full_probe_top5": true,
+      "hits": [
+        {
+          "chunk_id": "c5c5843b475a9e0e04291f3a",
+          "doc": 21,
+          "score": 0.3295518159866333,
+          "url": "https://www.cityu.edu.hk/admo/non-local-students/visa/student-visa",
+          "contains_full_probe": false
+        },
+        {
+          "chunk_id": "c20b2e73cbecedf5424d7ac7",
+          "doc": 16,
+          "score": 0.3238954544067383,
+          "url": "https://www.cityu.edu.hk/admo/faq",
+          "contains_full_probe": false
+        },
+        {
+          "chunk_id": "330fafeaa2b3893a83dc985f",
+          "doc": 21,
+          "score": 0.3060228228569031,
+          "url": "https://www.cityu.edu.hk/admo/non-local-students/visa/student-visa",
+          "contains_full_probe": true
+        },
+        {
+          "chunk_id": "ea82bb91abbe31d268aab42c",
+          "doc": 16,
+          "score": 0.2833476662635803,
+          "url": "https://www.cityu.edu.hk/admo/faq",
+          "contains_full_probe": false
+        },
+        {
+          "chunk_id": "7ffb35c248c0f2f26c7c5e2e",
+          "doc": 16,
+          "score": 0.2715373635292053,
+          "url": "https://www.cityu.edu.hk/admo/faq",
+          "contains_full_probe": false
+        }
+      ]
+    },
+    {
+      "probe": "p08",
+      "query": "When do Semester B classes begin in January 2026?",
+      "source_doc_top5": true,
+      "full_probe_top5": true,
+      "hits": [
+        {
+          "chunk_id": "c24e0d541d46abe93cd309fa",
+          "doc": 32,
+          "score": 0.2895364761352539,
+          "url": "https://www.cityu.edu.hk/arro/impd/impd_year.htm",
+          "contains_full_probe": true
+        },
+        {
+          "chunk_id": "2613291ae62052c53d92ebbf",
+          "doc": 32,
+          "score": 0.25386863946914673,
+          "url": "https://www.cityu.edu.hk/arro/impd/impd_year.htm",
+          "contains_full_probe": false
+        },
+        {
+          "chunk_id": "ea1bf3978b4a97a39ab0d3c8",
+          "doc": 8,
+          "score": 0.1889980584383011,
+          "url": "https://www.cityu.edu.hk/admo/admissions/visiting-students",
+          "contains_full_probe": false
+        },
+        {
+          "chunk_id": "b7ea67dd2f372255940d7004",
+          "doc": 149,
+          "score": 0.18242241442203522,
+          "url": "https://www.cityu.edu.hk/en/geo/global-opportunities/cdwp",
+          "contains_full_probe": false
+        },
+        {
+          "chunk_id": "c882918450a717846a6333ea",
+          "doc": 16,
+          "score": 0.17138439416885376,
+          "url": "https://www.cityu.edu.hk/admo/faq",
+          "contains_full_probe": false
+        }
+      ]
+    },
+    {
+      "probe": "p09",
+      "query": "When do Semester A classes begin in August 2026?",
+      "source_doc_top5": true,
+      "full_probe_top5": true,
+      "hits": [
+        {
+          "chunk_id": "0a83dd895c92811716786e59",
+          "doc": 32,
+          "score": 0.2653931975364685,
+          "url": "https://www.cityu.edu.hk/arro/impd/impd_year.htm",
+          "contains_full_probe": true
+        },
+        {
+          "chunk_id": "c24e0d541d46abe93cd309fa",
+          "doc": 32,
+          "score": 0.2611801028251648,
+          "url": "https://www.cityu.edu.hk/arro/impd/impd_year.htm",
+          "contains_full_probe": false
+        },
+        {
+          "chunk_id": "f6011ef36b4273cb1fd15164",
+          "doc": 125,
+          "score": 0.20841741561889648,
+          "url": "https://www.cityu.edu.hk/sro/StudentHousing/UGHalls/Local/KLT/NewAdmit",
+          "contains_full_probe": false
+        },
+        {
+          "chunk_id": "9f53c332fff38fc4cc8bcab6",
+          "doc": 32,
+          "score": 0.18599553406238556,
+          "url": "https://www.cityu.edu.hk/arro/impd/impd_year.htm",
+          "contains_full_probe": false
+        },
+        {
+          "chunk_id": "b7ea67dd2f372255940d7004",
+          "doc": 149,
+          "score": 0.18192926049232483,
+          "url": "https://www.cityu.edu.hk/en/geo/global-opportunities/cdwp",
+          "contains_full_probe": false
+        }
+      ]
+    },
+    {
+      "probe": "p10",
+      "query": "What are the Student Residence Office counter service hours on weekdays?",
+      "source_doc_top5": false,
+      "full_probe_top5": false,
+      "hits": [
+        {
+          "chunk_id": "f939e17359cdc2ea7c7be770",
+          "doc": 105,
+          "score": 0.23588243126869202,
+          "url": "https://www.cityu.edu.hk/sro/AboutUs/KLT/GettingToSR.htm",
+          "contains_full_probe": false
+        },
+        {
+          "chunk_id": "ee6108bd4c008b8d8f1390c1",
+          "doc": 121,
+          "score": 0.16582843661308289,
+          "url": "https://www.cityu.edu.hk/sro/StudentHousing/UGHalls/HallAdmission/MOS/CheckIn",
+          "contains_full_probe": false
+        },
+        {
+          "chunk_id": "734f4c1f818948330bc30cb3",
+          "doc": 115,
+          "score": 0.16288918256759644,
+          "url": "https://www.cityu.edu.hk/sro/AboutUs/WelcomeMessage.htm",
+          "contains_full_probe": false
+        },
+        {
+          "chunk_id": "681c96e43bf530248a37cc83",
+          "doc": 142,
+          "score": 0.15921126306056976,
+          "url": "https://www.cityu.edu.hk/sds/student-life-resources/student-finance/scholarships/scholarships-prizes-at-a-glance/online-scholarship-application-system",
+          "contains_full_probe": false
+        },
+        {
+          "chunk_id": "c084eee3e26e397fc487f0c9",
+          "doc": 119,
+          "score": 0.1564159095287323,
+          "url": "https://www.cityu.edu.hk/sro/StudentHousing/UGHalls/HallAdmission/KLT/FeePay",
+          "contains_full_probe": false
+        }
+      ]
+    },
+    {
+      "probe": "p11",
+      "query": "What is the annual double room lodging fee at Ma On Shan for new non-local students?",
+      "source_doc_top5": false,
+      "full_probe_top5": false,
+      "hits": [
+        {
+          "chunk_id": "eb2a1c60d8496f9c36c41771",
+          "doc": 116,
+          "score": 0.37024223804473877,
+          "url": "https://www.cityu.edu.hk/sro/StudentHousing/UGHalls",
+          "contains_full_probe": false
+        },
+        {
+          "chunk_id": "916bb670e0b3664c81c35d48",
+          "doc": 126,
+          "score": 0.33207255601882935,
+          "url": "https://www.cityu.edu.hk/sro/StudentHousing/mos/feepay.html",
+          "contains_full_probe": false
+        },
+        {
+          "chunk_id": "e2a325ef6d1844220a6d245a",
+          "doc": 104,
+          "score": 0.3114120364189148,
+          "url": "https://www.cityu.edu.hk/sro/AboutUs/FeatureStories",
+          "contains_full_probe": false
+        },
+        {
+          "chunk_id": "a1dc9bbbcd50f5a51c2c6400",
+          "doc": 111,
+          "score": 0.2932635247707367,
+          "url": "https://www.cityu.edu.hk/sro/AboutUs/MOS/overview.htm",
+          "contains_full_probe": false
+        },
+        {
+          "chunk_id": "9cf1e9fb52ddd3d66f545cf4",
+          "doc": 109,
+          "score": 0.2784731686115265,
+          "url": "https://www.cityu.edu.hk/sro/AboutUs/MOS/GettingToMOS.htm",
+          "contains_full_probe": false
+        }
+      ]
+    },
+    {
+      "probe": "p12",
+      "query": "When does the 2026/27 new non-local Ma On Shan hall application close?",
+      "source_doc_top5": true,
+      "full_probe_top5": true,
+      "hits": [
+        {
+          "chunk_id": "e2a325ef6d1844220a6d245a",
+          "doc": 104,
+          "score": 0.4693056046962738,
+          "url": "https://www.cityu.edu.hk/sro/AboutUs/FeatureStories",
+          "contains_full_probe": false
+        },
+        {
+          "chunk_id": "3a494c7242f186422a1572d4",
+          "doc": 127,
+          "score": 0.4040219783782959,
+          "url": "https://www.cityu.edu.hk/sro/StudentHousing/mos/ug_new_nonlocal.html",
+          "contains_full_probe": true
+        },
+        {
+          "chunk_id": "24a526868debb9fc40537985",
+          "doc": 108,
+          "score": 0.40357741713523865,
+          "url": "https:[邮箱已省略]",
+          "contains_full_probe": false
+        },
+        {
+          "chunk_id": "a1dc9bbbcd50f5a51c2c6400",
+          "doc": 111,
+          "score": 0.38198909163475037,
+          "url": "https://www.cityu.edu.hk/sro/AboutUs/MOS/overview.htm",
+          "contains_full_probe": false
+        },
+        {
+          "chunk_id": "eb2a1c60d8496f9c36c41771",
+          "doc": 116,
+          "score": 0.357637882232666,
+          "url": "https://www.cityu.edu.hk/sro/StudentHousing/UGHalls",
+          "contains_full_probe": false
+        }
+      ]
+    },
+    {
+      "probe": "p13",
+      "query": "When will an added or dropped course be reflected in DegreeWorks?",
+      "source_doc_top5": false,
+      "full_probe_top5": false,
+      "hits": [
+        {
+          "chunk_id": "b18966e3d7380a53e273eea5",
+          "doc": 87,
+          "score": 0.200620636343956,
+          "url": "https://www.cityu.edu.hk/arro/cdtf/cdtf_main.htm",
+          "contains_full_probe": false
+        },
+        {
+          "chunk_id": "88f8266702db087da1cd9cfb",
+          "doc": 87,
+          "score": 0.18516749143600464,
+          "url": "https://www.cityu.edu.hk/arro/cdtf/cdtf_main.htm",
+          "contains_full_probe": false
+        },
+        {
+          "chunk_id": "049c918af9522ffdbedbda0e",
+          "doc": 95,
+          "score": 0.17883265018463135,
+          "url": "https://www.cityu.edu.hk/arro/creg/wadp_main.htm",
+          "contains_full_probe": false
+        },
+        {
+          "chunk_id": "a4dad119739a8b02b593f314",
+          "doc": 92,
+          "score": 0.1778668463230133,
+          "url": "https://www.cityu.edu.hk/arro/creg/nweb_main.htm",
+          "contains_full_probe": false
+        },
+        {
+          "chunk_id": "d09ae9a294dfb8a788d9118b",
+          "doc": 31,
+          "score": 0.17484134435653687,
+          "url": "https://www.cityu.edu.hk/arro/dgwk/dgwk_wksh.htm",
+          "contains_full_probe": false
+        }
+      ]
+    },
+    {
+      "probe": "p14",
+      "query": "What does catalogue term mean in DegreeWorks?",
+      "source_doc_top5": true,
+      "full_probe_top5": true,
+      "hits": [
+        {
+          "chunk_id": "2045942fe645bd9ceef9cfdd",
+          "doc": 31,
+          "score": 0.2860821485519409,
+          "url": "https://www.cityu.edu.hk/arro/dgwk/dgwk_wksh.htm",
+          "contains_full_probe": false
+        },
+        {
+          "chunk_id": "dfff592f4f691ef18344b08a",
+          "doc": 30,
+          "score": 0.2773590683937073,
+          "url": "https://www.cityu.edu.hk/arro/dgwk/dgwk_main.htm",
+          "contains_full_probe": true
+        },
+        {
+          "chunk_id": "d09ae9a294dfb8a788d9118b",
+          "doc": 31,
+          "score": 0.19834588468074799,
+          "url": "https://www.cityu.edu.hk/arro/dgwk/dgwk_wksh.htm",
+          "contains_full_probe": false
+        },
+        {
+          "chunk_id": "7028b46e3e8a0c62763d24cd",
+          "doc": 31,
+          "score": 0.1804945021867752,
+          "url": "https://www.cityu.edu.hk/arro/dgwk/dgwk_wksh.htm",
+          "contains_full_probe": false
+        },
+        {
+          "chunk_id": "985a7daed09e2a123429bcfd",
+          "doc": 30,
+          "score": 0.18038906157016754,
+          "url": "https://www.cityu.edu.hk/arro/dgwk/dgwk_main.htm",
+          "contains_full_probe": false
+        }
+      ]
+    }
+  ],
+  "metadata_interface": {
+    "source_url": "https://www.cityu.edu.hk/admo/non-local-students/visa/student-visa",
+    "actual_column": "admission",
+    "actual_topic": "申请",
+    "geo_only_contains_source": false,
+    "english_fees_as_topic_candidates": 0,
+    "fees_as_column_candidates": 13,
+    "column_to_topic": {
+      "admission": [
+        "申请"
+      ],
+      "calendar": [
+        "校历与重要日期"
+      ],
+      "fees": [
+        "学费与缴费"
+      ],
+      "library": [
+        "图书馆"
+      ],
+      "registration": [
+        "注册与学籍"
+      ],
+      "residence": [
+        "宿舍"
+      ],
+      "scholarship": [
+        "奖学金与助学金"
+      ],
+      "visa_geo": [
+        "签证与国际学生服务"
+      ]
+    }
+  },
+  "filter_fixture": {
+    "kind": "synthetic correctness fixture, not model-quality evidence",
+    "post_filter_ids": [],
+    "pre_filter_ids": [
+      5,
+      6,
+      7,
+      8,
+      9
+    ]
+  },
+  "windows_unicode_path": {
+    "native_write_ok": false,
+    "error": "Error in __cdecl faiss::FileIOWriter::FileIOWriter(const char *) at D:\\a\\faiss\\faiss\\faiss\\impl\\io.cpp:104: Error: 'f' failed: could not open 检索层小实验_2026-10-17\\unicode_path_probe.faiss for writing: No such file or directory",
+    "ascii_relative_write_read_ok": true
+  },
+  "source_hashes_before": {
+    "CityU-AgenticRAG-小组作业-成员1集成\\data\\corpus.jsonl": "2c3f9a2d9dc116062791e8c646ad7e343fd8e22f5a59c91581f84808b0620752",
+    "CityU-AgenticRAG-小组作业-成员1集成\\data\\cityu_faq.db": "d485a8b805b724e8c7f25038c7016b07a187abd1ddd1055a14d8c073eb53aa1d",
+    "CityU-AgenticRAG-小组作业-成员1集成\\data\\quality_documents.json": "63a83bfe424308e8c3de6e178e5cee1bd4d6bace29e0756272e4fa0247940a74"
+  },
+  "source_hashes_after": {
+    "CityU-AgenticRAG-小组作业-成员1集成\\data\\corpus.jsonl": "2c3f9a2d9dc116062791e8c646ad7e343fd8e22f5a59c91581f84808b0620752",
+    "CityU-AgenticRAG-小组作业-成员1集成\\data\\cityu_faq.db": "d485a8b805b724e8c7f25038c7016b07a187abd1ddd1055a14d8c073eb53aa1d",
+    "CityU-AgenticRAG-小组作业-成员1集成\\data\\quality_documents.json": "63a83bfe424308e8c3de6e178e5cee1bd4d6bace29e0756272e4fa0247940a74"
+  },
+  "publication_note": "2026-10-21公开副本：移除了网页原文片段，保留原实验统计；不是重跑结果。"
+}

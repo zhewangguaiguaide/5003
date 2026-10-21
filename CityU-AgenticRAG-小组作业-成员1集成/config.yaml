@@ -1,0 +1,120 @@
+# CityU 学生服务 FAQ 采集配置（agentic RAG 语料）
+# 合规前提：仅课程项目本地使用；限速 >=2s；不公开再分发全文。
+
+politeness:
+  min_delay: 2.0        # 每两次网络请求之间的最小间隔（秒）
+  max_delay: 3.0        # 最大间隔（秒），实际取区间内随机值
+  timeout_ms: 30000     # 单页超时（毫秒）
+  max_retries: 2        # 命中 WAF 挑战页 / 失败后的重试次数
+  contact: "CityUHK DSC5003 coursework demo (contact: <your-eid>@my.cityu.edu.hk)"
+
+fetcher:
+  mode: stealthy        # stealthy（无头浏览器，实测可过 Incapsula）| http | fake
+  headless: true
+  disable_resources: true   # 关键：否则部分页面 network_idle 永远等不到，goto 超时
+
+storage:
+  path: "data/cityu_faq.db"
+
+# 通用抓取预算（可被栏目的 max_pages 覆盖）
+limits:
+  max_pages_per_column: 20
+  max_consecutive_404: 3    # 连续 N 次抓取失败即停止扫描该栏目
+  min_content_len: 300      # 正文少于该字符数的空壳页/纯导航页不入库
+
+# ---- LLM + 联网搜索（Agentic RAG 的生成层，src/llm.py + src/agent.py） ----
+# 官方核查（2026-09-26）：DeepSeek API 无服务端联网搜索；Responses API 的内置
+# web_search 工具被静默忽略。正确做法 = function calling（模型要搜 -> 本地执行 -> 回灌）。
+llm:
+  base_url: "https://api.deepseek.com"
+  model: "deepseek-flash"     # 官方当前名；旧名 deepseek-v4-flash 已退役（路由到 V4.1-Flash）
+  api_key_env: "DEEPSEEK_API_KEY"   # Key 走环境变量，不入库不入仓
+  thinking: false             # 工具调用演示默认关思考（省 token）；需要推理可开
+  temperature: 0.3
+  max_tokens: 2048
+  timeout_s: 60
+
+websearch:
+  provider: bing              # bing（curl_cffi 抓结果页，大陆可直连）| fake（离线测试）
+  max_results: 5
+  timeout_s: 15
+  market: "zh-HK"
+
+# 各栏目可选 exclude：排除登录/SSO/员工名录等非学生服务正文
+# （默认已内置 _spauth/login/sso/staffdir 等，此处可追加）
+
+# 栏目 = 一个主题下的一组页面（对应课程项目 8 大主题）
+columns:
+  - name: admission
+    topic: 申请
+    max_pages: 20
+    capture_seeds: true
+    seeds:
+      - https://www.cityu.edu.hk/admo/faq
+      - https://www.cityu.edu.hk/admo/non-local-students/visa/student-visa
+    include: ["/admo/"]
+
+  - name: visa_geo
+    topic: 签证与国际学生服务
+    max_pages: 15
+    capture_seeds: true
+    seeds:
+      - https://www.cityu.edu.hk/geo/non-local-students/preparing-for-arrival/must-do-list
+    include: ["/geo/"]
+
+  - name: registration
+    topic: 注册与学籍
+    max_pages: 20
+    capture_seeds: true
+    seeds:
+      - https://www.cityu.edu.hk/arro/regu/regu_rule.htm
+      - https://www.cityu.edu.hk/sgs/student/masters/nonlocal
+    include: ["/arro/", "/sgs/"]
+
+  - name: residence
+    topic: 宿舍
+    max_pages: 20
+    capture_seeds: true
+    seeds:
+      - https://www.cityu.edu.hk/sro/StudentHousing/mos/ug_new_nonlocal.html
+    include: ["/sro/"]
+
+  - name: fees
+    topic: 学费与缴费
+    max_pages: 15
+    capture_seeds: true
+    seeds:
+      - https://www.cityu.edu.hk/fo/htm/degree_fees.htm
+      - https://www.cityu.edu.hk/fo/htm/tuition_fees.htm
+      - https://www.cityu.edu.hk/fo/htm/paymethods.htm
+    include: ["/fo/"]
+    exclude: ["organisation", "staff", "vacancy", "tender"]
+
+  - name: scholarship
+    topic: 奖学金与助学金
+    max_pages: 20
+    capture_seeds: true
+    # 2026-09-26 覆盖核查修复：原种子 /scholarships 为 JS 壳页（正文仅 383 字）；
+    # 旧链 scholarships-prizes 已 404，正确页为 scholarships-prizes-at-a-glance
+    # （实测 116KB 正文）；include 收窄到 student-finance，避免抓进就业/体育等邻域
+    seeds:
+      - https://www.cityu.edu.hk/sds/student-life-resources/student-finance/scholarships/scholarships-prizes-at-a-glance
+      - https://www.cityu.edu.hk/sds/student-life-resources/student-finance/financial-assistance/overview-on-financial-assistance
+    include: ["/sds/student-life-resources/student-finance"]
+
+  - name: library
+    topic: 图书馆
+    max_pages: 20
+    capture_seeds: true
+    # 该站不在 Incapsula 之后，可直接 HTTP 抓取
+    seeds:
+      - https://libguides.library.cityu.edu.hk/
+    include: ["libguides.library.cityu.edu.hk"]
+
+  - name: calendar
+    topic: 校历与重要日期
+    max_pages: 10
+    capture_seeds: true
+    seeds:
+      - https://www.cityu.edu.hk/arro/impd/impd_year.htm
+    include: ["/arro/"]

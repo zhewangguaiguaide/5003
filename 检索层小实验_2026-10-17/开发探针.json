@@ -1,0 +1,128 @@
+[
+  {
+    "id": "p01",
+    "doc": 42,
+    "start": 1535,
+    "end": 1640,
+    "kind": "fee",
+    "query": "What is the local undergraduate annual tuition fee for 2026/27?",
+    "label": "Local 2026/27 tuition"
+  },
+  {
+    "id": "p02",
+    "doc": 42,
+    "start": 1660,
+    "end": 1971,
+    "kind": "fee",
+    "query": "What is the 2026 admitted non-local undergraduate tuition fee for other programmes?",
+    "label": "Non-local 2026 fee with column headers"
+  },
+  {
+    "id": "p03",
+    "doc": 42,
+    "start": 3051,
+    "end": 3100,
+    "kind": "fee",
+    "query": "How much is the graduation fee payable upon enrolment?",
+    "label": "Graduation fee"
+  },
+  {
+    "id": "p04",
+    "doc": 42,
+    "start": 3334,
+    "end": 3455,
+    "kind": "fee",
+    "query": "How much is the late payment charge for overdue fees?",
+    "label": "Late payment percentage"
+  },
+  {
+    "id": "p05",
+    "doc": 42,
+    "start": 4058,
+    "end": 4097,
+    "kind": "fee",
+    "query": "What is the fee to replace a student ID card?",
+    "label": "Student ID replacement"
+  },
+  {
+    "id": "p06",
+    "doc": 21,
+    "start": 2677,
+    "end": 2738,
+    "kind": "visa",
+    "query": "How long may a student visa application take?",
+    "label": "Visa processing duration"
+  },
+  {
+    "id": "p07",
+    "doc": 21,
+    "start": 4482,
+    "end": 4568,
+    "kind": "visa",
+    "query": "How much is the student visa application administrative fee?",
+    "label": "Visa administrative fee"
+  },
+  {
+    "id": "p08",
+    "doc": 32,
+    "start": 214,
+    "end": 297,
+    "kind": "date",
+    "query": "When do Semester B classes begin in January 2026?",
+    "label": "January Semester B start and tuition due"
+  },
+  {
+    "id": "p09",
+    "doc": 32,
+    "start": 3027,
+    "end": 3109,
+    "kind": "date",
+    "query": "When do Semester A classes begin in August 2026?",
+    "label": "August Semester A start and tuition due"
+  },
+  {
+    "id": "p10",
+    "doc": 107,
+    "start": 56,
+    "end": 176,
+    "kind": "hours",
+    "query": "What are the Student Residence Office counter service hours on weekdays?",
+    "label": "Counter office days and hours"
+  },
+  {
+    "id": "p11",
+    "doc": 127,
+    "start": 2672,
+    "end": 2738,
+    "kind": "fee",
+    "query": "What is the annual double room lodging fee at Ma On Shan for new non-local students?",
+    "label": "MOS room type fee and unit"
+  },
+  {
+    "id": "p12",
+    "doc": 127,
+    "start": 1960,
+    "end": 2031,
+    "kind": "date",
+    "query": "When does the 2026/27 new non-local Ma On Shan hall application close?",
+    "label": "MOS application window"
+  },
+  {
+    "id": "p13",
+    "doc": 30,
+    "start": 915,
+    "end": 1234,
+    "kind": "faq",
+    "query": "When will an added or dropped course be reflected in DegreeWorks?",
+    "label": "DegreeWorks question plus full answer"
+  },
+  {
+    "id": "p14",
+    "doc": 30,
+    "start": 1235,
+    "end": 1879,
+    "kind": "faq",
+    "query": "What does catalogue term mean in DegreeWorks?",
+    "label": "Catalogue term question plus full answer"
+  }
+]

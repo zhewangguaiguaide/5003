@@ -1,0 +1,14 @@
+# 抓取必需（scrapling 0.4.x 需一并安装下列依赖才能 import 对应 fetcher）
+-c requirements-lock.txt
+scrapling==0.4.15
+curl_cffi
+playwright
+patchright
+browserforge
+msgspec
+
+# 配置
+PyYAML>=6.0
+
+# 安装浏览器（StealthyFetcher 必需，约 300MB）：
+#   scrapling install
