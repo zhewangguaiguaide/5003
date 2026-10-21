@@ -1,7 +1,0 @@
-{
-  "source_files_unchanged": true,
-  "references_and_markdown": true,
-  "all_six_chunk_variants_cover_source": true,
-  "memory_lifecycle_only": true,
-  "faiss_unicode_path_failure_with_successful_ascii_control": true
-}

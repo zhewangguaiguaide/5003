@@ -19,6 +19,10 @@ __pycache__/
 .cache/
 .idea/
 .vscode/
+# Local handoff evidence, model/index builds and generated reports
+runs/
+artifacts/
+reports/
 # Private team registration, source corpus and runtime databases
 TeamForming.docx
 **/data/*

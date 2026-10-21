@@ -1,0 +1,4 @@
+interface:
+  display_name: "岗位节点与Git交接"
+  short_description: "按六岗位与需求节点核对Git交付、区分返工和下游任务，更新唯一状态表"
+  default_prompt: "使用 $team-handoff，按我的岗位与需求节点核对当前Git版本、输入和验证证据，区分返工与下游任务，更新原状态表并准备简明提交说明。"
