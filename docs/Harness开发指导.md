@@ -47,9 +47,9 @@ SELECT url, title, source, content, topic, column_name AS "column",
 FROM documents WHERE active = 1;
 ```
 
-## 检索与应用查询契约（待③⑤落地）
+## 检索与应用查询契约（③源码已上传，⑤应用接入待验）
 
-以下是对外约定，当前仓库没有可用的`src/retriever.py`。③负责切块/向量/索引/映射与基础加载检索，⑤负责query编码/调用、别名与应用编排；双方共同落实对外接口及过滤语义。
+10/25远端`5282703`已提供`src/retriever.py`与`scripts/build_wsb_index.py`，源码实现基础切块、编码、索引构建和加载查询，尚未取得本轮真实模型运行与下游接收证据。③的`Retriever`已含query编码和主题过滤，⑤复用该实现做别名、应用调用与Agent编排；④在同版数据及运行条件到齐后可直接测Retriever，不必等额外应用封装。以下字段与方法签名按该远端源码核对。
 
 ```python
 @dataclass
@@ -63,21 +63,25 @@ class Hit:
     topic: str
     academic_year: str
 
-# 拟议调用面，③⑤实现时对齐；不是当前可导入的运行代码。
-def search(query: str, topic: str | None = None, k: int = 5) -> list[Hit]: ...
-def list_topics() -> list[str]: ...
+# 以下为接口摘要；完整实现见远端src/retriever.py。
+class Retriever:
+    def __init__(self, index_dir: str = "data/wsb_index"): ...
+    def search(self, query: str, topic: str | None = None, k: int = 5) -> list[Hit]: ...
+    def list_topics(self) -> list[str]: ...
 ```
 
-无命中返回空列表；模型/索引加载、维度或版本错误要可诊断，由⑤处理失败路径。Hit必须回溯文档和来源，不以FAISS行号冒充稳定chunk ID。
+构建入口读本机`data/corpus.jsonl`，输出`data/wsb_index/index.faiss`及`chunks.json`，均组内传递，不公开提交。构建和首次查询均要求模型已在本机缓存（`local_files_only=True`）；检索依赖、模型准备、输入SHA及重建/加载说明须③补齐。下面的空结果、版本和失效要求是验收契约，不表示当前源码均已实现：现有加载主要检查向量/chunk数量；未校验语料SHA与模型revision，也未接active/dirty。
 
-沿用既有技术候选，本轮只整合，不宣称新一轮选型或模型验证：
+无命中返回空列表；模型/索引加载、维度或版本错误要可诊断，由⑤处理失败路径。Hit必须回溯文档和来源，不以FAISS行号冒充稳定chunk ID。上一轮对同SHA源码的合成检查发现FAQ首问前说明丢失、长单行突破字符上限，③须处理并按实际模型tokenizer核预算；本轮未重复运行。
 
-1. 标题、段落、FAQ问答优先切块；费用/金额、日期/事项、开放时间/地点保持关联。500/80仅作初始对照，真实tokenizer需重算标题及特殊token预算。
-2. `BAAI/bge-m3`是既有1024维候选；当前全英文，不要求以跨语言验收才能交付。模型未实际运行时不可声称已验证。
+保留既有约定，并标明当前源码与待验证要求；本轮不宣称真实模型验收通过：
+
+1. 标题、段落、FAQ问答优先切块；费用/金额、日期/事项、开放时间/地点保持关联。500/80是历史token预算候选；现有源码按1500/200字符切块，不能当作相同token预算，须实际tokenizer核验。
+2. 当前源码使用`intfloat/multilingual-e5-small`，文档加`passage: `、query加`query: `，两侧归一化；`BAAI/bge-m3`是历史1024维候选，不可混用其配置。③交实际维度/revision，⑤复用；当前全英文，不要求先做跨语言验收。
 3. 小规模语料先考虑归一化向量＋`FAISS IndexFlatIP`；归一化须同时作用于文档和query。若增加HNSW或其他策略，说明课程承诺、实测收益与代价。
 4. ③交付模型revision、维度、编码与归一化、切块配置、ID映射、字段取值、保存/加载/重建命令；⑤必须使用相同编码约定。
 5. `fees`是column，topic为`学费与缴费`等标签；签证主文档在`admission`，不能把签证一律硬限于`visa_geo`。⑤维护明确的别名/候选映射。
-6. 不能简单全库top-5再过滤并声称等价于合格候选内top-5。采用预过滤或可验证的扩大召回策略，并让④测试漏检。
+6. 不能简单全库top-5再过滤并声称等价于合格候选内top-5。当前指定topic时先召回全量向量再过滤取k，不属于该截断漏检；小规模下可先验正确性，另报效率代价。④仍须测过滤边界。
 7. 中文路径保存/重载须验证；既有实验中可用`serialize_index`配合Python文件读写与`deserialize_index`。
 8. 索引绑定语料SHA和模型/构建版本；查询检查active和版本。清理失效chunk/索引后，确认期间来源未变化，才能清dirty。
 
