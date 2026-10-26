@@ -21,6 +21,7 @@ __pycache__/
 .vscode/
 # Local handoff evidence, model/index builds and generated reports
 runs/
+evals/private/
 artifacts/
 reports/
 # Private team registration, source corpus and runtime databases

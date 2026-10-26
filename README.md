@@ -2,7 +2,7 @@
 
 面向学生服务FAQ的课程项目。仓库根目录是唯一运行目录，沿用成员①②已集成的最大可运行集合：采集、清洗导出、SQLite存储、完整快照接收、离线测试及联网搜索Agent雏形。
 
-**当前还没有正式向量检索与完整自有语料RAG。** ③的索引和⑤的应用查询接入仍待实现；`--ask`调用的是已有联网搜索雏形。②的F1/F2修复及F3验证仍待验收，整理仓库不改变这些状态。
+**基础向量检索及构建源码已上传，完整自有语料RAG与正式验收仍待完成。** `src/retriever.py`与`scripts/build_wsb_index.py`采用`intfloat/multilingual-e5-small`；实际运行依赖、模型/索引交付、版本绑定及正式检索指标仍待各岗验证。`--ask`仍是独立Web Agent。③负责检索，⑤负责普通RAG及Agentic RAG，④⑥共建题集并分担检索与回答评测。
 
 ## 从根目录运行
 
@@ -41,6 +41,7 @@ Windows直接调用虚拟环境解释器即可；macOS/Linux把`.venv\Scripts\py
 
 | 要做什么 | 唯一入口 |
 |---|---|
+| 开始四模式评测、快速证据标注，区分知识库/golden/rubric | [评测启动入口](evals/README.md) |
 | 看当前状态、②返工、上下游等待与Git交接 | [协作与需求节点](docs/协作与需求节点.md) |
 | 按①—⑥身份调用自动提示词 | [六岗位提示词](docs/岗位提示词.md)；项目自动入口为[AGENTS.md](AGENTS.md) |
 | 查运行约束、快照、Hit与索引契约 | [开发与接口约定](docs/Harness开发指导.md) |
@@ -52,6 +53,8 @@ Windows直接调用虚拟环境解释器即可；macOS/Linux把`.venv\Scripts\py
 ```text
 src/                 运行源码
 tests/               离线测试及fake流程依赖的合成站点，必须保留
+evals/               四模式评测与证据标注入口、合成DEV、rubric
+scripts/             索引构建、评测资产校验与历史维护脚本
 config.yaml          采集、存储、联网搜索配置
 schema.sql           SQLite模型与索引
 requirements*.txt    运行依赖与版本约束
@@ -70,3 +73,5 @@ AGENTS.md            按岗位与节点选择提示词
 登记表、个人信息、密钥、网页全文、数据库、索引、原始日志和虚拟环境不入仓；详细证据保存在本机忽略目录`runs/`，Git中只记脱敏摘要。网页来源须标注City University of Hong Kong website，仅用于课程演示。既有历史记录不构成再分发网页全文的授权。
 
 2026-10-21重组验证覆盖48项离线测试、根目录CLI与合成站点流程；使用已有依赖环境。未验证全新机器安装、真实抓取、在线模型调用或尚未实现的RAG。
+
+2026-10-26新增评测启动材料：3份虚构正文、5道合成DEV、rubric及离线校验/无gold输入导出工具；真实金标放忽略的`evals/private/`。合成练习不计正式成绩，本包未实现四模式runner。
