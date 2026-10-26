@@ -1,0 +1,1374 @@
+{
+  "version": "policy-research-v1",
+  "as_of": "2026-10-26",
+  "status": "research_draft",
+  "corpus": {
+    "research_sha256": "2c3f9a2d9dc116062791e8c646ad7e343fd8e22f5a59c91581f84808b0620752",
+    "documents": 159,
+    "publication_workspace_received": false,
+    "acceptance": "pending"
+  },
+  "categories": [
+    {
+      "id": "admission",
+      "label": "申请"
+    },
+    {
+      "id": "visa_geo",
+      "label": "签证与国际学生服务"
+    },
+    {
+      "id": "registration",
+      "label": "注册与学籍"
+    },
+    {
+      "id": "residence",
+      "label": "宿舍"
+    },
+    {
+      "id": "fees",
+      "label": "学费与缴费"
+    },
+    {
+      "id": "scholarship",
+      "label": "奖学金与助学金"
+    },
+    {
+      "id": "library",
+      "label": "图书馆"
+    },
+    {
+      "id": "calendar",
+      "label": "校历与重要日期"
+    }
+  ],
+  "sources": [
+    {
+      "id": "S01",
+      "title": "TPG: Steps for Applying",
+      "url": "https://www.cityu.edu.hk/pg/taught-postgraduate-programmes/steps-applying",
+      "issuer": "SGS",
+      "locator": "Submission of Applications / acceptance",
+      "checked_on": "2026-10-26",
+      "access": "official_index",
+      "live_result": "not_confirmed",
+      "short_quote": "",
+      "observation": "官网索引支持网上申请入口；各专业及offer具体条件仍需逐项核对。",
+      "official_snapshot_sha256": null,
+      "in_research_corpus": false,
+      "local_record": null
+    },
+    {
+      "id": "S02",
+      "title": "Flow Chart for Accepting Offers of Master's Programmes",
+      "url": "https://www.cityu.edu.hk/sgs/files/prospective/tpg/faq/flow_chart_for_accepting_offers_of_master%27s_progs.pdf",
+      "issuer": "SGS",
+      "locator": "official PDF flow chart",
+      "checked_on": "2026-10-26",
+      "access": "link_only",
+      "live_result": "http_403",
+      "short_quote": "",
+      "observation": "仅确认官方流程图入口；PDF正文实时403，未读图，不据此转录具体操作。",
+      "official_snapshot_sha256": null,
+      "in_research_corpus": false,
+      "local_record": null
+    },
+    {
+      "id": "S03",
+      "title": "Student Visa: Postgraduate",
+      "url": "https://www.cityu.edu.hk/sgs/student/masters/visa",
+      "issuer": "SGS",
+      "locator": "student visa / sponsorship / supporting documents",
+      "checked_on": "2026-10-26",
+      "access": "official_index",
+      "live_result": "not_confirmed",
+      "short_quote": "visa sponsorship",
+      "observation": "官网索引支持非本地硕士签证手续；个人审批结果与现行完整材料清单未取得。",
+      "official_snapshot_sha256": null,
+      "in_research_corpus": false,
+      "local_record": null
+    },
+    {
+      "id": "S04",
+      "title": "Student Visa / Entry Permit",
+      "url": "https://www.cityu.edu.hk/admo/non-local-students/visa/student-visa",
+      "issuer": "ADMO",
+      "locator": "visa/entry permit sponsorship",
+      "checked_on": "2026-10-26",
+      "access": "official_index",
+      "live_result": "http_403",
+      "short_quote": "",
+      "observation": "本地旧快照与官网索引均有对应内容；处理周期不等于建议提前量，更不构成获批承诺。",
+      "official_snapshot_sha256": null,
+      "in_research_corpus": true,
+      "local_record": {
+        "line": 22,
+        "content_sha256": "697fceed3621c2051e3c6f9b269a216f90fdc062a56813eacb786a7e96568267",
+        "metadata_academic_year": "2027-2028"
+      }
+    },
+    {
+      "id": "S05",
+      "title": "Academic Regulations for Taught Postgraduate Degrees",
+      "url": "https://www.cityu.edu.hk/sgs/student/masters/regulation/acadreg",
+      "issuer": "SGS",
+      "locator": "applicability header / cohort-specific regulation links",
+      "checked_on": "2026-10-26",
+      "access": "official_index",
+      "live_result": "body_not_policy",
+      "short_quote": "",
+      "observation": "索引显示按入学届别与PCLL分流；近似的regulations/acadreg路径不能凭URL外观视为同一版本。直接HTTP探针200但只有212字节，无政策标题，未接受为正文。",
+      "official_snapshot_sha256": null,
+      "in_research_corpus": false,
+      "local_record": null
+    },
+    {
+      "id": "S06",
+      "title": "Leave of Absence",
+      "url": "https://www.cityu.edu.hk/sgs/student/masters/records/leave",
+      "issuer": "SGS",
+      "locator": "eligibility / application / study period",
+      "checked_on": "2026-10-26",
+      "access": "official_index",
+      "live_result": "http_403",
+      "short_quote": "",
+      "observation": "休学属于学籍安排，不能与withdrawal混用；最长期限及当前提交节点待完整正文复核。",
+      "official_snapshot_sha256": null,
+      "in_research_corpus": false,
+      "local_record": null
+    },
+    {
+      "id": "S07",
+      "title": "Withdrawal of Studies",
+      "url": "https://www.cityu.edu.hk/sgs/student/masters/records/withdrawal/",
+      "issuer": "SGS",
+      "locator": "Application / Tuition Fees / consequence",
+      "checked_on": "2026-10-26",
+      "access": "official_index",
+      "live_result": "http_403",
+      "short_quote": "",
+      "observation": "索引支持须按申请渠道办理、学费后果另核对。没有把停课当成手续已完成。",
+      "official_snapshot_sha256": null,
+      "in_research_corpus": false,
+      "local_record": null
+    },
+    {
+      "id": "S08",
+      "title": "Tuition and Other Fees: Taught Postgraduate",
+      "url": "https://www.cityu.edu.hk/fo/htm/TPg_Fees.htm",
+      "issuer": "Finance Office",
+      "locator": "Withdrawal of Studies / refund exceptions",
+      "checked_on": "2026-10-26",
+      "access": "official_index",
+      "live_result": "http_403",
+      "short_quote": "",
+      "observation": "需要区分退课、退学、退费以及全校或课程例外；不生成一律可退或一律不退的规则。",
+      "official_snapshot_sha256": null,
+      "in_research_corpus": true,
+      "local_record": {
+        "line": 39,
+        "content_sha256": "49f1043a32cbfc813cd6b666a25848e6388ee2dcbc1f76c20dcd24ff53200d4c",
+        "metadata_academic_year": ""
+      }
+    },
+    {
+      "id": "S09",
+      "title": "Payment Schedule: Taught Postgraduate",
+      "url": "https://www.cityu.edu.hk/fo/htm/TPg_PaySchedule.htm",
+      "issuer": "Finance Office",
+      "locator": "Payment Schedule / e-statement",
+      "checked_on": "2026-10-26",
+      "access": "official_index",
+      "live_result": "not_confirmed",
+      "short_quote": "",
+      "observation": "研究快照正文含2026/27，而旧academic_year字段为2020-2021；按正文与本人账单复核，不能信任旧字段。",
+      "official_snapshot_sha256": null,
+      "in_research_corpus": true,
+      "local_record": {
+        "line": 40,
+        "content_sha256": "f2f0fc760ad21dfa569154e0dd26d9b1a259a875481b1e5b16de28c41ff1eb8a",
+        "metadata_academic_year": "2020-2021"
+      }
+    },
+    {
+      "id": "S10",
+      "title": "Full-time Master's Degree Students in 2026/27: Housing",
+      "url": "https://www.cityu.edu.hk/sro/StudentHousing/PGHalls/Master%27sDegreeStudent.htm",
+      "issuer": "SRO",
+      "locator": "application channels / Important Notes / fee reference",
+      "checked_on": "2026-10-26",
+      "access": "official_index",
+      "live_result": "http_403",
+      "short_quote": "chance of securing a place is LOW",
+      "observation": "官网索引区分普通与共享单位渠道，获批机会有限；MOS出现2025/26参考费用，不能写成2026/27现价。",
+      "official_snapshot_sha256": null,
+      "in_research_corpus": false,
+      "local_record": null
+    },
+    {
+      "id": "S11",
+      "title": "Library: Get Started",
+      "url": "https://libguides.library.cityu.edu.hk/start",
+      "issuer": "Run Run Shaw Library",
+      "locator": "Borrow Materials / Renewals / Recalls",
+      "checked_on": "2026-10-26",
+      "access": "official_full_text",
+      "live_result": "full_text_read",
+      "short_quote": "New due date supersedes previous due date",
+      "observation": "web.open已读完整官方指南；确认累计续借上限与召回新日期，但仍未形成绑定本地快照的人工批准规则。",
+      "official_snapshot_sha256": null,
+      "in_research_corpus": true,
+      "local_record": {
+        "line": 86,
+        "content_sha256": "f77ec4db8299706c5b99b53c1fe136884753d752e549a93c9ee82df92c6e97ce",
+        "metadata_academic_year": ""
+      }
+    },
+    {
+      "id": "S12",
+      "title": "Interlibrary Loans: Returns, Renewals and Recalls",
+      "url": "https://www.cityu.edu.hk/lib/service/InterlibraryLoan/ReturnsRenewals.htm",
+      "issuer": "Run Run Shaw Library",
+      "locator": "Returning Physical Books / Renewing Physical Book Loans",
+      "checked_on": "2026-10-26",
+      "access": "official_index",
+      "live_result": "http_403",
+      "short_quote": "",
+      "observation": "馆际互借归还渠道、海外馆续借审批不能套普通借阅；实时正文403。",
+      "official_snapshot_sha256": null,
+      "in_research_corpus": false,
+      "local_record": null
+    },
+    {
+      "id": "S13",
+      "title": "Scholarships / Prizes at a glance",
+      "url": "https://www.cityu.edu.hk/sds/student-life-resources/student-finance/scholarships/scholarships-prizes-at-a-glance",
+      "issuer": "SDS",
+      "locator": "entrance / academic / non-academic awards",
+      "checked_on": "2026-10-26",
+      "access": "official_index",
+      "live_result": "http_403",
+      "short_quote": "do not have to submit application separately",
+      "observation": "官方索引支持自动考虑、提名与公开申请等不同渠道；奖项身份和年份须逐项核对。",
+      "official_snapshot_sha256": null,
+      "in_research_corpus": true,
+      "local_record": {
+        "line": 141,
+        "content_sha256": "4d5fea58482b6190c5d02b84c95b8b5bce2064f8ed144c98ba9a2b01330e2f5b",
+        "metadata_academic_year": ""
+      }
+    },
+    {
+      "id": "S14",
+      "title": "Overview on Financial Assistance",
+      "url": "https://www.cityu.edu.hk/sds/student-life-resources/student-finance/financial-assistance/overview-on-financial-assistance",
+      "issuer": "SDS",
+      "locator": "University Bursaries and Loans / Emergency Assistance",
+      "checked_on": "2026-10-26",
+      "access": "official_index",
+      "live_result": "http_403",
+      "short_quote": "full-time local students",
+      "observation": "概述的经济援助面向所列身份；常规援助与紧急援助分流，不据此推定所有非本地TPG符合资格。",
+      "official_snapshot_sha256": null,
+      "in_research_corpus": true,
+      "local_record": {
+        "line": 136,
+        "content_sha256": "01c77a7ed7d178aa68a2964d20bdf8810bf8d914f9c7eb9e9503ed722286cb30",
+        "metadata_academic_year": ""
+      }
+    },
+    {
+      "id": "S15",
+      "title": "Important Dates",
+      "url": "https://www.cityu.edu.hk/arro/impd/impd_year.htm",
+      "issuer": "ARRO",
+      "locator": "academic year / semester / tentative event dates",
+      "checked_on": "2026-10-26",
+      "access": "official_index",
+      "live_result": "http_403",
+      "short_quote": "",
+      "observation": "跨多个学期且有暂定项目；ARRO日期不能直接替代所有SGS硕士手续日期。",
+      "official_snapshot_sha256": null,
+      "in_research_corpus": true,
+      "local_record": {
+        "line": 33,
+        "content_sha256": "a0cc1d5557d62f1f8644472b4fa0125cf8963b57439dd072a4020eb9840e6488",
+        "metadata_academic_year": "2026-2027"
+      }
+    },
+    {
+      "id": "S16",
+      "title": "Postgraduate Course Registration: Important Notice",
+      "url": "https://www.cityu.edu.hk/sgs/student/masters/coursereg//importantnotice",
+      "issuer": "SGS",
+      "locator": "academic year / deadline for all add-drops",
+      "checked_on": "2026-10-26",
+      "access": "official_index",
+      "live_result": "http_403",
+      "short_quote": "",
+      "observation": "搜索标题2025/26、正文2026/27存在冲突；保留原双斜杠URL，未判定现行截止日。",
+      "official_snapshot_sha256": null,
+      "in_research_corpus": false,
+      "local_record": null
+    }
+  ],
+  "rules": [
+    {
+      "id": "R01",
+      "topics": [
+        "admission"
+      ],
+      "summary_zh": "申请入口与专业要求分开核对",
+      "audience": "申请授课型硕士",
+      "statement": "Use the official online application route and check the selected programme's requirements and intake.",
+      "qualifications": "不要把一个专业的截止日当全校共同日期。",
+      "kind": "official_summary",
+      "admission_cohort": null,
+      "academic_year": null,
+      "effective_from": null,
+      "source_ids": [
+        "S01"
+      ],
+      "review_status": "candidate",
+      "reviewer_roles": []
+    },
+    {
+      "id": "R02",
+      "topics": [
+        "admission",
+        "fees"
+      ],
+      "summary_zh": "按offer确认接受要求",
+      "audience": "已经收到相应offer的TPG申请人",
+      "statement": "Follow the conditions and acceptance arrangements in the actual admission offer.",
+      "qualifications": "官方已有接受offer流程图入口，但图中步骤本轮未取得；不自行补造固定金额、时限或按钮。",
+      "kind": "official_summary",
+      "admission_cohort": null,
+      "academic_year": null,
+      "effective_from": null,
+      "source_ids": [
+        "S01"
+      ],
+      "review_status": "candidate",
+      "reviewer_roles": []
+    },
+    {
+      "id": "R03",
+      "topics": [
+        "visa_geo",
+        "admission"
+      ],
+      "summary_zh": "录取与签证审批分开",
+      "audience": "需要学生签证/入境许可的非本地申请人",
+      "statement": "An admission offer does not replace the applicable student visa or entry permit procedure.",
+      "qualifications": "按身份与课程类别选SGS/ADMO相关通道；不访问个人审批账户。",
+      "kind": "official_summary",
+      "admission_cohort": null,
+      "academic_year": null,
+      "effective_from": null,
+      "source_ids": [
+        "S03",
+        "S04"
+      ],
+      "review_status": "candidate",
+      "reviewer_roles": []
+    },
+    {
+      "id": "R04",
+      "topics": [
+        "visa_geo"
+      ],
+      "summary_zh": "办理周期不构成获批承诺",
+      "audience": "适用签证担保流程的申请人",
+      "statement": "Prepare the required sponsorship documents and allow for processing; approval remains a separate outcome.",
+      "qualifications": "处理周期、建议提前量、材料补交与个人结果是不同字段；不生成必批或具体到期承诺。",
+      "kind": "official_summary",
+      "admission_cohort": null,
+      "academic_year": null,
+      "effective_from": null,
+      "source_ids": [
+        "S03",
+        "S04"
+      ],
+      "review_status": "candidate",
+      "reviewer_roles": []
+    },
+    {
+      "id": "R05",
+      "topics": [
+        "registration"
+      ],
+      "summary_zh": "先匹配入学届别的条例",
+      "audience": "TPG；PCLL及不同入学届别须另核对",
+      "statement": "Select the academic regulations applicable to the admission cohort and programme.",
+      "qualifications": "入学届别、当前学年、规则生效日期不能混为一个academic_year字段。",
+      "kind": "official_summary",
+      "admission_cohort": null,
+      "academic_year": null,
+      "effective_from": null,
+      "source_ids": [
+        "S05"
+      ],
+      "review_status": "candidate",
+      "reviewer_roles": []
+    },
+    {
+      "id": "R06",
+      "topics": [
+        "registration",
+        "fees",
+        "visa_geo"
+      ],
+      "summary_zh": "休学与退学分流",
+      "audience": "TPG，个人状态与条件需补齐",
+      "statement": "Leave of absence and withdrawal of studies are different procedures with separate conditions and consequences.",
+      "qualifications": "流程只提供核对路径；不默认休学批准、无限延期或学费豁免。",
+      "kind": "official_summary",
+      "admission_cohort": null,
+      "academic_year": null,
+      "effective_from": null,
+      "source_ids": [
+        "S06",
+        "S07"
+      ],
+      "review_status": "candidate",
+      "reviewer_roles": []
+    },
+    {
+      "id": "R07",
+      "topics": [
+        "registration",
+        "fees"
+      ],
+      "summary_zh": "停止上课不代表手续完成",
+      "audience": "需要退学的TPG",
+      "statement": "Use the prescribed withdrawal procedure and separately check outstanding obligations.",
+      "qualifications": "申请、学校处理结果、课程状态及退款是不同结果；不替学生提交申请。",
+      "kind": "official_summary",
+      "admission_cohort": null,
+      "academic_year": null,
+      "effective_from": null,
+      "source_ids": [
+        "S07",
+        "S08"
+      ],
+      "review_status": "candidate",
+      "reviewer_roles": []
+    },
+    {
+      "id": "R08",
+      "topics": [
+        "fees"
+      ],
+      "summary_zh": "按对应缴费表与个人账单核对",
+      "audience": "TPG；当前学年和收费口径必须明确",
+      "statement": "Check the applicable payment schedule and the student's own fee statement for the amount and due date.",
+      "qualifications": "不从公开政策推定个人欠款；不使用研究快照中的错误academic_year元数据。",
+      "kind": "official_summary",
+      "admission_cohort": null,
+      "academic_year": null,
+      "effective_from": null,
+      "source_ids": [
+        "S09"
+      ],
+      "review_status": "candidate",
+      "reviewer_roles": []
+    },
+    {
+      "id": "R09",
+      "topics": [
+        "fees",
+        "registration"
+      ],
+      "summary_zh": "退课退学与退款分别判断",
+      "audience": "TPG；须看课程及获准例外",
+      "statement": "Withdrawing from a course or programme does not by itself establish a right to a tuition refund.",
+      "qualifications": "须核对适用条款、例外及学校决定；不概括成所有情况一律不退。",
+      "kind": "official_summary",
+      "admission_cohort": null,
+      "academic_year": null,
+      "effective_from": null,
+      "source_ids": [
+        "S07",
+        "S08"
+      ],
+      "review_status": "candidate",
+      "reviewer_roles": []
+    },
+    {
+      "id": "R10",
+      "topics": [
+        "residence"
+      ],
+      "summary_zh": "硕士住宿渠道及结果分开",
+      "audience": "2026/27全日制硕士；具体课程仍待确认",
+      "statement": "Check the master's housing channel and conditions; an application or eligibility does not establish an allocation.",
+      "qualifications": "不能套用UG首年/首两年优先权；普通与共享单位渠道、地点及确认阶段分开。",
+      "kind": "official_summary",
+      "admission_cohort": null,
+      "academic_year": "2026-2027",
+      "effective_from": null,
+      "source_ids": [
+        "S10"
+      ],
+      "review_status": "candidate",
+      "reviewer_roles": []
+    },
+    {
+      "id": "R11",
+      "topics": [
+        "residence",
+        "fees"
+      ],
+      "summary_zh": "旧年参考住宿费不能作现价",
+      "audience": "需要核对2026/27硕士住宿费用者",
+      "statement": "A previous-year reference fee is not confirmation of the current housing fee.",
+      "qualifications": "来源页面列有2025/26参考信息；没有据此计算2026/27应付金额，申请窗口也需重查。",
+      "kind": "research_guard",
+      "admission_cohort": null,
+      "academic_year": "2026-2027",
+      "effective_from": null,
+      "source_ids": [
+        "S10"
+      ],
+      "review_status": "candidate",
+      "reviewer_roles": []
+    },
+    {
+      "id": "R12",
+      "topics": [
+        "library"
+      ],
+      "summary_zh": "多次续借受累计期限限制",
+      "audience": "图书馆可续借资料；按用户及资料类别核对",
+      "statement": "Repeated renewals remain subject to the applicable maximum renewal period.",
+      "qualifications": "不把unlimited number of renewals解读为无限借期；具体天数不在本草案转录。",
+      "kind": "official_summary",
+      "admission_cohort": null,
+      "academic_year": null,
+      "effective_from": null,
+      "source_ids": [
+        "S11"
+      ],
+      "review_status": "candidate",
+      "reviewer_roles": []
+    },
+    {
+      "id": "R13",
+      "topics": [
+        "library"
+      ],
+      "summary_zh": "召回新日期覆盖原日期",
+      "audience": "收到资料召回通知的借阅者",
+      "statement": "A recall notice's new due date supersedes the previous due date.",
+      "qualifications": "个人实际到期日须由用户自行查通知/账户；系统不索取账号密码或OTP。",
+      "kind": "official_summary",
+      "admission_cohort": null,
+      "academic_year": null,
+      "effective_from": null,
+      "source_ids": [
+        "S11"
+      ],
+      "review_status": "candidate",
+      "reviewer_roles": []
+    },
+    {
+      "id": "R14",
+      "topics": [
+        "library"
+      ],
+      "summary_zh": "馆际互借按专门规则归还续借",
+      "audience": "ILL/HKALL或海外馆资料借阅者",
+      "statement": "Use the interlibrary-loan return and renewal rules, including any lending-library approval requirement.",
+      "qualifications": "不套用普通还书箱或普通续借流程；具体材料类别和审批结果待查。",
+      "kind": "official_summary",
+      "admission_cohort": null,
+      "academic_year": null,
+      "effective_from": null,
+      "source_ids": [
+        "S12"
+      ],
+      "review_status": "candidate",
+      "reviewer_roles": []
+    },
+    {
+      "id": "R15",
+      "topics": [
+        "scholarship"
+      ],
+      "summary_zh": "奖项渠道并不统一",
+      "audience": "已选定具体奖项的学生",
+      "statement": "Determine whether the award uses automatic consideration, nomination or an open application.",
+      "qualifications": "概述中的无须另行申请仅适用于对应奖项类型；不得推广至所有奖助学金。",
+      "kind": "official_summary",
+      "admission_cohort": null,
+      "academic_year": null,
+      "effective_from": null,
+      "source_ids": [
+        "S13"
+      ],
+      "review_status": "candidate",
+      "reviewer_roles": []
+    },
+    {
+      "id": "R16",
+      "topics": [
+        "scholarship"
+      ],
+      "summary_zh": "资格按具体奖项逐项判断",
+      "audience": "须明确学位、年级、local状态及资助类别",
+      "statement": "Check the selected award's own eligibility and current call before taking an application step.",
+      "qualifications": "UG、local或非毕业年专属条件不能扩展到非本地TPG；提名不等于获奖。",
+      "kind": "official_summary",
+      "admission_cohort": null,
+      "academic_year": null,
+      "effective_from": null,
+      "source_ids": [
+        "S13"
+      ],
+      "review_status": "candidate",
+      "reviewer_roles": []
+    },
+    {
+      "id": "R17",
+      "topics": [
+        "scholarship"
+      ],
+      "summary_zh": "常规经济援助与紧急援助分流",
+      "audience": "以所选scheme列出的身份为限",
+      "statement": "Distinguish regular financial assistance from emergency assistance and verify the scheme's audience.",
+      "qualifications": "概述的full-time local条件不证明非本地TPG适用；惯常月份不是当年开放证明。",
+      "kind": "official_summary",
+      "admission_cohort": null,
+      "academic_year": null,
+      "effective_from": null,
+      "source_ids": [
+        "S14"
+      ],
+      "review_status": "candidate",
+      "reviewer_roles": []
+    },
+    {
+      "id": "R18",
+      "topics": [
+        "calendar",
+        "registration"
+      ],
+      "summary_zh": "日期须匹配学年学期与主管部门",
+      "audience": "查询某一具体手续日期者",
+      "statement": "Choose the correct academic year, semester and responsible office; retain any tentative status.",
+      "qualifications": "区分正式、暂定、历史安排及个人time-ticket；不能以索引抓取时间当生效时间。",
+      "kind": "research_guard",
+      "admission_cohort": null,
+      "academic_year": null,
+      "effective_from": null,
+      "source_ids": [
+        "S15",
+        "S16"
+      ],
+      "review_status": "candidate",
+      "reviewer_roles": []
+    },
+    {
+      "id": "R19",
+      "topics": [
+        "calendar",
+        "registration"
+      ],
+      "summary_zh": "冲突或已过窗口须停下复核",
+      "audience": "查询选课及手续窗口者",
+      "statement": "Resolve year or notice conflicts before treating a deadline as current.",
+      "qualifications": "S16标题与正文有学年冲突；本草案不发布具体截止日或宣称窗口仍开放。",
+      "kind": "research_guard",
+      "admission_cohort": null,
+      "academic_year": null,
+      "effective_from": null,
+      "source_ids": [
+        "S16"
+      ],
+      "review_status": "candidate",
+      "reviewer_roles": []
+    }
+  ],
+  "workflows": [
+    {
+      "id": "F01",
+      "category": "admission",
+      "title": "申请TPG并处理录取通知",
+      "status": "advisory_draft",
+      "disclaimer": "研究人员按候选规则整理的导航图；不是官方原图或可执行审批流程。",
+      "nodes": [
+        {
+          "id": "a",
+          "label": "确定专业、入学批次及目标",
+          "kind": "context",
+          "rule_ids": []
+        },
+        {
+          "id": "b",
+          "label": "核对专业要求与官方申请入口",
+          "kind": "policy",
+          "rule_ids": [
+            "R01"
+          ]
+        },
+        {
+          "id": "c",
+          "label": "是否已有offer",
+          "kind": "context",
+          "rule_ids": []
+        },
+        {
+          "id": "d",
+          "label": "按实际offer核对接受要求",
+          "kind": "policy",
+          "rule_ids": [
+            "R02"
+          ]
+        },
+        {
+          "id": "e",
+          "label": "非本地：另核对签证路径",
+          "kind": "policy",
+          "rule_ids": [
+            "R03"
+          ]
+        },
+        {
+          "id": "z",
+          "label": "未有结果：保留待办，不推定录取",
+          "kind": "end",
+          "rule_ids": []
+        },
+        {
+          "id": "y",
+          "label": "转入对应注册或签证核对",
+          "kind": "end",
+          "rule_ids": []
+        }
+      ],
+      "edges": [
+        {
+          "source": "a",
+          "target": "b",
+          "condition": "条件齐全"
+        },
+        {
+          "source": "b",
+          "target": "c",
+          "condition": ""
+        },
+        {
+          "source": "c",
+          "target": "z",
+          "condition": "否"
+        },
+        {
+          "source": "c",
+          "target": "d",
+          "condition": "是"
+        },
+        {
+          "source": "d",
+          "target": "e",
+          "condition": "适用非本地签证"
+        },
+        {
+          "source": "e",
+          "target": "y",
+          "condition": ""
+        },
+        {
+          "source": "d",
+          "target": "y",
+          "condition": "不涉及签证"
+        }
+      ]
+    },
+    {
+      "id": "F02",
+      "category": "visa_geo",
+      "title": "准备学生签证与入境许可",
+      "status": "advisory_draft",
+      "disclaimer": "研究人员按候选规则整理的导航图；不是官方原图或可执行审批流程。",
+      "nodes": [
+        {
+          "id": "a",
+          "label": "确认身份、学位与入境目标",
+          "kind": "context",
+          "rule_ids": []
+        },
+        {
+          "id": "b",
+          "label": "是否需要对应学生签证或许可",
+          "kind": "policy",
+          "rule_ids": [
+            "R03"
+          ]
+        },
+        {
+          "id": "c",
+          "label": "按适用官方渠道核对担保及材料",
+          "kind": "policy",
+          "rule_ids": [
+            "R04"
+          ]
+        },
+        {
+          "id": "d",
+          "label": "提交后等待处理，缺件按通知处理",
+          "kind": "policy",
+          "rule_ids": [
+            "R04"
+          ]
+        },
+        {
+          "id": "z",
+          "label": "无法从公开知识库判断个人获批状态",
+          "kind": "end",
+          "rule_ids": []
+        },
+        {
+          "id": "y",
+          "label": "其他身份：转对应官方说明",
+          "kind": "end",
+          "rule_ids": []
+        }
+      ],
+      "edges": [
+        {
+          "source": "a",
+          "target": "b",
+          "condition": ""
+        },
+        {
+          "source": "b",
+          "target": "c",
+          "condition": "适用"
+        },
+        {
+          "source": "b",
+          "target": "y",
+          "condition": "不适用或不确定"
+        },
+        {
+          "source": "c",
+          "target": "d",
+          "condition": ""
+        },
+        {
+          "source": "d",
+          "target": "z",
+          "condition": ""
+        }
+      ]
+    },
+    {
+      "id": "F03",
+      "category": "registration",
+      "title": "决定休学还是退学，并核对后果",
+      "status": "advisory_draft",
+      "disclaimer": "研究人员按候选规则整理的导航图；不是官方原图或可执行审批流程。",
+      "nodes": [
+        {
+          "id": "a",
+          "label": "明确TPG专业、入学届别与目标",
+          "kind": "context",
+          "rule_ids": []
+        },
+        {
+          "id": "b",
+          "label": "匹配适用条例",
+          "kind": "policy",
+          "rule_ids": [
+            "R05"
+          ]
+        },
+        {
+          "id": "c",
+          "label": "暂时中断还是终止学业",
+          "kind": "policy",
+          "rule_ids": [
+            "R06"
+          ]
+        },
+        {
+          "id": "d",
+          "label": "休学：核对条件与申请要求",
+          "kind": "policy",
+          "rule_ids": [
+            "R06"
+          ]
+        },
+        {
+          "id": "e",
+          "label": "退学：按对应手续办理",
+          "kind": "policy",
+          "rule_ids": [
+            "R07"
+          ]
+        },
+        {
+          "id": "f",
+          "label": "独立核对费用、退款及非本地签证事项",
+          "kind": "policy",
+          "rule_ids": [
+            "R09",
+            "R03"
+          ]
+        },
+        {
+          "id": "z",
+          "label": "等待对应部门决定；不推定已批准",
+          "kind": "end",
+          "rule_ids": []
+        }
+      ],
+      "edges": [
+        {
+          "source": "a",
+          "target": "b",
+          "condition": ""
+        },
+        {
+          "source": "b",
+          "target": "c",
+          "condition": ""
+        },
+        {
+          "source": "c",
+          "target": "d",
+          "condition": "暂时中断"
+        },
+        {
+          "source": "c",
+          "target": "e",
+          "condition": "终止学业"
+        },
+        {
+          "source": "d",
+          "target": "f",
+          "condition": ""
+        },
+        {
+          "source": "e",
+          "target": "f",
+          "condition": ""
+        },
+        {
+          "source": "f",
+          "target": "z",
+          "condition": ""
+        }
+      ]
+    },
+    {
+      "id": "F04",
+      "category": "fees",
+      "title": "核对缴费或退费",
+      "status": "advisory_draft",
+      "disclaimer": "研究人员按候选规则整理的导航图；不是官方原图或可执行审批流程。",
+      "nodes": [
+        {
+          "id": "a",
+          "label": "确定专业、学年、收费口径与目标",
+          "kind": "context",
+          "rule_ids": []
+        },
+        {
+          "id": "b",
+          "label": "核对缴费表和本人账单",
+          "kind": "policy",
+          "rule_ids": [
+            "R08"
+          ]
+        },
+        {
+          "id": "c",
+          "label": "是否涉及退课或退学",
+          "kind": "policy",
+          "rule_ids": [
+            "R09"
+          ]
+        },
+        {
+          "id": "d",
+          "label": "核对条款、例外与学校决定",
+          "kind": "policy",
+          "rule_ids": [
+            "R09"
+          ]
+        },
+        {
+          "id": "z",
+          "label": "账单或例外不明：向主管部门核实",
+          "kind": "end",
+          "rule_ids": []
+        }
+      ],
+      "edges": [
+        {
+          "source": "a",
+          "target": "b",
+          "condition": ""
+        },
+        {
+          "source": "b",
+          "target": "c",
+          "condition": ""
+        },
+        {
+          "source": "c",
+          "target": "d",
+          "condition": "是"
+        },
+        {
+          "source": "c",
+          "target": "z",
+          "condition": "否或不明"
+        },
+        {
+          "source": "d",
+          "target": "z",
+          "condition": ""
+        }
+      ]
+    },
+    {
+      "id": "F05",
+      "category": "residence",
+      "title": "找适用住宿渠道并判断申请阶段",
+      "status": "advisory_draft",
+      "disclaimer": "研究人员按候选规则整理的导航图；不是官方原图或可执行审批流程。",
+      "nodes": [
+        {
+          "id": "a",
+          "label": "确认学年、UG或硕士、身份及地点",
+          "kind": "context",
+          "rule_ids": []
+        },
+        {
+          "id": "b",
+          "label": "是否落入本表硕士住宿范围",
+          "kind": "policy",
+          "rule_ids": [
+            "R10"
+          ]
+        },
+        {
+          "id": "c",
+          "label": "按当年渠道核对条件及申请窗口",
+          "kind": "policy",
+          "rule_ids": [
+            "R10"
+          ]
+        },
+        {
+          "id": "d",
+          "label": "核对当年费用，排除旧年参考价",
+          "kind": "policy",
+          "rule_ids": [
+            "R11"
+          ]
+        },
+        {
+          "id": "z",
+          "label": "分别核对提交、offer与确认；不保证床位",
+          "kind": "end",
+          "rule_ids": [
+            "R10"
+          ]
+        },
+        {
+          "id": "y",
+          "label": "其他群体：补查对应官方页",
+          "kind": "end",
+          "rule_ids": []
+        }
+      ],
+      "edges": [
+        {
+          "source": "a",
+          "target": "b",
+          "condition": ""
+        },
+        {
+          "source": "b",
+          "target": "c",
+          "condition": "是"
+        },
+        {
+          "source": "b",
+          "target": "y",
+          "condition": "否或不明"
+        },
+        {
+          "source": "c",
+          "target": "d",
+          "condition": ""
+        },
+        {
+          "source": "d",
+          "target": "z",
+          "condition": ""
+        }
+      ]
+    },
+    {
+      "id": "F06",
+      "category": "library",
+      "title": "续借、召回与归还资料",
+      "status": "advisory_draft",
+      "disclaimer": "研究人员按候选规则整理的导航图；不是官方原图或可执行审批流程。",
+      "nodes": [
+        {
+          "id": "a",
+          "label": "确认用户和资料类型",
+          "kind": "context",
+          "rule_ids": []
+        },
+        {
+          "id": "b",
+          "label": "普通借阅还是馆际互借",
+          "kind": "policy",
+          "rule_ids": [
+            "R14"
+          ]
+        },
+        {
+          "id": "c",
+          "label": "普通：核对续借资格与累计期限",
+          "kind": "policy",
+          "rule_ids": [
+            "R12"
+          ]
+        },
+        {
+          "id": "d",
+          "label": "馆际：核对专门归还与审批要求",
+          "kind": "policy",
+          "rule_ids": [
+            "R14"
+          ]
+        },
+        {
+          "id": "e",
+          "label": "如有召回，以通知的新日期核对",
+          "kind": "policy",
+          "rule_ids": [
+            "R13"
+          ]
+        },
+        {
+          "id": "z",
+          "label": "自行核对实际新到期日与归还结果",
+          "kind": "end",
+          "rule_ids": []
+        }
+      ],
+      "edges": [
+        {
+          "source": "a",
+          "target": "b",
+          "condition": ""
+        },
+        {
+          "source": "b",
+          "target": "c",
+          "condition": "普通"
+        },
+        {
+          "source": "b",
+          "target": "d",
+          "condition": "ILL或HKALL"
+        },
+        {
+          "source": "c",
+          "target": "e",
+          "condition": ""
+        },
+        {
+          "source": "d",
+          "target": "e",
+          "condition": ""
+        },
+        {
+          "source": "e",
+          "target": "z",
+          "condition": ""
+        }
+      ]
+    },
+    {
+      "id": "F07",
+      "category": "scholarship",
+      "title": "找奖学金或经济援助渠道",
+      "status": "advisory_draft",
+      "disclaimer": "研究人员按候选规则整理的导航图；不是官方原图或可执行审批流程。",
+      "nodes": [
+        {
+          "id": "a",
+          "label": "明确奖励还是经济援助，并选scheme",
+          "kind": "context",
+          "rule_ids": []
+        },
+        {
+          "id": "b",
+          "label": "核对身份与具体资格",
+          "kind": "policy",
+          "rule_ids": [
+            "R16",
+            "R17"
+          ]
+        },
+        {
+          "id": "c",
+          "label": "按scheme选择渠道",
+          "kind": "policy",
+          "rule_ids": [
+            "R15",
+            "R17"
+          ]
+        },
+        {
+          "id": "d",
+          "label": "自动考虑、提名或公开申请",
+          "kind": "policy",
+          "rule_ids": [
+            "R15"
+          ]
+        },
+        {
+          "id": "e",
+          "label": "常规援助或紧急援助",
+          "kind": "policy",
+          "rule_ids": [
+            "R17"
+          ]
+        },
+        {
+          "id": "z",
+          "label": "核对当年公告与最终结果，不推定获奖",
+          "kind": "end",
+          "rule_ids": [
+            "R16"
+          ]
+        }
+      ],
+      "edges": [
+        {
+          "source": "a",
+          "target": "b",
+          "condition": ""
+        },
+        {
+          "source": "b",
+          "target": "c",
+          "condition": ""
+        },
+        {
+          "source": "c",
+          "target": "d",
+          "condition": "奖励"
+        },
+        {
+          "source": "c",
+          "target": "e",
+          "condition": "经济援助"
+        },
+        {
+          "source": "d",
+          "target": "z",
+          "condition": ""
+        },
+        {
+          "source": "e",
+          "target": "z",
+          "condition": ""
+        }
+      ]
+    },
+    {
+      "id": "F08",
+      "category": "calendar",
+      "title": "确定某项手续的有效日期",
+      "status": "advisory_draft",
+      "disclaimer": "研究人员按候选规则整理的导航图；不是官方原图或可执行审批流程。",
+      "nodes": [
+        {
+          "id": "a",
+          "label": "给出学年、学期、学位和事项",
+          "kind": "context",
+          "rule_ids": []
+        },
+        {
+          "id": "b",
+          "label": "选择主管部门与正式或暂定版本",
+          "kind": "policy",
+          "rule_ids": [
+            "R18"
+          ]
+        },
+        {
+          "id": "c",
+          "label": "标题正文或不同通知是否冲突",
+          "kind": "policy",
+          "rule_ids": [
+            "R19"
+          ]
+        },
+        {
+          "id": "d",
+          "label": "保留暂定标记，并核对个人安排",
+          "kind": "policy",
+          "rule_ids": [
+            "R18"
+          ]
+        },
+        {
+          "id": "z",
+          "label": "冲突：暂不输出确定截止日，先复核",
+          "kind": "end",
+          "rule_ids": [
+            "R19"
+          ]
+        },
+        {
+          "id": "y",
+          "label": "再判断窗口已过、未开或适用",
+          "kind": "end",
+          "rule_ids": [
+            "R18"
+          ]
+        }
+      ],
+      "edges": [
+        {
+          "source": "a",
+          "target": "b",
+          "condition": ""
+        },
+        {
+          "source": "b",
+          "target": "c",
+          "condition": ""
+        },
+        {
+          "source": "c",
+          "target": "z",
+          "condition": "是或不明"
+        },
+        {
+          "source": "c",
+          "target": "d",
+          "condition": "否"
+        },
+        {
+          "source": "d",
+          "target": "y",
+          "condition": ""
+        }
+      ]
+    }
+  ]
+}

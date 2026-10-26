@@ -192,8 +192,8 @@ def export_inputs(cases_path: Path, destination: Path, *, root: Path = ROOT) -> 
 
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--corpus", type=Path, default=ROOT / "evals/synthetic_corpus.jsonl")
-    parser.add_argument("--cases", type=Path, default=ROOT / "evals/dev_cases.jsonl")
+    parser.add_argument("--corpus", type=Path, required=True, help="Explicit frozen source snapshot")
+    parser.add_argument("--cases", type=Path, required=True, help="Explicit private DEV/TEST annotations")
     parser.add_argument("--rubric", type=Path, default=ROOT / "evals/rubric.json")
     parser.add_argument("--require-frozen", action="store_true")
     parser.add_argument("--min-answerable", type=int, default=0)
