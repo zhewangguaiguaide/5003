@@ -66,9 +66,9 @@
       "locator": "official PDF flow chart",
       "checked_on": "2026-10-26",
       "access": "link_only",
-      "live_result": "http_403",
+      "live_result": "http_200_non_pdf_body",
       "short_quote": "",
-      "observation": "仅确认官方流程图入口；PDF正文实时403，未读图，不据此转录具体操作。",
+      "observation": "浏览器本轮返回200及application/pdf头，但响应只有536字节且没有%PDF签名；未取得可用PDF，不读图、不转录操作。",
       "official_snapshot_sha256": null,
       "in_research_corpus": false,
       "local_record": null
@@ -93,18 +93,29 @@
       "title": "Student Visa / Entry Permit",
       "url": "https://www.cityu.edu.hk/admo/non-local-students/visa/student-visa",
       "issuer": "ADMO",
-      "locator": "visa/entry permit sponsorship",
+      "locator": "Before you apply / complete documents / processing time",
       "checked_on": "2026-10-26",
-      "access": "official_index",
-      "live_result": "http_403",
-      "short_quote": "",
-      "observation": "本地旧快照与官网索引均有对应内容；处理周期不等于建议提前量，更不构成获批承诺。",
-      "official_snapshot_sha256": null,
+      "access": "official_full_text",
+      "live_result": "http_200_body_verified",
+      "short_quote": "incomplete packages lacking necessary information or documents cannot be processed.",
+      "observation": "已核全文与SHA：新入学及在读学生通道不同；可能8周或更久，缺材料不处理；学校行政费与入境处签证费分开，获批及入境验证分开。",
+      "official_snapshot_sha256": "635105bd47b1c15e307a5bcfff58dbd254240c8fca7df0fa885475b655f03012",
       "in_research_corpus": true,
       "local_record": {
         "line": 22,
         "content_sha256": "697fceed3621c2051e3c6f9b269a216f90fdc062a56813eacb786a7e96568267",
         "metadata_academic_year": "2027-2028"
+      },
+      "snapshot": {
+        "relative_path": "runs/policy_research/continuation_20261026/S04/approved_retry/response_01.raw.bin",
+        "format": "html_response_body",
+        "byte_semantics": "Decoded HTTP response body from the public browser, not a packet capture",
+        "text_relative_path": "runs/policy_research/continuation_20261026/S04/approved_retry/extracted_fulltext.txt",
+        "text_sha256": "697fceed3621c2051e3c6f9b269a216f90fdc062a56813eacb786a7e96568267",
+        "retrieved_at_utc": "2026-10-26T08:05:50.455414+00:00",
+        "response_url": "https://www.cityu.edu.hk/admo/non-local-students/visa/student-visa",
+        "final_url": "https://www.cityu.edu.hk/admo/non-local-students/visa/student-visa",
+        "limitations": "Some menus retained; tables flattened; attachments and personal account state excluded; applicability and human approval separate"
       }
     },
     {
@@ -114,43 +125,76 @@
       "issuer": "SGS",
       "locator": "applicability header / cohort-specific regulation links",
       "checked_on": "2026-10-26",
-      "access": "official_index",
-      "live_result": "body_not_policy",
-      "short_quote": "",
-      "observation": "索引显示按入学届别与PCLL分流；近似的regulations/acadreg路径不能凭URL外观视为同一版本。直接HTTP探针200但只有212字节，无政策标题，未接受为正文。",
-      "official_snapshot_sha256": null,
+      "access": "official_full_text",
+      "live_result": "http_200_body_verified",
+      "short_quote": "Applicable to students admitted before Semester A 2022/23",
+      "observation": "本轮两近似路径提取正文SHA相同；完整标题区分2022/23至Summer2024非PCLL专用版本与主页面版本，不能跨届别套用。另链专用PDF尚未取得；此一致性仅指本轮正文。",
+      "official_snapshot_sha256": "9947810458da7375bf91ab9504d0a45df25161abc26ae82d49b8288981e394e8",
       "in_research_corpus": false,
-      "local_record": null
+      "local_record": null,
+      "snapshot": {
+        "relative_path": "runs/policy_research/continuation_20261026/S05_singular/approved_retry/response_01.raw.bin",
+        "format": "html_response_body",
+        "byte_semantics": "Decoded HTTP response body from the public browser, not a packet capture",
+        "text_relative_path": "runs/policy_research/continuation_20261026/S05_singular/approved_retry/extracted_fulltext.txt",
+        "text_sha256": "d3242f7ee749c7f2363bf2c573b187100de62f8546ea979b1057334c3d7a33ed",
+        "retrieved_at_utc": "2026-10-26T08:05:35.757626+00:00",
+        "response_url": "https://www.cityu.edu.hk/sgs/student/masters/regulation/acadreg",
+        "final_url": "https://www.cityu.edu.hk/sgs/student/masters/regulation/acadreg",
+        "limitations": "Some menus retained; tables flattened; attachments and personal account state excluded; applicability and human approval separate"
+      }
     },
     {
       "id": "S06",
       "title": "Leave of Absence",
       "url": "https://www.cityu.edu.hk/sgs/student/masters/records/leave",
       "issuer": "SGS",
-      "locator": "eligibility / application / study period",
+      "locator": "Period / How to Apply / Fees & Charges: A/B vs Summer / Notes to Non-local Students",
       "checked_on": "2026-10-26",
-      "access": "official_index",
-      "live_result": "http_403",
-      "short_quote": "",
-      "observation": "休学属于学籍安排，不能与withdrawal混用；最长期限及当前提交节点待完整正文复核。",
-      "official_snapshot_sha256": null,
+      "access": "official_full_text",
+      "live_result": "http_200_body_verified",
+      "short_quote": "Applications submitted after the end of the teaching period for the semester will not be considered.",
+      "observation": "已核全文与SHA：程序add/drop、费用Week 2、四学期通常上限、最长修读年限、A/B和Summer分段及首学期休学担保后果。专业日历与例外另核。",
+      "official_snapshot_sha256": "eabf327fe4ae0f3cdf1de5919d9c5ba7c9b43db13606cd805ba9fb7ea653c50f",
       "in_research_corpus": false,
-      "local_record": null
+      "local_record": null,
+      "snapshot": {
+        "relative_path": "runs/policy_research/continuation_20261026/S06/approved_retry/response_01.raw.bin",
+        "format": "html_response_body",
+        "byte_semantics": "Decoded HTTP response body from the public browser, not a packet capture",
+        "text_relative_path": "runs/policy_research/continuation_20261026/S06/approved_retry/extracted_fulltext.txt",
+        "text_sha256": "ac615c869efcc16cdee53114721880654415994a428881881fdd439159dd8f9d",
+        "retrieved_at_utc": "2026-10-26T08:02:21.223929+00:00",
+        "response_url": "https://www.cityu.edu.hk/sgs/student/masters/records/leave",
+        "final_url": "https://www.cityu.edu.hk/sgs/student/masters/records/leave",
+        "limitations": "Some menus retained; tables flattened; attachments and personal account state excluded; applicability and human approval separate"
+      }
     },
     {
       "id": "S07",
       "title": "Withdrawal of Studies",
       "url": "https://www.cityu.edu.hk/sgs/student/masters/records/withdrawal/",
       "issuer": "SGS",
-      "locator": "Application / Tuition Fees / consequence",
+      "locator": "Withdrawal notification / effective date / Fees & Charges / Important Notes: clearance and non-local students",
       "checked_on": "2026-10-26",
-      "access": "official_index",
-      "live_result": "http_403",
-      "short_quote": "",
-      "observation": "索引支持须按申请渠道办理、学费后果另核对。没有把停课当成手续已完成。",
-      "official_snapshot_sha256": null,
+      "access": "official_full_text",
+      "live_result": "http_200_body_verified",
+      "short_quote": "within 10 working days upon notification of withdrawal:",
+      "observation": "已核全文与SHA：AIMS提交日、考试期生效差异、10工作日清结、暑期及最低额、非本地退学担保。离境起算与休学不同，不能共用日期。",
+      "official_snapshot_sha256": "4150109f4643b277ef8d56fe3fd8602f32db516ff145fb8899d0e11cbe3e408c",
       "in_research_corpus": false,
-      "local_record": null
+      "local_record": null,
+      "snapshot": {
+        "relative_path": "runs/policy_research/continuation_20261026/S07/approved_retry/response_01.raw.bin",
+        "format": "html_response_body",
+        "byte_semantics": "Decoded HTTP response body from the public browser, not a packet capture",
+        "text_relative_path": "runs/policy_research/continuation_20261026/S07/approved_retry/extracted_fulltext.txt",
+        "text_sha256": "98dc4494aeb61391e37cdd8103e6b51e4a10e63839265e70f024b65fe8a4092b",
+        "retrieved_at_utc": "2026-10-26T08:05:43.458939+00:00",
+        "response_url": "https://www.cityu.edu.hk/sgs/student/masters/records/withdrawal/",
+        "final_url": "https://www.cityu.edu.hk/sgs/student/masters/records/withdrawal/",
+        "limitations": "Some menus retained; tables flattened; attachments and personal account state excluded; applicability and human approval separate"
+      }
     },
     {
       "id": "S08",
@@ -197,13 +241,24 @@
       "issuer": "SRO",
       "locator": "application channels / Important Notes / fee reference",
       "checked_on": "2026-10-26",
-      "access": "official_index",
-      "live_result": "http_403",
+      "access": "official_full_text",
+      "live_result": "http_200_body_verified",
       "short_quote": "chance of securing a place is LOW",
-      "observation": "官网索引区分普通与共享单位渠道，获批机会有限；MOS出现2025/26参考费用，不能写成2026/27现价。",
-      "official_snapshot_sha256": null,
+      "observation": "原入口本轮重定向至MDS总览并取得正文与SHA：常规KLNT／MOS、共享单位分别列示；MOS旧年参考价不能覆盖2026/27专表。",
+      "official_snapshot_sha256": "8935121d4503e73d307da22e9d87261b16fc9e2758fa220a98adc690a9e28ef0",
       "in_research_corpus": false,
-      "local_record": null
+      "local_record": null,
+      "snapshot": {
+        "relative_path": "runs/policy_research/continuation_20261026/S10/approved_retry/response_02.raw.bin",
+        "format": "html_response_body",
+        "byte_semantics": "Decoded HTTP response body from the public browser, not a packet capture",
+        "text_relative_path": "runs/policy_research/continuation_20261026/S10/approved_retry/extracted_fulltext.txt",
+        "text_sha256": "0bbaba10c83b52700cfd3b597196d38dfa65c7e6da29a1a02e68b5c56842ba10",
+        "retrieved_at_utc": "2026-10-26T08:07:23.323948+00:00",
+        "response_url": "https://www.cityu.edu.hk/sro/StudentHousing/PGHalls/MDS/",
+        "final_url": null,
+        "limitations": "Some menus retained; tables flattened; attachments and personal account state excluded; applicability and human approval separate"
+      }
     },
     {
       "id": "S11",
@@ -213,15 +268,26 @@
       "locator": "Borrow Materials / Renewals / Recalls",
       "checked_on": "2026-10-26",
       "access": "official_full_text",
-      "live_result": "full_text_read",
-      "short_quote": "New due date supersedes previous due date",
-      "observation": "web.open已读完整官方指南；确认累计续借上限与召回新日期，但仍未形成绑定本地快照的人工批准规则。",
-      "official_snapshot_sha256": null,
+      "live_result": "http_200_body_verified",
+      "short_quote": "The new due date will overide the original due date.",
+      "observation": "已核全文与SHA，支持召回新日期覆盖原日期；没有累计续借期限表，R12使用S24详细借阅规定。",
+      "official_snapshot_sha256": "5c7f1e0e58810e1f8e67072ec597a60cb31a8e1be8e7d11f36d60be17c4aeae7",
       "in_research_corpus": true,
       "local_record": {
         "line": 86,
         "content_sha256": "f77ec4db8299706c5b99b53c1fe136884753d752e549a93c9ee82df92c6e97ce",
         "metadata_academic_year": ""
+      },
+      "snapshot": {
+        "relative_path": "runs/policy_research/continuation_20261026/S11_start/approved_retry/response_01.raw.bin",
+        "format": "html_response_body",
+        "byte_semantics": "Decoded HTTP response body from the public browser, not a packet capture",
+        "text_relative_path": "runs/policy_research/continuation_20261026/S11_start/approved_retry/extracted_fulltext.txt",
+        "text_sha256": "f77ec4db8299706c5b99b53c1fe136884753d752e549a93c9ee82df92c6e97ce",
+        "retrieved_at_utc": "2026-10-26T08:02:08.793554+00:00",
+        "response_url": "https://libguides.library.cityu.edu.hk/start",
+        "final_url": "https://libguides.library.cityu.edu.hk/start",
+        "limitations": "Some menus retained; tables flattened; attachments and personal account state excluded; applicability and human approval separate"
       }
     },
     {
@@ -310,6 +376,348 @@
       "official_snapshot_sha256": null,
       "in_research_corpus": false,
       "local_record": null
+    },
+    {
+      "id": "S17",
+      "title": "Tuition Fees — Taught Postgraduate Programmes",
+      "url": "https://www.cityu.edu.hk/fo/htm/tpg_fees.htm",
+      "issuer": "FO",
+      "locator": "Other Fees and Charges / Continuation Fee / Notes 2",
+      "checked_on": "2026-10-26",
+      "access": "official_full_text",
+      "live_result": "http_200_body_verified",
+      "short_quote": "$1,500 per semester. Nil for Summer.",
+      "observation": "小写路径已核全文与SHA，支持continuation fee HK$1,500／Summer零。大写S08旧快照为历史对照，未声称大小写路径所有版本相同。",
+      "official_snapshot_sha256": "e2d91b4041ad56beaa5c049e42af3c543f5b5087a75457da0e28ec26c3ce59ea",
+      "in_research_corpus": false,
+      "local_record": null,
+      "snapshot": {
+        "relative_path": "runs/policy_research/continuation_20261026/S08_lower/approved_retry/response_01.raw.bin",
+        "format": "html_response_body",
+        "byte_semantics": "Decoded HTTP response body from the public browser, not a packet capture",
+        "text_relative_path": "runs/policy_research/continuation_20261026/S08_lower/approved_retry/extracted_fulltext.txt",
+        "text_sha256": "6897361b08c4b454abfe04ffd268b027ecc58b8971298c246e280cdb0241647b",
+        "retrieved_at_utc": "2026-10-26T08:05:12.537538+00:00",
+        "response_url": "https://www.cityu.edu.hk/fo/htm/tpg_fees.htm",
+        "final_url": "https://www.cityu.edu.hk/fo/htm/tpg_fees.htm",
+        "limitations": "Some menus retained; tables flattened; attachments and personal account state excluded; applicability and human approval separate"
+      }
+    },
+    {
+      "id": "S18",
+      "title": "Payment Schedule — Taught Postgraduate Programmes",
+      "url": "https://www.cityu.edu.hk/fo/htm/tpg_payschedule.htm",
+      "issuer": "FO",
+      "locator": "Payment Schedule 2026/27 / flat vs per-credit / two statements / late applications",
+      "checked_on": "2026-10-26",
+      "access": "official_full_text",
+      "live_result": "http_200_body_verified",
+      "short_quote": "Week 3 till the end of Week 6",
+      "observation": "小写路径已核全文与SHA，付款表七条日期、账单期数及届别预缴条件已核。A/B最低两学分脚注与Summer表未重复的呈现差异保留，不当作暑期豁免。",
+      "official_snapshot_sha256": "705c63fbce3a44438607a801e882eb9e032c95ffa93f1ecd46ade9d1e0044a9f",
+      "in_research_corpus": false,
+      "local_record": null,
+      "snapshot": {
+        "relative_path": "runs/policy_research/continuation_20261026/S09_lower/approved_retry/response_01.raw.bin",
+        "format": "html_response_body",
+        "byte_semantics": "Decoded HTTP response body from the public browser, not a packet capture",
+        "text_relative_path": "runs/policy_research/continuation_20261026/S09_lower/approved_retry/extracted_fulltext.txt",
+        "text_sha256": "0135ab164b7a33ee026c2151a33fa639ae4545329deb81f148fc44157b8ca0cd",
+        "retrieved_at_utc": "2026-10-26T08:05:19.666242+00:00",
+        "response_url": "https://www.cityu.edu.hk/fo/htm/tpg_payschedule.htm",
+        "final_url": "https://www.cityu.edu.hk/fo/htm/tpg_payschedule.htm",
+        "limitations": "Some menus retained; tables flattened; attachments and personal account state excluded; applicability and human approval separate"
+      }
+    },
+    {
+      "id": "S19",
+      "title": "Academic Regulations for Master's Degrees — plural path",
+      "url": "https://www.cityu.edu.hk/sgs/student/masters/regulations/acadreg",
+      "issuer": "SGS",
+      "locator": "Applicability heading / credit transfer / leave of absence",
+      "checked_on": "2026-10-26",
+      "access": "official_full_text",
+      "live_result": "http_200_body_verified",
+      "short_quote": "Applicable to students admitted before Semester A 2022/23",
+      "observation": "本轮两近似路径提取正文SHA相同；完整标题区分2022/23至Summer2024非PCLL专用版本与主页面版本，不能跨届别套用。另链专用PDF尚未取得；此一致性仅指本轮正文。",
+      "official_snapshot_sha256": "b7a63d332df6bf02b5d16ff4ad5c96b75ce1b80bc9615d276c5bfc39ed3d0810",
+      "in_research_corpus": false,
+      "local_record": null,
+      "snapshot": {
+        "relative_path": "runs/policy_research/continuation_20261026/S05_plural/approved_retry/response_01.raw.bin",
+        "format": "html_response_body",
+        "byte_semantics": "Decoded HTTP response body from the public browser, not a packet capture",
+        "text_relative_path": "runs/policy_research/continuation_20261026/S05_plural/approved_retry/extracted_fulltext.txt",
+        "text_sha256": "d3242f7ee749c7f2363bf2c573b187100de62f8546ea979b1057334c3d7a33ed",
+        "retrieved_at_utc": "2026-10-26T08:05:27.641056+00:00",
+        "response_url": "https://www.cityu.edu.hk/sgs/student/masters/regulations/acadreg",
+        "final_url": "https://www.cityu.edu.hk/sgs/student/masters/regulations/acadreg",
+        "limitations": "Some menus retained; tables flattened; attachments and personal account state excluded; applicability and human approval separate"
+      }
+    },
+    {
+      "id": "S20",
+      "title": "Master’s Degree Students — Kowloon Tong",
+      "url": "https://www.cityu.edu.hk/sro/StudentHousing/PGHalls/MDS/KLT/",
+      "issuer": "SRO",
+      "locator": "Eligibility / Allocation Principle / Residential Period & Fees and Payments",
+      "checked_on": "2026-10-26",
+      "access": "official_full_text",
+      "live_result": "http_200_body_verified",
+      "short_quote": "Full-time students newly admitted to Master's programmes in the Academic Year 2026/27.",
+      "observation": "已核2026/27正文与SHA：新入学全日制硕士资格、非本地优先与抽签；常规截止2026-05-27 23:59 HKT且不接受迟交。没有当前补申请轮证明。",
+      "official_snapshot_sha256": "9345a8d682bd8e85e3081be01ddc6f50155f649d0570e474364bcb0988ea4705",
+      "in_research_corpus": false,
+      "local_record": null,
+      "snapshot": {
+        "relative_path": "runs/policy_research/continuation_20261026/S20/approved_retry/response_01.raw.bin",
+        "format": "html_response_body",
+        "byte_semantics": "Decoded HTTP response body from the public browser, not a packet capture",
+        "text_relative_path": "runs/policy_research/continuation_20261026/S20/approved_retry/extracted_fulltext.txt",
+        "text_sha256": "2d884f88807c7b08e9b6f6a062e965326d4a57e334c150478ca901df0a567b46",
+        "retrieved_at_utc": "2026-10-26T08:07:29.181435+00:00",
+        "response_url": "https://www.cityu.edu.hk/sro/StudentHousing/PGHalls/MDS/KLT/",
+        "final_url": "https://www.cityu.edu.hk/sro/StudentHousing/PGHalls/MDS/KLT/",
+        "limitations": "Some menus retained; tables flattened; attachments and personal account state excluded; applicability and human approval separate"
+      }
+    },
+    {
+      "id": "S21",
+      "title": "Ma On Shan Compound for Master’s Degree Students 2026/27",
+      "url": "https://www.cityu.edu.hk/sro/StudentHousing/PGHalls/MDS/MOS.htm",
+      "issuer": "SRO",
+      "locator": "Eligibility / Application Submission / Allocation",
+      "checked_on": "2026-10-26",
+      "access": "official_full_text",
+      "live_result": "http_200_body_verified",
+      "short_quote": "Full-time students studying in Master’s programmes.",
+      "observation": "已核正文与SHA：在读全日制硕士资格、新生优先；页面仅明确新生渠道，旧生提交入口仍待SRO核实。",
+      "official_snapshot_sha256": "169a86a370d61f53a38eaa4ae000ea8feca68aec5c3ab08eb72155afdde53245",
+      "in_research_corpus": false,
+      "local_record": null,
+      "snapshot": {
+        "relative_path": "runs/policy_research/continuation_20261026/S21/approved_retry/response_01.raw.bin",
+        "format": "html_response_body",
+        "byte_semantics": "Decoded HTTP response body from the public browser, not a packet capture",
+        "text_relative_path": "runs/policy_research/continuation_20261026/S21/approved_retry/extracted_fulltext.txt",
+        "text_sha256": "3e9a2d3cadd54b1d97143a5334815c92b82970e86f5c2e9645d7ac0585eff87e",
+        "retrieved_at_utc": "2026-10-26T08:07:35.685414+00:00",
+        "response_url": "https://www.cityu.edu.hk/sro/StudentHousing/PGHalls/MDS/MOS.htm",
+        "final_url": "https://www.cityu.edu.hk/sro/StudentHousing/PGHalls/MDS/MOS.htm",
+        "limitations": "Some menus retained; tables flattened; attachments and personal account state excluded; applicability and human approval separate"
+      }
+    },
+    {
+      "id": "S22",
+      "title": "MOS Master’s — Fees & Payments 2026/27",
+      "url": "https://www.cityu.edu.hk/sro/StudentHousing/PGHalls/MDS/MOS/FeesAndPayment.htm",
+      "issuer": "SRO",
+      "locator": "2026/27 per-person per-semester table / payment conditions",
+      "checked_on": "2026-10-26",
+      "access": "official_full_text",
+      "live_result": "http_200_body_verified",
+      "short_quote": "All charges paid are non-refundable and non-transferrable.",
+      "observation": "已核2026/27专表与SHA，按人／学期及资助类别收费；总览旧年价不替代本表。退款区分学生主动与校方启动，但页面末尾又概括不退，须保留例外并复核。",
+      "official_snapshot_sha256": "1e2411d3beb8de1e3e0718048f6dd37d00bb129fa17317e6bdef98ce71d20fca",
+      "in_research_corpus": false,
+      "local_record": null,
+      "snapshot": {
+        "relative_path": "runs/policy_research/continuation_20261026/S22/approved_retry/response_01.raw.bin",
+        "format": "html_response_body",
+        "byte_semantics": "Decoded HTTP response body from the public browser, not a packet capture",
+        "text_relative_path": "runs/policy_research/continuation_20261026/S22/approved_retry/extracted_fulltext.txt",
+        "text_sha256": "41e6c31a8f57fe127504a6cb3bae8a231e2a47eab34ddb88c3017960ae442691",
+        "retrieved_at_utc": "2026-10-26T08:07:41.672208+00:00",
+        "response_url": "https://www.cityu.edu.hk/sro/StudentHousing/PGHalls/MDS/MOS/FeesAndPayment.htm",
+        "final_url": "https://www.cityu.edu.hk/sro/StudentHousing/PGHalls/MDS/MOS/FeesAndPayment.htm",
+        "limitations": "Some menus retained; tables flattened; attachments and personal account state excluded; applicability and human approval separate"
+      }
+    },
+    {
+      "id": "S23",
+      "title": "Library Regulations",
+      "url": "https://www.cityu.edu.hk/lib/about/libreg/regulat.htm",
+      "issuer": "Library",
+      "locator": "4.7.1–4.7.5 Recall / 4.9.1 Grace Period / 4.10 notices",
+      "checked_on": "2026-10-26",
+      "access": "official_full_text",
+      "live_result": "http_200_body_verified",
+      "short_quote": "A minimum use period of 15 days is guaranteed.",
+      "observation": "已核全文与SHA：召回短借例外、最低15日使用期和分资料类型的宽限；新日期、闭柜台时间与实际罚则分别核对。",
+      "official_snapshot_sha256": "7cd3d61d6bd8a49e8ad88626e6f74aa29dfc340352870e1a2505eab54aba4940",
+      "in_research_corpus": false,
+      "local_record": null,
+      "snapshot": {
+        "relative_path": "runs/policy_research/continuation_20261026/S23/approved_retry/response_01.raw.bin",
+        "format": "html_response_body",
+        "byte_semantics": "Decoded HTTP response body from the public browser, not a packet capture",
+        "text_relative_path": "runs/policy_research/continuation_20261026/S23/approved_retry/extracted_fulltext.txt",
+        "text_sha256": "45b8bacca1dc24f68475177174091c9ad71822f3b1d0cc4a81350786b81593a5",
+        "retrieved_at_utc": "2026-10-26T08:07:48.499928+00:00",
+        "response_url": "https://www.cityu.edu.hk/lib/about/libreg/regulat.htm",
+        "final_url": "https://www.cityu.edu.hk/lib/about/libreg/regulat.htm",
+        "limitations": "Some menus retained; tables flattened; attachments and personal account state excluded; applicability and human approval separate"
+      }
+    },
+    {
+      "id": "S24",
+      "title": "Borrowing of Library Materials",
+      "url": "https://www.cityu.edu.hk/lib/service/loans.htm",
+      "issuer": "Library",
+      "locator": "Renewals / Please note the following",
+      "checked_on": "2026-10-26",
+      "access": "official_full_text",
+      "live_result": "http_200_body_verified",
+      "short_quote": "The new due dates are calculated from the date you renew the items.",
+      "observation": "已核全文与SHA：PG普通借期120日／累计720日，ILL+HKALL为30日／90日；短借、媒体、保留资料不可续；新到期从续借当天计。",
+      "official_snapshot_sha256": "048e25dbad0a9b6736dcda2f663d19a869ad39d2ad54fe6314acbff5850bf4e9",
+      "in_research_corpus": false,
+      "local_record": null,
+      "snapshot": {
+        "relative_path": "runs/policy_research/continuation_20261026/S24/approved_retry/response_01.raw.bin",
+        "format": "html_response_body",
+        "byte_semantics": "Decoded HTTP response body from the public browser, not a packet capture",
+        "text_relative_path": "runs/policy_research/continuation_20261026/S24/approved_retry/extracted_fulltext.txt",
+        "text_sha256": "57f39aa434353eca85f5dcb3be4fb17ac1c2ef7f44083fdd4ad3190e0b853363",
+        "retrieved_at_utc": "2026-10-26T08:07:56.047762+00:00",
+        "response_url": "https://www.cityu.edu.hk/lib/service/loans.htm",
+        "final_url": "https://www.cityu.edu.hk/lib/service/loans.htm",
+        "limitations": "Some menus retained; tables flattened; attachments and personal account state excluded; applicability and human approval separate"
+      }
+    },
+    {
+      "id": "S25",
+      "title": "CityUHK Financial Assistance Scheme — 2026/27",
+      "url": "https://www.cityu.edu.hk/sds/student-life-resources/student-finance/financial-assistance/financial-assistance-schemes/cityu-financial-assistance-scheme",
+      "issuer": "SDS",
+      "locator": "2026/27 Application Period / Eligibility",
+      "checked_on": "2026-10-26",
+      "access": "official_full_text",
+      "live_result": "http_200_body_verified",
+      "short_quote": "Local full-time UGC-funded undergraduate students",
+      "observation": "已核公开全文及SHA。主轮截止2026-09-25 17:00已过；本地、全日制、UGC资助、本科及经济需要须同时满足。未确认后续轮次。",
+      "official_snapshot_sha256": "d2e85f13d3815cfc7b2dcf535fdcd40ca1258f0cc6e00eaad3ee58e0a148cd0d",
+      "in_research_corpus": false,
+      "local_record": null,
+      "snapshot": {
+        "relative_path": "runs/policy_research/continuation_20261026/S25/approved_retry/response_01.raw.bin",
+        "format": "html_response_body",
+        "byte_semantics": "Decoded HTTP response body from the public browser, not a packet capture",
+        "text_relative_path": "runs/policy_research/continuation_20261026/S25/approved_retry/extracted_fulltext.txt",
+        "text_sha256": "50a58643c2fd096f47859db730fd1fe996183d9791a13f49359a74991bc06240",
+        "retrieved_at_utc": "2026-10-26T08:08:03.975379+00:00",
+        "response_url": "https://www.cityu.edu.hk/sds/student-life-resources/student-finance/financial-assistance/financial-assistance-schemes/cityu-financial-assistance-scheme",
+        "final_url": "https://www.cityu.edu.hk/sds/student-life-resources/student-finance/financial-assistance/financial-assistance-schemes/cityu-financial-assistance-scheme",
+        "limitations": "Some menus retained; tables flattened; attachments and personal account state excluded; applicability and human approval separate"
+      }
+    },
+    {
+      "id": "S26",
+      "title": "Financial Assistance Schemes — by student category",
+      "url": "https://www.cityu.edu.hk/sds/student-life-resources/student-finance/financial-assistance/financial-assistance-schemes",
+      "issuer": "SDS",
+      "locator": "Non-local full-time / local part-time or self-financing / research students",
+      "checked_on": "2026-10-26",
+      "access": "official_index",
+      "live_result": "full_text_not_obtained",
+      "short_quote": "For non-local full-time students with emergency financial need",
+      "observation": "非本地紧急援助、ENLS及获studentship研究生临时贷款是不同渠道；概览不是授课型硕士个人资格或获批证明。",
+      "official_snapshot_sha256": null,
+      "in_research_corpus": false,
+      "local_record": null
+    },
+    {
+      "id": "S27",
+      "title": "CityUHK Emergency Fund",
+      "url": "https://www.cityu.edu.hk/sds/student-life-resources/student-finance/financial-assistance/financial-assistance-schemes/cityu-emergency-fund",
+      "issuer": "SDS",
+      "locator": "Introduction / application appointment / funding availability",
+      "checked_on": "2026-10-26",
+      "access": "official_index",
+      "live_result": "full_text_not_obtained",
+      "short_quote": "Applications will be processed subject to the availability of funding.",
+      "observation": "索引称本地全日制学生突发经济困难可全年提出、先预约；具体基金清单仍标2025/26，当前学年及TPG适用性另核。",
+      "official_snapshot_sha256": null,
+      "in_research_corpus": false,
+      "local_record": null
+    },
+    {
+      "id": "S28",
+      "title": "SGS Course Registration — Quick Guide",
+      "url": "https://www.cityu.edu.hk/sgs/student/masters/coursereg/guide",
+      "issuer": "SGS",
+      "locator": "Key Dates for Semester A 2026/27",
+      "checked_on": "2026-10-26",
+      "access": "official_full_text",
+      "live_result": "http_200_body_verified",
+      "short_quote": "Application for exceeding/reduced study load",
+      "observation": "已核公开全文及SHA。非网上课程加退课与修读负荷调整的截止日分别为2026-09-07和2026-09-12，均已过；没有补造统一截止时刻或迟交获批承诺。",
+      "official_snapshot_sha256": "2b15d6cc6b434183a88c37f2080aad544ad285602dde4f45806f713b5682b3d4",
+      "in_research_corpus": false,
+      "local_record": null,
+      "snapshot": {
+        "relative_path": "runs/policy_research/continuation_20261026/S28/approved_retry/response_01.raw.bin",
+        "format": "html_response_body",
+        "byte_semantics": "Decoded HTTP response body from the public browser, not a packet capture",
+        "text_relative_path": "runs/policy_research/continuation_20261026/S28/approved_retry/extracted_fulltext.txt",
+        "text_sha256": "37ff1a110ff038d0d234b7abc2e1469bfcbaf2e8d2c150170615cd04f89bc24b",
+        "retrieved_at_utc": "2026-10-26T08:08:12.391271+00:00",
+        "response_url": "https://www.cityu.edu.hk/sgs/student/masters/coursereg/guide",
+        "final_url": "https://www.cityu.edu.hk/sgs/student/masters/coursereg/guide",
+        "limitations": "Some menus retained; tables flattened; attachments and personal account state excluded; applicability and human approval separate"
+      }
+    },
+    {
+      "id": "S29",
+      "title": "SGS Web Registration — Semester A 2026/27",
+      "url": "https://www.cityu.edu.hk/en/sgs/student/masters/coursereg/web",
+      "issuer": "SGS",
+      "locator": "For Semester A 2026/27 / two rounds / time-tickets",
+      "checked_on": "2026-10-26",
+      "access": "official_full_text",
+      "live_result": "http_200_body_verified",
+      "short_quote": "each student will be assigned two time-tickets",
+      "observation": "已核公开全文及SHA。第2轮正文截止2026-09-07 23:30已过；起始按届别／学院及个人time-ticket错开。此页独立支持时间，不等于S16标题正文冲突已修复。",
+      "official_snapshot_sha256": "4454838e08e0dc870119bf8f826651546c6174511b7536cc86b09462f05b84cd",
+      "in_research_corpus": false,
+      "local_record": null,
+      "snapshot": {
+        "relative_path": "runs/policy_research/continuation_20261026/S29/approved_retry/response_01.raw.bin",
+        "format": "html_response_body",
+        "byte_semantics": "Decoded HTTP response body from the public browser, not a packet capture",
+        "text_relative_path": "runs/policy_research/continuation_20261026/S29/approved_retry/extracted_fulltext.txt",
+        "text_sha256": "d5b08c1725a636b89aa0f7a7cc41b65f58884f0bbfe19d186fdb7287947408d7",
+        "retrieved_at_utc": "2026-10-26T08:08:23.687050+00:00",
+        "response_url": "https://www.cityu.edu.hk/en/sgs/student/masters/coursereg/web",
+        "final_url": "https://www.cityu.edu.hk/en/sgs/student/masters/coursereg/web",
+        "limitations": "Some menus retained; tables flattened; attachments and personal account state excluded; applicability and human approval separate"
+      }
+    },
+    {
+      "id": "S30",
+      "title": "SGS Examination Information",
+      "url": "https://www.cityu.edu.hk/sgs/student/masters/exam/info",
+      "issuer": "SGS",
+      "locator": "Key Dates for Semester A 2026/27 Final Examinations",
+      "checked_on": "2026-10-26",
+      "access": "official_full_text",
+      "live_result": "http_200_body_verified",
+      "short_quote": "Publish Examination Timetable",
+      "observation": "已核公开全文及SHA。正文列考试期2026-12-07至12-19，时间表教学第10周公布；不是个人课程的考试日期或座位表。",
+      "official_snapshot_sha256": "214912f71461591c8ece1769455eed88998b12bf6d275ad23c6a02aa25b5f287",
+      "in_research_corpus": false,
+      "local_record": null,
+      "snapshot": {
+        "relative_path": "runs/policy_research/continuation_20261026/S30/approved_retry/response_01.raw.bin",
+        "format": "html_response_body",
+        "byte_semantics": "Decoded HTTP response body from the public browser, not a packet capture",
+        "text_relative_path": "runs/policy_research/continuation_20261026/S30/approved_retry/extracted_fulltext.txt",
+        "text_sha256": "6b3dd34685f800ba00a787bbd3610a4839d073d2910874872b4b40a847db51fd",
+        "retrieved_at_utc": "2026-10-26T08:08:30.365614+00:00",
+        "response_url": "https://www.cityu.edu.hk/sgs/student/masters/exam/info",
+        "final_url": "https://www.cityu.edu.hk/sgs/student/masters/exam/info",
+        "limitations": "Some menus retained; tables flattened; attachments and personal account state excluded; applicability and human approval separate"
+      }
     }
   ],
   "rules": [
@@ -398,16 +806,17 @@
       "topics": [
         "registration"
       ],
-      "summary_zh": "先匹配入学届别的条例",
+      "summary_zh": "按入学届别与PCLL身份选条例，近似路径本轮正文相同",
       "audience": "TPG；PCLL及不同入学届别须另核对",
-      "statement": "Select the academic regulations applicable to the admission cohort and programme.",
-      "qualifications": "入学届别、当前学年、规则生效日期不能混为一个academic_year字段。",
+      "statement": "The main text applies before 2022/23 or from 2024/25 onward, and to all PCLL students; other 2022/23–Summer 2024 entrants use separately linked regulations.",
+      "qualifications": "主文本自2024/25生效；两路径本轮提取正文SHA相同，不代表所有历史版本相同。2022/23至Summer2024非PCLL专用PDF未取得；该范围仍不得据主文本细则判断。",
       "kind": "official_summary",
       "admission_cohort": null,
       "academic_year": null,
       "effective_from": null,
       "source_ids": [
-        "S05"
+        "S05",
+        "S19"
       ],
       "review_status": "candidate",
       "reviewer_roles": []
@@ -422,7 +831,7 @@
       "summary_zh": "休学与退学分流",
       "audience": "TPG，个人状态与条件需补齐",
       "statement": "Leave of absence and withdrawal of studies are different procedures with separate conditions and consequences.",
-      "qualifications": "流程只提供核对路径；不默认休学批准、无限延期或学费豁免。",
+      "qualifications": "休学申请由学术单位Head审批，回执不等于批准，决定后在AIMS查看结果；退学按正式通知规则生效。两者的课程、费用、住宿及签证后果分别核。",
       "kind": "official_summary",
       "admission_cohort": null,
       "academic_year": null,
@@ -450,7 +859,7 @@
       "effective_from": null,
       "source_ids": [
         "S07",
-        "S08"
+        "S17"
       ],
       "review_status": "candidate",
       "reviewer_roles": []
@@ -469,7 +878,8 @@
       "academic_year": null,
       "effective_from": null,
       "source_ids": [
-        "S09"
+        "S09",
+        "S18"
       ],
       "review_status": "candidate",
       "reviewer_roles": []
@@ -490,7 +900,7 @@
       "effective_from": null,
       "source_ids": [
         "S07",
-        "S08"
+        "S18"
       ],
       "review_status": "candidate",
       "reviewer_roles": []
@@ -509,7 +919,9 @@
       "academic_year": "2026-2027",
       "effective_from": null,
       "source_ids": [
-        "S10"
+        "S10",
+        "S20",
+        "S21"
       ],
       "review_status": "candidate",
       "reviewer_roles": []
@@ -520,16 +932,17 @@
         "residence",
         "fees"
       ],
-      "summary_zh": "旧年参考住宿费不能作现价",
+      "summary_zh": "住宿总览旧参考价与当年专表须分别核实",
       "audience": "需要核对2026/27硕士住宿费用者",
       "statement": "A previous-year reference fee is not confirmation of the current housing fee.",
-      "qualifications": "来源页面列有2025/26参考信息；没有据此计算2026/27应付金额，申请窗口也需重查。",
+      "qualifications": "S22的2026/27专表现已取得全文；S10总览仍保留旧年参考价。按资助类别及费种选择对应专表，旧价不覆盖当年专表，个人应付额仍核实际offer／账单。",
       "kind": "research_guard",
       "admission_cohort": null,
       "academic_year": "2026-2027",
       "effective_from": null,
       "source_ids": [
-        "S10"
+        "S10",
+        "S22"
       ],
       "review_status": "candidate",
       "reviewer_roles": []
@@ -539,16 +952,16 @@
       "topics": [
         "library"
       ],
-      "summary_zh": "多次续借受累计期限限制",
+      "summary_zh": "PG普通借期120日、累计720日；ILL为30日／90日",
       "audience": "图书馆可续借资料；按用户及资料类别核对",
-      "statement": "Repeated renewals remain subject to the applicable maximum renewal period.",
-      "qualifications": "不把unlimited number of renewals解读为无限借期；具体天数不在本草案转录。",
+      "statement": "For PG borrowers, normal loans have a 120-day loan period and 720-day maximum renewal period; ILL+HKALL uses 30 and 90 days respectively.",
+      "qualifications": "以S24对应借阅人／资料行适用为前提；累计从首次借出计，召回可提前到期，不将次数不限解释为无限借期。S11入门指南没有本表；不是所有用户都用PG额度。",
       "kind": "official_summary",
       "admission_cohort": null,
       "academic_year": null,
       "effective_from": null,
       "source_ids": [
-        "S11"
+        "S24"
       ],
       "review_status": "candidate",
       "reviewer_roles": []
@@ -688,6 +1101,485 @@
       ],
       "review_status": "candidate",
       "reviewer_roles": []
+    },
+    {
+      "id": "R20",
+      "topics": [
+        "registration"
+      ],
+      "summary_zh": "休学应在加退课期结束前申请，教学期后不受理",
+      "audience": "拟申请TPG休学者",
+      "statement": "Apply by the end of the add/drop period; applications submitted after the teaching period are not considered.",
+      "qualifications": "通过AIMS的Student Record→My Applications→Leave of Absence提交；证明可在提交后4个日历日内补传。程序add/drop与费用Week 2分界分开核当年专业日历。",
+      "kind": "official_summary",
+      "admission_cohort": null,
+      "academic_year": null,
+      "effective_from": null,
+      "source_ids": [
+        "S06"
+      ],
+      "review_status": "candidate",
+      "reviewer_roles": []
+    },
+    {
+      "id": "R21",
+      "topics": [
+        "registration"
+      ],
+      "summary_zh": "休学至少一整学期／term，每次不超一学年",
+      "audience": "按适用硕士条例申请休学者",
+      "statement": "Leave must last at least one full semester or term; each application covers at most one academic year and the usual cumulative maximum is four semesters.",
+      "qualifications": "保留normally；超四学期需Dean例外批准。休学计入最长修读年限，不能默认延长；不擅自添加暑期不计入的结论。累计已用时长与复学手续须由SGS核实。",
+      "kind": "official_summary",
+      "admission_cohort": null,
+      "academic_year": null,
+      "effective_from": null,
+      "source_ids": [
+        "S06"
+      ],
+      "review_status": "candidate",
+      "reviewer_roles": []
+    },
+    {
+      "id": "R22",
+      "topics": [
+        "registration",
+        "fees"
+      ],
+      "summary_zh": "休学晚申请须分A/B与Summer收费",
+      "audience": "TPG休学申请及相关学期费用核对",
+      "statement": "Late leave attracts 50% in Weeks 3–6 and 100% from Week 7 in Semesters A/B; Summer uses Week 3 and Week 4 onward respectively.",
+      "qualifications": "A/B按学分收费须与最低两学分金额取较高值。SGS细则对Summer也写最低额，FO暑期表未重复此项，不能自行视为豁免；早申请continuation fee另见R40。实际课程与特别批准另核。",
+      "kind": "official_summary",
+      "admission_cohort": null,
+      "academic_year": null,
+      "effective_from": null,
+      "source_ids": [
+        "S06",
+        "S18"
+      ],
+      "review_status": "candidate",
+      "reviewer_roles": []
+    },
+    {
+      "id": "R23",
+      "topics": [
+        "registration"
+      ],
+      "summary_zh": "退学须在通知后10工作日内清结义务",
+      "audience": "拟终止TPG学业者",
+      "statement": "Clear outstanding matters within 10 working days after withdrawal notification; notices during or after the examination period take effect next semester.",
+      "qualifications": "10工作日为清结欠费、借阅等，并非审批耗时；通常按AIMS提交日生效，考试期内／后转下学期。SGS与非本地说明对离境时限起算用语不同，不据此推算个人离境日。",
+      "kind": "official_summary",
+      "admission_cohort": null,
+      "academic_year": null,
+      "effective_from": null,
+      "source_ids": [
+        "S07"
+      ],
+      "review_status": "candidate",
+      "reviewer_roles": []
+    },
+    {
+      "id": "R24",
+      "topics": [
+        "registration",
+        "fees"
+      ],
+      "summary_zh": "退学也有50%／100%收费分段",
+      "audience": "TPG正式退学者及其适用收费学期",
+      "statement": "Withdrawal by the end of Week 2 normally incurs no tuition; late withdrawal follows different Semester A/B and Summer fee bands.",
+      "qualifications": "A/B第3–6周50%、第7周起100%；Summer第3周50%、第4周起100%。SGS细则列最低两学分，FO暑期表未重复该脚注，需核口径；接受费不退，其他退费按费种及正式生效时点另核。",
+      "kind": "official_summary",
+      "admission_cohort": null,
+      "academic_year": null,
+      "effective_from": null,
+      "source_ids": [
+        "S07",
+        "S18"
+      ],
+      "review_status": "candidate",
+      "reviewer_roles": []
+    },
+    {
+      "id": "R25",
+      "topics": [
+        "fees",
+        "calendar"
+      ],
+      "summary_zh": "付款表须保留flat／per-credit及两次账单",
+      "audience": "2026/27 TPG按适用付款表及本人账单核对",
+      "statement": "The 2026/27 schedule distinguishes flat-fee payments from per-credit first and second statements, and separately lists Summer Term 2027.",
+      "qualifications": "日期见下方结构化表；按学分收费还区分2019或以前届别的两学分预缴、2020起届别的分期抵扣。不是通用三个截止日；申请休学／退学等待结果时仍需核付款义务，不能自行停付。",
+      "kind": "official_summary",
+      "admission_cohort": null,
+      "academic_year": "2026-2027",
+      "effective_from": null,
+      "source_ids": [
+        "S18"
+      ],
+      "review_status": "candidate",
+      "reviewer_roles": []
+    },
+    {
+      "id": "R26",
+      "topics": [
+        "visa_geo",
+        "admission"
+      ],
+      "summary_zh": "签证可能需8周或更久，材料不全不处理",
+      "audience": "适用ADMO非本地新生签证通道者；TPG须另核SGS入口",
+      "statement": "The published visa guidance warns processing may take eight weeks or longer and incomplete applications cannot be processed.",
+      "qualifications": "这是处理估计而非获批保证；不能从首次发件日推算固定完成日。先核SGS／ADMO适用通道、接收、完整材料与正式决定，勿套用于所有签证类别。",
+      "kind": "official_summary",
+      "admission_cohort": null,
+      "academic_year": null,
+      "effective_from": null,
+      "source_ids": [
+        "S03",
+        "S04"
+      ],
+      "review_status": "candidate",
+      "reviewer_roles": []
+    },
+    {
+      "id": "R27",
+      "topics": [
+        "residence"
+      ],
+      "summary_zh": "KLNT硕士渠道：新生资格、非本地优先、抽签",
+      "audience": "2026/27新入学全日制硕士",
+      "statement": "KLNT eligibility is for newly admitted full-time master’s students in 2026/27; non-local applicants receive priority and allocation is by lottery.",
+      "qualifications": "2026-05-27原定截止已过；当前补申请／床位未确认。优先权和合资格都不等于保证分配；全年床位及两期付款另看offer。",
+      "kind": "official_summary",
+      "admission_cohort": null,
+      "academic_year": "2026-2027",
+      "effective_from": null,
+      "source_ids": [
+        "S20"
+      ],
+      "review_status": "candidate",
+      "reviewer_roles": []
+    },
+    {
+      "id": "R28",
+      "topics": [
+        "residence"
+      ],
+      "summary_zh": "MOS资格不限于新生，但新生优先",
+      "audience": "全日制在读硕士；2026/27申请渠道",
+      "statement": "MOS accepts full-time master’s students and prioritises new 2026/27 entrants; oversubscription may be resolved by lottery.",
+      "qualifications": "不要将KLNT只限新生的资格搬来MOS；MOS页面明确新生提交方式，旧生入口须问SRO。房型取决于供应，不能承诺PG楼或床位。",
+      "kind": "official_summary",
+      "admission_cohort": null,
+      "academic_year": "2026-2027",
+      "effective_from": null,
+      "source_ids": [
+        "S21"
+      ],
+      "review_status": "candidate",
+      "reviewer_roles": []
+    },
+    {
+      "id": "R29",
+      "topics": [
+        "residence",
+        "fees"
+      ],
+      "summary_zh": "MOS当年专表按人、学期及资助类别收费",
+      "audience": "2026/27 MOS双人房对应资助类别的住宿者",
+      "statement": "The 2026/27 MOS fee table is per person per semester: HK$15,550 for UGC-funded and HK$19,450 for non-UGC-funded programmes.",
+      "qualifications": "已核Hall 13及14–17双人房2026/27专表全文；不是全年或整间房价。空调、洗衣及寝具另计；全年床位分两期付款，仍按实际offer／账单确认。旧年总览价不用来替代专表。",
+      "kind": "official_summary",
+      "admission_cohort": null,
+      "academic_year": "2026-2027",
+      "effective_from": null,
+      "source_ids": [
+        "S22"
+      ],
+      "review_status": "candidate",
+      "reviewer_roles": []
+    },
+    {
+      "id": "R30",
+      "topics": [
+        "library"
+      ],
+      "summary_zh": "召回的15日规则有短借例外",
+      "audience": "普通流通借阅且受到召回者",
+      "statement": "Recall rules exclude loans of 15 days or less; a recall requires return within 15 days or by the original due date, whichever is earlier.",
+      "qualifications": "条文另保障最低15日使用期；不能简化成收到召回后必可再借15日。以系统新日期核对；ILL、HKALL及其他资料另查专门规定。",
+      "kind": "official_summary",
+      "admission_cohort": null,
+      "academic_year": null,
+      "effective_from": null,
+      "source_ids": [
+        "S23"
+      ],
+      "review_status": "candidate",
+      "reviewer_roles": []
+    },
+    {
+      "id": "R31",
+      "topics": [
+        "library"
+      ],
+      "summary_zh": "三日宽限不是借期延长",
+      "audience": "普通／召回资料且适用该宽限条文者",
+      "statement": "A three-calendar-day grace period is not an extension; if exceeded, fines run from the actual due date.",
+      "qualifications": "未收到或未读通知不自动免罚；不将三日规则扩展至所有保留资料或媒体。资料类型、闭馆日与现行罚率仍需核对。",
+      "kind": "official_summary",
+      "admission_cohort": null,
+      "academic_year": null,
+      "effective_from": null,
+      "source_ids": [
+        "S23"
+      ],
+      "review_status": "candidate",
+      "reviewer_roles": []
+    },
+    {
+      "id": "R32",
+      "topics": [
+        "library"
+      ],
+      "summary_zh": "续借会受预约、罚款和权限阻断",
+      "audience": "支持续借的资料及借阅人",
+      "statement": "Renewal dates run from the renewal date; holds, long-overdue items, fines exceeding HK$30 or suspended borrowing privileges can prevent renewal.",
+      "qualifications": "超过HK$30不能改成大于等于；短借、媒体及表列保留资料不可续借。累计上限从首次借出计算，新日期从续借当天计；失败不延长有效到期日，须按期归还。",
+      "kind": "official_summary",
+      "admission_cohort": null,
+      "academic_year": null,
+      "effective_from": null,
+      "source_ids": [
+        "S24"
+      ],
+      "review_status": "candidate",
+      "reviewer_roles": []
+    },
+    {
+      "id": "R33",
+      "topics": [
+        "scholarship",
+        "calendar"
+      ],
+      "summary_zh": "常规主轮援助限特定本科群体",
+      "audience": "2026/27 CityUHK Financial Assistance Scheme主轮",
+      "statement": "Eligibility requires local, full-time, UGC-funded undergraduate status and genuine financial need.",
+      "qualifications": "不能扩展至TPG；本轮2026-09-25 17:00已截止。迟交或不完整申请无合理解释通常不受理；未确认第二轮，不能承诺重新开放。",
+      "kind": "official_summary",
+      "admission_cohort": null,
+      "academic_year": "2026-2027",
+      "effective_from": null,
+      "source_ids": [
+        "S25"
+      ],
+      "review_status": "candidate",
+      "reviewer_roles": []
+    },
+    {
+      "id": "R34",
+      "topics": [
+        "scholarship"
+      ],
+      "summary_zh": "非本地紧急援助另有分流入口",
+      "audience": "非本地全日制、发生紧急经济需要者",
+      "statement": "The schemes list a separate emergency fund for non-local full-time students with emergency financial need.",
+      "qualifications": "指向Jennifer and Haywood Cheung Emergency Fund，须再核基金细则与TPG资格；获studentship研究生临时贷款及本地ENLS不能与之混同。概览不是个人符合资格的结论。",
+      "kind": "official_summary",
+      "admission_cohort": null,
+      "academic_year": null,
+      "effective_from": null,
+      "source_ids": [
+        "S26"
+      ],
+      "review_status": "candidate",
+      "reviewer_roles": []
+    },
+    {
+      "id": "R35",
+      "topics": [
+        "scholarship"
+      ],
+      "summary_zh": "本地紧急援助全年可提出但受资金限制",
+      "audience": "本地全日制突发经济困难学生；具体基金适用性待核",
+      "statement": "Emergency assistance may be sought year-round by eligible local full-time students, subject to funding and an SDS appointment.",
+      "qualifications": "全年可提出不代表随时有资金；个别基金清单仍标2025/26，2026/27名单及TPG适用性待核，不能套常规本科主轮截止日。",
+      "kind": "official_summary",
+      "admission_cohort": null,
+      "academic_year": null,
+      "effective_from": null,
+      "source_ids": [
+        "S27"
+      ],
+      "review_status": "candidate",
+      "reviewer_roles": []
+    },
+    {
+      "id": "R36",
+      "topics": [
+        "calendar",
+        "registration"
+      ],
+      "summary_zh": "非网上加退课与负荷调整截止不同",
+      "audience": "2026/27 Semester A硕士相关手续",
+      "statement": "Non-web add/drop runs from 10 August to 7 September 2026; exceeding/reduced-load applications run from 10 August to 12 September 2026.",
+      "qualifications": "截至2026-10-26两窗口均已结束；页面没有统一每日截止时刻则不补造。迟交或例外走SGS核实，不能承诺可以办理。",
+      "kind": "official_summary",
+      "admission_cohort": null,
+      "academic_year": "2026-2027",
+      "effective_from": null,
+      "source_ids": [
+        "S28"
+      ],
+      "review_status": "candidate",
+      "reviewer_roles": []
+    },
+    {
+      "id": "R37",
+      "topics": [
+        "calendar",
+        "registration"
+      ],
+      "summary_zh": "网上选课分两轮并看个人time-ticket",
+      "audience": "2026/27 Semester A硕士网上选课",
+      "statement": "Round one covers programme-related courses; round two covers all courses, with individual time-tickets and a published round-two end of 7 September 2026 at 23:30.",
+      "qualifications": "Elder Academy、内地校区、外出交换／合作项目、visiting等类别不适用网上选课；课程还须WEB=Y并满足先修及课程限制。“all courses”是轮次范围，不保证人人可选所有课。个别time-ticket另核；窗口已结束，S16冲突仍待核。",
+      "kind": "official_summary",
+      "admission_cohort": null,
+      "academic_year": "2026-2027",
+      "effective_from": null,
+      "source_ids": [
+        "S29"
+      ],
+      "review_status": "candidate",
+      "reviewer_roles": []
+    },
+    {
+      "id": "R38",
+      "topics": [
+        "calendar",
+        "registration"
+      ],
+      "summary_zh": "考试期不能替代个人考试表",
+      "audience": "2026/27 Semester A硕士期末考试",
+      "statement": "The published examination period is 7–19 December 2026; individual timetables and seat assignments must still be checked.",
+      "qualifications": "时间表列教学第10周公布；截至2026-10-26考试期尚未开始。不能据整个考试期推断某门课程考试日，天气改期及课程例外另核。",
+      "kind": "official_summary",
+      "admission_cohort": null,
+      "academic_year": "2026-2027",
+      "effective_from": null,
+      "source_ids": [
+        "S30"
+      ],
+      "review_status": "candidate",
+      "reviewer_roles": []
+    },
+    {
+      "id": "R39",
+      "topics": [
+        "registration",
+        "visa_geo"
+      ],
+      "summary_zh": "首学期休学与退学分别核对签证担保后果",
+      "audience": "非本地学生签证持有人，首学期休学或正式退学",
+      "statement": "First-semester leave for non-local student-visa holders withdraws visa sponsorship; withdrawal of studies has its own notification and immigration consequences.",
+      "qualifications": "SGS休学页列首学期休学从生效日起4周或签证到期取早；退学页列从通知提交日起4周或签证到期取早。两者起算不同；个人条件与现行移民要求须向SGS／相关主管机关核实。",
+      "kind": "official_summary",
+      "admission_cohort": null,
+      "academic_year": null,
+      "effective_from": null,
+      "source_ids": [
+        "S06",
+        "S07"
+      ],
+      "review_status": "candidate",
+      "reviewer_roles": []
+    },
+    {
+      "id": "R40",
+      "topics": [
+        "registration",
+        "fees"
+      ],
+      "summary_zh": "早申请休学仍有continuation fee，Summer为零",
+      "audience": "TPG；具体学期、入学状态与批准条件需补齐",
+      "statement": "An approved early leave carries a continuation fee of HK$1,500 per semester, with no continuation fee in Summer.",
+      "qualifications": "申请于Week 2结束前提交且随后获批准，才按相应条件收continuation fee；不要求审批也在Week 2前完成。Summer零continuation fee不代表其他费用全免，实际账户另核。",
+      "kind": "official_summary",
+      "admission_cohort": null,
+      "academic_year": null,
+      "effective_from": null,
+      "source_ids": [
+        "S06",
+        "S17"
+      ],
+      "review_status": "candidate",
+      "reviewer_roles": []
+    },
+    {
+      "id": "R41",
+      "topics": [
+        "registration",
+        "fees"
+      ],
+      "summary_zh": "申请程序时点与费用分界不能混为同一日期",
+      "audience": "TPG；具体学期、入学状态与批准条件需补齐",
+      "statement": "Keep the procedural add/drop timing separate from the Week 2 fee boundary and map each to the applicable programme calendar.",
+      "qualifications": "申请程序与收费分界分别核专业日历；SGS收费周次以周日为每周首日。非标准校历课程按专业规定，不直接用选课截止换算休学截止。",
+      "kind": "research_guard",
+      "admission_cohort": null,
+      "academic_year": null,
+      "effective_from": null,
+      "source_ids": [
+        "S06",
+        "S18",
+        "S28"
+      ],
+      "review_status": "candidate",
+      "reviewer_roles": []
+    },
+    {
+      "id": "R42",
+      "topics": [
+        "residence",
+        "fees",
+        "registration"
+      ],
+      "summary_zh": "MOS退宿须区分主动退出与校方启动的退款例外",
+      "audience": "2026/27 MOS住宿者，原因及费种须明确",
+      "statement": "The MOS refund section distinguishes student-initiated early withdrawal from University-initiated withdrawal; the confirmation fee remains non-refundable.",
+      "qualifications": "学生因休学等主动提早退出一般不退；校方因学术／纪律等启动的条款列住宿费按日比例退、确认费除外。同页末尾又概括已付不退，需SRO核例外，不能丢掉该分支或自行计算。",
+      "kind": "official_summary",
+      "admission_cohort": null,
+      "academic_year": "2026-2027",
+      "effective_from": null,
+      "source_ids": [
+        "S22"
+      ],
+      "review_status": "candidate",
+      "reviewer_roles": []
+    },
+    {
+      "id": "R43",
+      "topics": [
+        "registration",
+        "scholarship"
+      ],
+      "summary_zh": "当年申请所列政府资助者，休学／退学须另行书面通知",
+      "audience": "本学年申请Local Student Finance Scheme或Non-means-tested Loan Scheme者",
+      "statement": "Applicants to the listed finance or loan schemes must immediately notify SFAA in writing of leave or withdrawal; assistance may be adjusted.",
+      "qualifications": "这项通知独立于大学账户清结；资助超额须按要求退还。不适用者跳过，申请状态不明先核实，不将本义务扩展到所有学生。",
+      "kind": "official_summary",
+      "admission_cohort": null,
+      "academic_year": null,
+      "effective_from": null,
+      "source_ids": [
+        "S06",
+        "S07"
+      ],
+      "review_status": "candidate",
+      "reviewer_roles": []
     }
   ],
   "workflows": [
@@ -794,13 +1686,13 @@
       "nodes": [
         {
           "id": "a",
-          "label": "确认身份、学位与入境目标",
+          "label": "补齐身份、学位、通道、offer与预期到港时间",
           "kind": "context",
           "rule_ids": []
         },
         {
           "id": "b",
-          "label": "是否需要对应学生签证或许可",
+          "label": "是否需要该类别学生签证／入境许可",
           "kind": "policy",
           "rule_ids": [
             "R03"
@@ -808,31 +1700,50 @@
         },
         {
           "id": "c",
-          "label": "按适用官方渠道核对担保及材料",
+          "label": "按SGS／ADMO适用入口核对完整材料",
           "kind": "policy",
           "rule_ids": [
-            "R04"
+            "R04",
+            "R26"
           ]
         },
         {
           "id": "d",
-          "label": "提交后等待处理，缺件按通知处理",
+          "label": "材料是否已被确认为齐全",
+          "kind": "context",
+          "rule_ids": []
+        },
+        {
+          "id": "e",
+          "label": "按要求补件；不从首次发件日倒推保证日期",
           "kind": "policy",
+          "rule_ids": [
+            "R26"
+          ]
+        },
+        {
+          "id": "f",
+          "label": "可能8周或更久；不是承诺日期；等待正式决定",
+          "kind": "policy",
+          "rule_ids": [
+            "R26"
+          ]
+        },
+        {
+          "id": "z",
+          "label": "获批／待批／补件分开；公开知识库不能确定个人状态",
+          "kind": "end",
           "rule_ids": [
             "R04"
           ]
         },
         {
-          "id": "z",
-          "label": "无法从公开知识库判断个人获批状态",
-          "kind": "end",
-          "rule_ids": []
-        },
-        {
           "id": "y",
-          "label": "其他身份：转对应官方说明",
+          "label": "其他身份或不明确：先核适用官方通道",
           "kind": "end",
-          "rule_ids": []
+          "rule_ids": [
+            "R03"
+          ]
         }
       ],
       "edges": [
@@ -849,7 +1760,7 @@
         {
           "source": "b",
           "target": "y",
-          "condition": "不适用或不确定"
+          "condition": "不适用或待确认"
         },
         {
           "source": "c",
@@ -858,6 +1769,21 @@
         },
         {
           "source": "d",
+          "target": "e",
+          "condition": "否／不明"
+        },
+        {
+          "source": "e",
+          "target": "z",
+          "condition": "补件不等于获批"
+        },
+        {
+          "source": "d",
+          "target": "f",
+          "condition": "已确认齐全"
+        },
+        {
+          "source": "f",
           "target": "z",
           "condition": ""
         }
@@ -872,13 +1798,13 @@
       "nodes": [
         {
           "id": "a",
-          "label": "明确TPG专业、入学届别与目标",
+          "label": "明确TPG专业、届别、学期及临时／永久中断目标",
           "kind": "context",
           "rule_ids": []
         },
         {
           "id": "b",
-          "label": "匹配适用条例",
+          "label": "先核适用条例版本；不混用近似URL细则",
           "kind": "policy",
           "rule_ids": [
             "R05"
@@ -886,42 +1812,146 @@
         },
         {
           "id": "c",
-          "label": "暂时中断还是终止学业",
-          "kind": "policy",
-          "rule_ids": [
-            "R06"
-          ]
+          "label": "选择临时休学或永久退学",
+          "kind": "context",
+          "rule_ids": []
         },
         {
           "id": "d",
-          "label": "休学：核对条件与申请要求",
+          "label": "区分程序add/drop与收费Week 2；是否已过教学期",
           "kind": "policy",
           "rule_ids": [
-            "R06"
+            "R20",
+            "R41"
           ]
         },
         {
           "id": "e",
-          "label": "退学：按对应手续办理",
+          "label": "至少一整学期／term；每次≤一学年；累计通常≤四学期",
           "kind": "policy",
           "rule_ids": [
-            "R07"
+            "R21"
           ]
         },
         {
           "id": "f",
-          "label": "独立核对费用、退款及非本地签证事项",
+          "label": "核continuation fee；晚申请分A/B与Summer及两学分最低额",
           "kind": "policy",
           "rule_ids": [
+            "R22",
+            "R40"
+          ]
+        },
+        {
+          "id": "g",
+          "label": "正式退学通知；10工作日内清结欠费、借阅等",
+          "kind": "policy",
+          "rule_ids": [
+            "R07",
+            "R23"
+          ]
+        },
+        {
+          "id": "h",
+          "label": "通知是否在考试期内或之后",
+          "kind": "context",
+          "rule_ids": []
+        },
+        {
+          "id": "i",
+          "label": "该类通知下学期生效；核对相关学期费用",
+          "kind": "policy",
+          "rule_ids": [
+            "R23",
+            "R24"
+          ]
+        },
+        {
+          "id": "j",
+          "label": "考试期前按AIMS提交日及适用生效学期核费用",
+          "kind": "policy",
+          "rule_ids": [
+            "R23",
+            "R24"
+          ]
+        },
+        {
+          "id": "k",
+          "label": "另核退款、课程、住宿与非本地签证后果",
+          "kind": "policy",
+          "rule_ids": [
+            "R06",
             "R09",
-            "R03"
+            "R39",
+            "R42"
+          ]
+        },
+        {
+          "id": "y",
+          "label": "超时、超限或证据不明：向SGS／学院核实例外",
+          "kind": "end",
+          "rule_ids": [
+            "R20",
+            "R21"
           ]
         },
         {
           "id": "z",
-          "label": "等待对应部门决定；不推定已批准",
+          "label": "休学等待审批；等待期间仍核账单，不自行停付",
           "kind": "end",
+          "rule_ids": [
+            "R06",
+            "R09"
+          ]
+        },
+        {
+          "id": "m",
+          "label": "休学计入最长修读年限；核复学后的剩余期限",
+          "kind": "policy",
+          "rule_ids": [
+            "R05",
+            "R21"
+          ]
+        },
+        {
+          "id": "wz",
+          "label": "退学按通知及生效规则清结事项、核账户与签证",
+          "kind": "policy",
+          "rule_ids": [
+            "R23",
+            "R39"
+          ]
+        },
+        {
+          "id": "aid",
+          "label": "本学年是否申请所列政府资助／贷款计划",
+          "kind": "context",
           "rule_ids": []
+        },
+        {
+          "id": "notify",
+          "label": "休学／退学时立即书面通知SFAA；核资助调整与超额退还",
+          "kind": "policy",
+          "rule_ids": [
+            "R43"
+          ]
+        },
+        {
+          "id": "ap",
+          "label": "先核本学年资助申请状态，不假定无需通知",
+          "kind": "end",
+          "rule_ids": [
+            "R43"
+          ]
+        },
+        {
+          "id": "done",
+          "label": "按对应学籍状态核清结、资助通知及个人账户",
+          "kind": "end",
+          "rule_ids": [
+            "R23",
+            "R43"
+          ]
         }
       ],
       "edges": [
@@ -933,31 +1963,126 @@
         {
           "source": "b",
           "target": "c",
-          "condition": ""
+          "condition": "版本适用性已明确"
+        },
+        {
+          "source": "b",
+          "target": "y",
+          "condition": "尚未明确"
         },
         {
           "source": "c",
           "target": "d",
-          "condition": "暂时中断"
-        },
-        {
-          "source": "c",
-          "target": "e",
-          "condition": "终止学业"
+          "condition": "临时中断"
         },
         {
           "source": "d",
-          "target": "f",
-          "condition": ""
+          "target": "e",
+          "condition": "仍在教学期内；晚申请另核费用"
+        },
+        {
+          "source": "d",
+          "target": "y",
+          "condition": "教学期已过或日期不明"
         },
         {
           "source": "e",
-          "target": "f",
-          "condition": ""
+          "target": "m",
+          "condition": "累计通常范围内或例外已获核准"
+        },
+        {
+          "source": "e",
+          "target": "y",
+          "condition": "超四学期需Dean批准或时长不明"
         },
         {
           "source": "f",
+          "target": "k",
+          "condition": ""
+        },
+        {
+          "source": "c",
+          "target": "g",
+          "condition": "终止学业"
+        },
+        {
+          "source": "g",
+          "target": "h",
+          "condition": ""
+        },
+        {
+          "source": "h",
+          "target": "i",
+          "condition": "是"
+        },
+        {
+          "source": "h",
+          "target": "j",
+          "condition": "否"
+        },
+        {
+          "source": "h",
+          "target": "y",
+          "condition": "日期不明"
+        },
+        {
+          "source": "i",
+          "target": "k",
+          "condition": ""
+        },
+        {
+          "source": "j",
+          "target": "k",
+          "condition": ""
+        },
+        {
+          "source": "k",
           "target": "z",
+          "condition": "休学仍待审批"
+        },
+        {
+          "source": "m",
+          "target": "f",
+          "condition": "剩余修读期已核"
+        },
+        {
+          "source": "m",
+          "target": "y",
+          "condition": "将超限或不明"
+        },
+        {
+          "source": "k",
+          "target": "wz",
+          "condition": "退学通知"
+        },
+        {
+          "source": "k",
+          "target": "aid",
+          "condition": "休学已获批准"
+        },
+        {
+          "source": "wz",
+          "target": "aid",
+          "condition": "退学通知已提交"
+        },
+        {
+          "source": "aid",
+          "target": "notify",
+          "condition": "是"
+        },
+        {
+          "source": "aid",
+          "target": "done",
+          "condition": "否"
+        },
+        {
+          "source": "aid",
+          "target": "ap",
+          "condition": "不明"
+        },
+        {
+          "source": "notify",
+          "target": "done",
           "condition": ""
         }
       ]
@@ -971,29 +2096,55 @@
       "nodes": [
         {
           "id": "a",
-          "label": "确定专业、学年、收费口径与目标",
+          "label": "补齐学年、学期、届别、flat／per-credit及账单期数",
           "kind": "context",
           "rule_ids": []
         },
         {
           "id": "b",
-          "label": "核对缴费表和本人账单",
+          "label": "接受费按实际offer；学费区分flat／per-credit和账单期数",
           "kind": "policy",
           "rule_ids": [
-            "R08"
+            "R08",
+            "R25"
           ]
         },
         {
           "id": "c",
-          "label": "是否涉及退课或退学",
+          "label": "核对2026/27表列日期及本人账单，不据旧日期判断欠费",
           "kind": "policy",
           "rule_ids": [
-            "R09"
+            "R25"
           ]
         },
         {
           "id": "d",
-          "label": "核对条款、例外与学校决定",
+          "label": "是否休学／退学及其生效学期",
+          "kind": "context",
+          "rule_ids": []
+        },
+        {
+          "id": "e",
+          "label": "休学：区分程序／收费时点、continuation fee与暑期最低额待核",
+          "kind": "policy",
+          "rule_ids": [
+            "R22",
+            "R40",
+            "R41"
+          ]
+        },
+        {
+          "id": "f",
+          "label": "退学：先确定正式生效学期，再核分段学费",
+          "kind": "policy",
+          "rule_ids": [
+            "R23",
+            "R24"
+          ]
+        },
+        {
+          "id": "g",
+          "label": "已付学费、退款资格与特别批准另核",
           "kind": "policy",
           "rule_ids": [
             "R09"
@@ -1001,9 +2152,12 @@
         },
         {
           "id": "z",
-          "label": "账单或例外不明：向主管部门核实",
+          "label": "金额／版本／账单冲突转FO或SGS，不计算个人应缴额",
           "kind": "end",
-          "rule_ids": []
+          "rule_ids": [
+            "R08",
+            "R09"
+          ]
         }
       ],
       "edges": [
@@ -1020,15 +2174,40 @@
         {
           "source": "c",
           "target": "d",
-          "condition": "是"
-        },
-        {
-          "source": "c",
-          "target": "z",
-          "condition": "否或不明"
+          "condition": ""
         },
         {
           "source": "d",
+          "target": "e",
+          "condition": "休学"
+        },
+        {
+          "source": "d",
+          "target": "f",
+          "condition": "退学"
+        },
+        {
+          "source": "d",
+          "target": "z",
+          "condition": "无学籍变更"
+        },
+        {
+          "source": "d",
+          "target": "z",
+          "condition": "生效时间不明"
+        },
+        {
+          "source": "e",
+          "target": "g",
+          "condition": ""
+        },
+        {
+          "source": "f",
+          "target": "g",
+          "condition": ""
+        },
+        {
+          "source": "g",
           "target": "z",
           "condition": ""
         }
@@ -1037,43 +2216,94 @@
     {
       "id": "F05",
       "category": "residence",
-      "title": "找适用住宿渠道并判断申请阶段",
+      "title": "常规KLNT／MOS硕士住宿：申请与获offer后确认",
       "status": "advisory_draft",
-      "disclaimer": "研究人员按候选规则整理的导航图；不是官方原图或可执行审批流程。",
+      "disclaimer": "研究人员按候选规则整理的导航图；不是官方原图或可执行审批流程。 本图只覆盖常规KLNT／MOS渠道，共享单位另查官方总览。",
       "nodes": [
         {
           "id": "a",
-          "label": "确认学年、UG或硕士、身份及地点",
+          "label": "补齐学年、全日制、新旧生、地点与资助类别",
+          "kind": "context",
+          "rule_ids": []
+        },
+        {
+          "id": "o",
+          "label": "准备申请还是已收到住宿offer",
           "kind": "context",
           "rule_ids": []
         },
         {
           "id": "b",
-          "label": "是否落入本表硕士住宿范围",
-          "kind": "policy",
-          "rule_ids": [
-            "R10"
-          ]
+          "label": "选择常规KLNT或MOS硕士渠道；共享单位另查总览",
+          "kind": "context",
+          "rule_ids": []
         },
         {
           "id": "c",
-          "label": "按当年渠道核对条件及申请窗口",
+          "label": "KLNT：本年新生资格；非本地优先；抽签",
           "kind": "policy",
           "rule_ids": [
-            "R10"
+            "R27"
           ]
         },
         {
           "id": "d",
-          "label": "核对当年费用，排除旧年参考价",
+          "label": "MOS：在读全日制硕士；新生优先；旧生入口另核",
           "kind": "policy",
           "rule_ids": [
-            "R11"
+            "R28"
           ]
         },
         {
-          "id": "z",
-          "label": "分别核对提交、offer与确认；不保证床位",
+          "id": "e",
+          "label": "核当期申请轮；不能沿用已过截止日",
+          "kind": "policy",
+          "rule_ids": [
+            "R10",
+            "R27",
+            "R28"
+          ]
+        },
+        {
+          "id": "p",
+          "label": "经已核实的适用渠道提交申请",
+          "kind": "policy",
+          "rule_ids": [
+            "R10"
+          ]
+        },
+        {
+          "id": "q",
+          "label": "是否收到住宿offer",
+          "kind": "context",
+          "rule_ids": []
+        },
+        {
+          "id": "r",
+          "label": "核住宿offer的实际地点",
+          "kind": "context",
+          "rule_ids": []
+        },
+        {
+          "id": "k",
+          "label": "KLNT：按当年offer及对应费用条件核对",
+          "kind": "policy",
+          "rule_ids": [
+            "R27"
+          ]
+        },
+        {
+          "id": "m",
+          "label": "MOS：按专表核资助类别、每人每学期及版本差异",
+          "kind": "policy",
+          "rule_ids": [
+            "R11",
+            "R29"
+          ]
+        },
+        {
+          "id": "w",
+          "label": "待结果或未获配；不保证床位，可另查住宿渠道",
           "kind": "end",
           "rule_ids": [
             "R10"
@@ -1081,36 +2311,123 @@
         },
         {
           "id": "y",
-          "label": "其他群体：补查对应官方页",
+          "label": "窗口、资格、入口或费用未明：询问SRO",
           "kind": "end",
-          "rule_ids": []
+          "rule_ids": [
+            "R10",
+            "R11",
+            "R28"
+          ]
+        },
+        {
+          "id": "z",
+          "label": "按offer完成确认／付款，核对正式结果",
+          "kind": "end",
+          "rule_ids": [
+            "R10"
+          ]
         }
       ],
       "edges": [
         {
           "source": "a",
-          "target": "b",
+          "target": "o",
           "condition": ""
+        },
+        {
+          "source": "o",
+          "target": "b",
+          "condition": "准备申请"
+        },
+        {
+          "source": "o",
+          "target": "r",
+          "condition": "已收到offer"
         },
         {
           "source": "b",
           "target": "c",
-          "condition": "是"
+          "condition": "KLNT且符合新生等条件"
+        },
+        {
+          "source": "b",
+          "target": "d",
+          "condition": "MOS且符合全日制等条件"
         },
         {
           "source": "b",
           "target": "y",
-          "condition": "否或不明"
+          "condition": "其他或待核"
         },
         {
           "source": "c",
-          "target": "d",
+          "target": "e",
           "condition": ""
         },
         {
           "source": "d",
-          "target": "z",
+          "target": "e",
           "condition": ""
+        },
+        {
+          "source": "e",
+          "target": "p",
+          "condition": "当期渠道及资格已确认"
+        },
+        {
+          "source": "e",
+          "target": "y",
+          "condition": "已过期或未明确"
+        },
+        {
+          "source": "p",
+          "target": "q",
+          "condition": ""
+        },
+        {
+          "source": "q",
+          "target": "r",
+          "condition": "是"
+        },
+        {
+          "source": "q",
+          "target": "w",
+          "condition": "否"
+        },
+        {
+          "source": "r",
+          "target": "k",
+          "condition": "KLNT"
+        },
+        {
+          "source": "r",
+          "target": "m",
+          "condition": "MOS"
+        },
+        {
+          "source": "r",
+          "target": "y",
+          "condition": "其他或不明"
+        },
+        {
+          "source": "k",
+          "target": "z",
+          "condition": "费用期限已核"
+        },
+        {
+          "source": "k",
+          "target": "y",
+          "condition": "待核"
+        },
+        {
+          "source": "m",
+          "target": "z",
+          "condition": "费用版本及期限已核"
+        },
+        {
+          "source": "m",
+          "target": "y",
+          "condition": "仍有差异"
         }
       ]
     },
@@ -1123,47 +2440,82 @@
       "nodes": [
         {
           "id": "a",
-          "label": "确认用户和资料类型",
+          "label": "确定普通借阅、短借、媒体或ILL／HKALL及目标",
           "kind": "context",
           "rule_ids": []
         },
         {
           "id": "b",
-          "label": "普通借阅还是馆际互借",
-          "kind": "policy",
-          "rule_ids": [
-            "R14"
-          ]
+          "label": "是否馆际互借",
+          "kind": "context",
+          "rule_ids": []
         },
         {
           "id": "c",
-          "label": "普通：核对续借资格与累计期限",
+          "label": "核借出馆专门规则；PG对应ILL借期30／累计90日",
           "kind": "policy",
           "rule_ids": [
+            "R14",
             "R12"
           ]
         },
         {
           "id": "d",
-          "label": "馆际：核对专门归还与审批要求",
-          "kind": "policy",
-          "rule_ids": [
-            "R14"
-          ]
+          "label": "是否收到召回通知",
+          "kind": "context",
+          "rule_ids": []
         },
         {
           "id": "e",
-          "label": "如有召回，以通知的新日期核对",
+          "label": "核新到期日、短借例外及最低使用期，不机械再加15日",
           "kind": "policy",
           "rule_ids": [
-            "R13"
+            "R13",
+            "R30"
+          ]
+        },
+        {
+          "id": "f",
+          "label": "续借看预约、罚款、逾期、权限及首次借出累计上限",
+          "kind": "policy",
+          "rule_ids": [
+            "R12",
+            "R32"
+          ]
+        },
+        {
+          "id": "g",
+          "label": "核对适用宽限与罚则；三日不是延长借期",
+          "kind": "policy",
+          "rule_ids": [
+            "R31"
           ]
         },
         {
           "id": "z",
-          "label": "自行核对实际新到期日与归还结果",
+          "label": "核系统实际结果与有效日期；必要时联系图书馆",
           "kind": "end",
-          "rule_ids": []
+          "rule_ids": [
+            "R13",
+            "R32"
+          ]
+        },
+        {
+          "id": "v",
+          "label": "资料是否可续借；排除短借、媒体及表列保留资料",
+          "kind": "policy",
+          "rule_ids": [
+            "R32"
+          ]
+        },
+        {
+          "id": "n",
+          "label": "不可续借或失败：有效到期日不延长，按期归还",
+          "kind": "end",
+          "rule_ids": [
+            "R13",
+            "R32"
+          ]
         }
       ],
       "edges": [
@@ -1175,27 +2527,62 @@
         {
           "source": "b",
           "target": "c",
-          "condition": "普通"
+          "condition": "是"
+        },
+        {
+          "source": "c",
+          "target": "z",
+          "condition": ""
         },
         {
           "source": "b",
           "target": "d",
-          "condition": "ILL或HKALL"
-        },
-        {
-          "source": "c",
-          "target": "e",
-          "condition": ""
+          "condition": "否"
         },
         {
           "source": "d",
           "target": "e",
-          "condition": ""
+          "condition": "是"
+        },
+        {
+          "source": "d",
+          "target": "v",
+          "condition": "否且希望续借"
+        },
+        {
+          "source": "d",
+          "target": "g",
+          "condition": "否且归还／逾期"
         },
         {
           "source": "e",
+          "target": "g",
+          "condition": ""
+        },
+        {
+          "source": "f",
+          "target": "z",
+          "condition": "续借成功"
+        },
+        {
+          "source": "g",
           "target": "z",
           "condition": ""
+        },
+        {
+          "source": "v",
+          "target": "f",
+          "condition": "支持续借"
+        },
+        {
+          "source": "v",
+          "target": "n",
+          "condition": "不可续借"
+        },
+        {
+          "source": "f",
+          "target": "n",
+          "condition": "续借失败或受阻"
         }
       ]
     },
@@ -1208,50 +2595,65 @@
       "nodes": [
         {
           "id": "a",
-          "label": "明确奖励还是经济援助，并选scheme",
+          "label": "补齐local状态、UG／TPG／RPg、全日制及资助类别",
           "kind": "context",
           "rule_ids": []
         },
         {
           "id": "b",
-          "label": "核对身份与具体资格",
-          "kind": "policy",
-          "rule_ids": [
-            "R16",
-            "R17"
-          ]
+          "label": "奖项还是常规／紧急援助",
+          "kind": "context",
+          "rule_ids": []
         },
         {
           "id": "c",
-          "label": "按scheme选择渠道",
+          "label": "奖项：逐项辨别自动考虑、提名或公开申请",
           "kind": "policy",
           "rule_ids": [
             "R15",
-            "R17"
+            "R16"
           ]
         },
         {
           "id": "d",
-          "label": "自动考虑、提名或公开申请",
+          "label": "核选定常规援助轮次的身份、经济需要及窗口；2026主轮已过",
           "kind": "policy",
           "rule_ids": [
-            "R15"
+            "R33"
           ]
         },
         {
           "id": "e",
-          "label": "常规援助或紧急援助",
+          "label": "非本地紧急：转独立基金并核TPG细则",
           "kind": "policy",
           "rule_ids": [
-            "R17"
+            "R34"
+          ]
+        },
+        {
+          "id": "f",
+          "label": "本地紧急：先预约；核资金与当年基金名单",
+          "kind": "policy",
+          "rule_ids": [
+            "R35"
+          ]
+        },
+        {
+          "id": "y",
+          "label": "不符合此项目不代表所有援助都无资格；另查适用scheme",
+          "kind": "end",
+          "rule_ids": [
+            "R17",
+            "R34"
           ]
         },
         {
           "id": "z",
-          "label": "核对当年公告与最终结果，不推定获奖",
+          "label": "核当年窗口与项目细则后按渠道办理；申请不等于获批",
           "kind": "end",
           "rule_ids": [
-            "R16"
+            "R16",
+            "R17"
           ]
         }
       ],
@@ -1264,27 +2666,57 @@
         {
           "source": "b",
           "target": "c",
+          "condition": "奖项"
+        },
+        {
+          "source": "c",
+          "target": "z",
           "condition": ""
         },
         {
-          "source": "c",
+          "source": "b",
           "target": "d",
-          "condition": "奖励"
+          "condition": "常规援助"
         },
         {
-          "source": "c",
-          "target": "e",
-          "condition": "经济援助"
+          "source": "d",
+          "target": "y",
+          "condition": "该轮条件不符或窗口无效／未核"
         },
         {
           "source": "d",
           "target": "z",
-          "condition": ""
+          "condition": "该轮条件符合且窗口已确认有效"
+        },
+        {
+          "source": "b",
+          "target": "e",
+          "condition": "非本地紧急"
+        },
+        {
+          "source": "b",
+          "target": "f",
+          "condition": "本地紧急"
         },
         {
           "source": "e",
           "target": "z",
-          "condition": ""
+          "condition": "细则及资格已核"
+        },
+        {
+          "source": "e",
+          "target": "y",
+          "condition": "未核或不适用"
+        },
+        {
+          "source": "f",
+          "target": "z",
+          "condition": "细则及资金已核"
+        },
+        {
+          "source": "f",
+          "target": "y",
+          "condition": "未核或不适用"
         }
       ]
     },
@@ -1297,48 +2729,87 @@
       "nodes": [
         {
           "id": "a",
-          "label": "给出学年、学期、学位和事项",
+          "label": "给出学年、学期、学位、届别及具体手续",
           "kind": "context",
           "rule_ids": []
         },
         {
           "id": "b",
-          "label": "选择主管部门与正式或暂定版本",
+          "label": "选主管部门及正式／暂定版本；先查标题正文冲突",
           "kind": "policy",
           "rule_ids": [
-            "R18"
+            "R18",
+            "R19"
           ]
         },
         {
           "id": "c",
-          "label": "标题正文或不同通知是否冲突",
-          "kind": "policy",
-          "rule_ids": [
-            "R19"
-          ]
+          "label": "手续类型",
+          "kind": "context",
+          "rule_ids": []
         },
         {
           "id": "d",
-          "label": "保留暂定标记，并核对个人安排",
+          "label": "非网上加退课与负荷调整分开；2026A窗口已结束",
           "kind": "policy",
           "rule_ids": [
-            "R18"
+            "R36"
           ]
         },
         {
-          "id": "z",
-          "label": "冲突：暂不输出确定截止日，先复核",
-          "kind": "end",
+          "id": "e",
+          "label": "网上选课：区分两轮、个人time-ticket和公共截止",
+          "kind": "policy",
           "rule_ids": [
-            "R19"
+            "R37"
+          ]
+        },
+        {
+          "id": "f",
+          "label": "考试：区分整体考试期与个人课程时间表",
+          "kind": "policy",
+          "rule_ids": [
+            "R38"
+          ]
+        },
+        {
+          "id": "g",
+          "label": "其他事项回对应专门通知，不用通用校历覆盖",
+          "kind": "policy",
+          "rule_ids": [
+            "R18"
           ]
         },
         {
           "id": "y",
-          "label": "再判断窗口已过、未开或适用",
+          "label": "冲突未解：不输出确定日期，先找主管部门核实",
+          "kind": "end",
+          "rule_ids": [
+            "R19"
+          ]
+        },
+        {
+          "id": "z",
+          "label": "按核查日判断已过／未来／待定；个人安排由本人核对",
           "kind": "end",
           "rule_ids": [
             "R18"
+          ]
+        },
+        {
+          "id": "w",
+          "label": "核网上选课适用身份、WEB=Y及先修／课程限制",
+          "kind": "policy",
+          "rule_ids": [
+            "R37"
+          ]
+        },
+        {
+          "id": "v",
+          "label": "不适用网上路径：转SGS相应课程注册渠道",
+          "kind": "end",
+          "rule_ids": [
+            "R37"
           ]
         }
       ],
@@ -1350,25 +2821,421 @@
         },
         {
           "source": "b",
-          "target": "c",
-          "condition": ""
+          "target": "y",
+          "condition": "仍有冲突"
         },
         {
-          "source": "c",
-          "target": "z",
-          "condition": "是或不明"
+          "source": "b",
+          "target": "c",
+          "condition": "适用来源已选定"
         },
         {
           "source": "c",
           "target": "d",
-          "condition": "否"
+          "condition": "非网上／负荷"
+        },
+        {
+          "source": "c",
+          "target": "w",
+          "condition": "网上选课"
+        },
+        {
+          "source": "c",
+          "target": "f",
+          "condition": "考试"
+        },
+        {
+          "source": "c",
+          "target": "g",
+          "condition": "其他"
         },
         {
           "source": "d",
-          "target": "y",
+          "target": "z",
           "condition": ""
+        },
+        {
+          "source": "e",
+          "target": "z",
+          "condition": ""
+        },
+        {
+          "source": "f",
+          "target": "z",
+          "condition": ""
+        },
+        {
+          "source": "g",
+          "target": "z",
+          "condition": ""
+        },
+        {
+          "source": "w",
+          "target": "e",
+          "condition": "身份及课程均适用"
+        },
+        {
+          "source": "w",
+          "target": "v",
+          "condition": "不适用或待确认"
         }
       ]
+    }
+  ],
+  "open_items": [
+    {
+      "id": "K01",
+      "stage": "before_release",
+      "owner_roles": [
+        "role2",
+        "role6"
+      ],
+      "source_ids": [
+        "S01",
+        "S03",
+        "S04",
+        "S05",
+        "S06",
+        "S07",
+        "S09",
+        "S10",
+        "S11",
+        "S12",
+        "S13",
+        "S14",
+        "S15",
+        "S16",
+        "S17",
+        "S18",
+        "S19",
+        "S20",
+        "S21",
+        "S22",
+        "S23",
+        "S24",
+        "S25",
+        "S26",
+        "S27",
+        "S28",
+        "S29",
+        "S30"
+      ],
+      "rule_ids": [
+        "R01",
+        "R02",
+        "R03",
+        "R04",
+        "R05",
+        "R06",
+        "R07",
+        "R08",
+        "R09",
+        "R10",
+        "R11",
+        "R12",
+        "R13",
+        "R14",
+        "R15",
+        "R16",
+        "R17",
+        "R18",
+        "R19",
+        "R20",
+        "R21",
+        "R22",
+        "R23",
+        "R24",
+        "R25",
+        "R26",
+        "R27",
+        "R28",
+        "R29",
+        "R30",
+        "R31",
+        "R32",
+        "R33",
+        "R34",
+        "R35",
+        "R36",
+        "R37",
+        "R38",
+        "R39",
+        "R40",
+        "R41",
+        "R42",
+        "R43"
+      ],
+      "issue": "已有18条来源登记项取得完整正文及真实SHA，其余来源或附件仍缺；全部规则仍缺②⑥适用性复核与批准。",
+      "exit_criteria": "②补缺页／附件并核当年范围，②⑥独立复核条件和例外；已取全文也不能自动批准。",
+      "downstream": "阻塞相应规则／流程正式发布、相关golden冻结；不阻塞③⑤接口与mock。"
+    },
+    {
+      "id": "K02",
+      "stage": "before_release",
+      "owner_roles": [
+        "role2",
+        "role6"
+      ],
+      "source_ids": [
+        "S05",
+        "S19"
+      ],
+      "rule_ids": [
+        "R05",
+        "R21"
+      ],
+      "issue": "两路径本轮正文SHA已核相同且主标题已读；2022/23至Summer2024非PCLL另链专用PDF仍未取得。",
+      "exit_criteria": "②补该届别专用原文，⑥按真实学生届别核规则；不把主页面的细则搬给特殊届别。",
+      "downstream": "仅阻塞特殊届别细则结论；其他范围可按已核主文本继续审核。"
+    },
+    {
+      "id": "K03",
+      "stage": "before_release",
+      "owner_roles": [
+        "role2",
+        "role6"
+      ],
+      "source_ids": [
+        "S10",
+        "S20",
+        "S21",
+        "S22"
+      ],
+      "rule_ids": [
+        "R10",
+        "R11",
+        "R27",
+        "R28",
+        "R29",
+        "R42"
+      ],
+      "issue": "已核KLNT／MOS全文与2026/27专表；旧生MOS入口及当前替代渠道未确认，同页退款例外与概括不退需保留。",
+      "exit_criteria": "②核旧生渠道、实际offer及SRO退款例外，⑥复核申请／offer／费种和退出原因分支。",
+      "downstream": "阻塞报确定房费、当前可申请及旧生具体提交步骤；可保留分流与询问SRO的导航。"
+    },
+    {
+      "id": "K04",
+      "stage": "before_release",
+      "owner_roles": [
+        "role2",
+        "role1"
+      ],
+      "source_ids": [],
+      "rule_ids": [],
+      "issue": "正式运行目录尚未接收真实全量语料，历史159行不是N2已接收。",
+      "exit_criteria": "②交同版完整快照及语义质检，①确认接收范围与SHA；按原节点登记。",
+      "downstream": "阻塞③正式构建及④⑥绑定快照冻结；不要求公开上传原文／数据库。"
+    },
+    {
+      "id": "K05",
+      "stage": "later",
+      "owner_roles": [
+        "role2",
+        "role6"
+      ],
+      "source_ids": [
+        "S02"
+      ],
+      "rule_ids": [
+        "R02"
+      ],
+      "issue": "官方offer流程图本轮HTTP200但不是可用PDF；当前保留核对本人offer的导航。",
+      "exit_criteria": "取得原图并核对按钮、时限、条件与接受费条款；在此之前不转录具体操作。",
+      "downstream": "可留后续增强；若要发布完整接受offer操作流程，则先完成本项。"
+    },
+    {
+      "id": "K06",
+      "stage": "later",
+      "owner_roles": [
+        "role4",
+        "role6"
+      ],
+      "source_ids": [],
+      "rule_ids": [],
+      "issue": "本次没有生成正式golden、四模式性能结果或个人办理结果。",
+      "exit_criteria": "原文核实后④⑥先做真实DEV校准再冻结CORE；⑤提供同版被测接口。",
+      "downstream": "这是下游评测职责，可先写rubric、runner及场景骨架；正式性能结论等待N2／N4／接口。"
+    },
+    {
+      "id": "K07",
+      "stage": "later",
+      "owner_roles": [
+        "role2",
+        "role5"
+      ],
+      "source_ids": [
+        "S20",
+        "S25",
+        "S27",
+        "S28",
+        "S29",
+        "S30"
+      ],
+      "rule_ids": [
+        "R27",
+        "R33",
+        "R35",
+        "R36",
+        "R37",
+        "R38"
+      ],
+      "issue": "窗口、资助名单及考试安排会更新；本轮只登记截至2026-10-26的状态。",
+      "exit_criteria": "使用时重新核窗口与正式通知；保留新旧版本与受影响规则，不把已过日期写成当前开放。",
+      "downstream": "后续运行维护；不自动创建定时任务，也不承诺新申请轮次。"
+    },
+    {
+      "id": "K08",
+      "stage": "before_release",
+      "owner_roles": [
+        "role2",
+        "role6"
+      ],
+      "source_ids": [
+        "S06",
+        "S18",
+        "S28"
+      ],
+      "rule_ids": [
+        "R20",
+        "R22",
+        "R24",
+        "R40",
+        "R41"
+      ],
+      "issue": "程序add/drop与收费Week 2需分别映射专业日历；SGS细则暑期也列两学分最低额，FO暑期表未重复。",
+      "exit_criteria": "②核专业日历与SGS／FO当前收费口径，⑥核周次、Summer与最低额边界；申请时点、收费起点和生效时点分别标注。",
+      "downstream": "阻塞某学生确定截止日、暑期最低额和个人收费计算；通用条件与晚申请导航可保留。"
+    }
+  ],
+  "research_changes": {
+    "date": "2026-10-26",
+    "added_rules": 24,
+    "corrected_evidence_binding": "R12 now cites detailed loans source S24, not introductory guide S11",
+    "publication": "candidate only; no role2/role6 approval recorded",
+    "source_method": "Official search index unless a separately documented full-text capture succeeds",
+    "source_corrections": [
+      "R12 no longer treats the introductory guide as full evidence of cumulative renewal limits",
+      "Leave timing is not a two-week advance requirement",
+      "Ten working days refers to clearance after withdrawal, not processing",
+      "Summer fee bands and the per-credit minimum remain explicit",
+      "Payment dates preserve charging basis and statement columns",
+      "First-semester leave is not a requirement to withdraw; visa-sponsorship effects remain separate"
+    ],
+    "independent_review": "Eight findings corrected: submission vs approval, withdrawal end states, maximum study period, location-specific housing fees, application before offer, non-renewable types, web registration exclusions and aid eligibility branches. Final clearance included conditional government-finance notification.",
+    "full_text_capture": "18 source entries; 17 distinct extracted-body hashes; raw and extracted hashes verified locally; all rules remain candidates"
+  },
+  "payment_schedule": [
+    {
+      "id": "P1",
+      "academic_year": "2026-2027",
+      "term": "A",
+      "charging_basis": "flat",
+      "statement_number": null,
+      "due_date": "2026-08-31",
+      "rule_ids": [
+        "R25"
+      ],
+      "source_ids": [
+        "S18"
+      ],
+      "status": "candidate",
+      "evidence_access": "official_full_text"
+    },
+    {
+      "id": "P2",
+      "academic_year": "2026-2027",
+      "term": "B",
+      "charging_basis": "flat",
+      "statement_number": null,
+      "due_date": "2027-01-11",
+      "rule_ids": [
+        "R25"
+      ],
+      "source_ids": [
+        "S18"
+      ],
+      "status": "candidate",
+      "evidence_access": "official_full_text"
+    },
+    {
+      "id": "P3",
+      "academic_year": "2026-2027",
+      "term": "A",
+      "charging_basis": "per_credit",
+      "statement_number": 1,
+      "due_date": "2026-08-31",
+      "rule_ids": [
+        "R25"
+      ],
+      "source_ids": [
+        "S18"
+      ],
+      "status": "candidate",
+      "evidence_access": "official_full_text"
+    },
+    {
+      "id": "P4",
+      "academic_year": "2026-2027",
+      "term": "A",
+      "charging_basis": "per_credit",
+      "statement_number": 2,
+      "due_date": "2026-09-28",
+      "rule_ids": [
+        "R25"
+      ],
+      "source_ids": [
+        "S18"
+      ],
+      "status": "candidate",
+      "evidence_access": "official_full_text"
+    },
+    {
+      "id": "P5",
+      "academic_year": "2026-2027",
+      "term": "B",
+      "charging_basis": "per_credit",
+      "statement_number": 1,
+      "due_date": "2027-01-11",
+      "rule_ids": [
+        "R25"
+      ],
+      "source_ids": [
+        "S18"
+      ],
+      "status": "candidate",
+      "evidence_access": "official_full_text"
+    },
+    {
+      "id": "P6",
+      "academic_year": "2026-2027",
+      "term": "B",
+      "charging_basis": "per_credit",
+      "statement_number": 2,
+      "due_date": "2027-02-15",
+      "rule_ids": [
+        "R25"
+      ],
+      "source_ids": [
+        "S18"
+      ],
+      "status": "candidate",
+      "evidence_access": "official_full_text"
+    },
+    {
+      "id": "P7",
+      "academic_year": "2026-2027",
+      "term": "Summer",
+      "charging_basis": "per_credit",
+      "statement_number": null,
+      "due_date": "2027-07-05",
+      "rule_ids": [
+        "R25"
+      ],
+      "source_ids": [
+        "S18"
+      ],
+      "status": "candidate",
+      "evidence_access": "official_full_text"
     }
   ]
 }
