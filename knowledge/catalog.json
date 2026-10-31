@@ -5,7 +5,8 @@
   "corpus": {
     "research_sha256": "2c3f9a2d9dc116062791e8c646ad7e343fd8e22f5a59c91581f84808b0620752",
     "documents": 159,
-    "publication_workspace_received": false,
+    "publication_workspace_received": true,
+    "publication_received_on": "2026-10-31",
     "acceptance": "pending"
   },
   "categories": [
@@ -3022,9 +3023,9 @@
       ],
       "source_ids": [],
       "rule_ids": [],
-      "issue": "正式运行目录尚未接收真实全量语料，历史159行不是N2已接收。",
-      "exit_criteria": "②交同版完整快照及语义质检，①确认接收范围与SHA；按原节点登记。",
-      "downstream": "阻塞③正式构建及④⑥绑定快照冻结；不要求公开上传原文／数据库。"
+      "issue": "10/31已发布SHA一致的159条JSONL及脱敏数据库，①②同版与字段一致性已核；正式语义接受范围及F项证据仍单独登记。",
+      "exit_criteria": "①②确认既定F项与语义检查范围，①记录正式接受；不能把数据已公开或固定false标记当作审核结论。",
+      "downstream": "③可直接获取当前基线准备候选构建，④⑥可据此起草；正式发布和题集事实冻结仍须相应范围的语义接受。"
     },
     {
       "id": "K05",

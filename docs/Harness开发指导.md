@@ -38,6 +38,8 @@ JSONL每行恰好12字段，不能擅自增删；完整快照不能用差异片�
 - 已接收JSONL的库禁止用旧`--migrate/--export`覆盖；重新同步用`--import-corpus`。
 - 导入报告的`semantic_review=pending_member2`和`release_ready=false`不是程序故障；程序没有替②完成语义验收。
 
+2026-10-31已授权发布`data/cityu_faq.db`脱敏副本及SHA一致的159行`data/corpus.jsonl`，文件版本见`data/release_manifest.json`。仅这两份数据和清单进入Git白名单；实际写入建议复制到忽略的`data/runtime.db`，更新基线前重新清理审计路径、检查隐私和文件SHA。公开基线不表示F项、政策规则或真实检索已验收。
+
 ③的有效读取入口：
 
 ```sql

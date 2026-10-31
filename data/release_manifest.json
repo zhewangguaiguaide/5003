@@ -1,0 +1,48 @@
+{
+  "version": "cityu-corpus-159-20261031",
+  "released_on": "2026-10-31",
+  "status": "development_baseline",
+  "authorized_by_role": "role1",
+  "source_attribution": "City University of Hong Kong website; original URLs retained in each record",
+  "files": [
+    {
+      "path": "data/cityu_faq.db",
+      "sha256": "e23901259513e73825e0495afcfd056d71ca1197512a424e60e368e2b668b062",
+      "bytes": 2158592,
+      "format": "sqlite3"
+    },
+    {
+      "path": "data/corpus.jsonl",
+      "sha256": "2c3f9a2d9dc116062791e8c646ad7e343fd8e22f5a59c91581f84808b0620752",
+      "bytes": 1224581,
+      "format": "utf8-jsonl",
+      "rows": 159
+    }
+  ],
+  "database_counts": {
+    "records": 83,
+    "documents": 159,
+    "active_documents": 159,
+    "chunks": 0,
+    "corpus_imports": 2,
+    "qa_logs": 0,
+    "crawl_runs": 0
+  },
+  "sanitization": {
+    "import_rows_updated": 2,
+    "source_path": "data/corpus.jsonl",
+    "updated_fields": ["corpus_imports.source_path", "corpus_imports.report_json.source_path"],
+    "database_repacked": true,
+    "document_content_preserved": true,
+    "original_database_unchanged": true
+  },
+  "validation": {
+    "sqlite_integrity": "ok",
+    "foreign_key_errors": 0,
+    "corpus_and_active_documents_field_mismatches": 0,
+    "detected_secret_or_private_path_matches": 0,
+    "human_semantic_acceptance": "recorded_separately",
+    "policy_currency": "not_certified",
+    "retrieval_performance": "not_tested_in_this_release"
+  }
+}

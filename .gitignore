@@ -41,3 +41,9 @@ TeamForming.docx
 *.7z
 *.tar
 *.gz
+
+# Group-leader-approved, sanitized 159-document baseline (2026-10-31).
+# Other databases, logs, indices and private evaluation assets remain ignored.
+!/data/cityu_faq.db
+!/data/corpus.jsonl
+!/data/release_manifest.json

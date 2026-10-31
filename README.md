@@ -23,9 +23,25 @@ Windows直接调用虚拟环境解释器即可；macOS/Linux把`.venv\Scripts\py
 
 `fake`流程使用`tests/mock_site.py`的合成网页，不联网、不需要API密钥或真实语料；固定使用`data/demo_fake.db`，会忽略`--db`覆盖。重复执行保留幂等行为。它用于验证采集与存储链路，不能代替真实网站或RAG验收。
 
-## 接收组内真实语料
+## 已发布数据库与同版语料
 
-②通过组内渠道交付完整快照及SHA，①先在独立数据库验收；数据放`data/`，不提交到公开仓库。
+2026-10-31组长授权将当前开发基线随Git发布，克隆后已有`data/cityu_faq.db`及同版`data/corpus.jsonl`，无需再从旧集成目录取这两份文件。发布库保留159条活动文档、83条原始采集记录和2条导入记录；个人问答和抓取日志均为0。两条导入记录及报告中的本机路径已改为相对路径，并重整数据库移除残留页；原始数据库未修改。文件字节SHA及检查范围见[data/release_manifest.json](data/release_manifest.json)。
+
+来源为City University of Hong Kong website，各条记录保留原网页URL。该基线用于课程开发，发布不表示已复核所有制度的现行适用性，不包含本轮研究中新抓的全部政策页。
+
+建议把发布库视作固定输入，实际写入和问答记录用忽略的本机副本：
+
+```powershell
+Get-FileHash -Algorithm SHA256 data/cityu_faq.db
+Get-FileHash -Algorithm SHA256 data/corpus.jsonl
+# runtime.db已存在时保留自己的版本，勿覆盖已有日志。
+if (-not (Test-Path data/runtime.db)) { Copy-Item data/cityu_faq.db data/runtime.db }
+.\.venv\Scripts\python.exe -m src.main --db data/runtime.db --status
+```
+
+③现有构建脚本直接读已发布的JSONL；另行准备E5模型及检索依赖后执行`python -m scripts.build_wsb_index`。本次没有附带模型、索引或真实模型验收结果；①⑤的数据与检索应用接入仍需实施。
+
+②后续更新完整快照时，①先在独立数据库验收；未重新检查的数据、日志与数据库不自动入Git：
 
 ```powershell
 .\.venv\Scripts\python.exe -m src.main --db data/acceptance.db --import-corpus data/corpus.jsonl
@@ -37,7 +53,7 @@ Windows直接调用虚拟环境解释器即可；macOS/Linux把`.venv\Scripts\py
 
 2026-10-31组长确认①②在采集后未更新语料；本地只读核对159行JSONL与数据库159条活动文档的URL及全部12个交付字段一致，数据库来源SHA均匹配。该快照SHA为`2c3f9a2d9dc116062791e8c646ad7e343fd8e22f5a59c91581f84808b0620752`，可据此交付当前开发基线。版本一致性已确认，F项语义复核与下游取件范围分别记录。代码中的`pending_member2`、`release_ready=false`是固定输出，不能单独据此判断人工审核是否发生。
 
-公开Git继续提交代码、脱敏版本记录和重建说明；JSONL、SQLite与索引组内传递。③可在实际取件后基于上述SHA准备候选索引，正式发布及成绩仍按节点验收；④⑥的标注工具和⑤接口开发可并行。Git没有数据文件不表示①②版本不一致，也不表示数据库实现缺失。
+当前JSONL和脱敏SQLite已纳入Git白名单；③可直接基于上述SHA准备候选索引，正式指标及接受范围仍按节点验收。④⑥的标注工具和⑤接口开发可并行，公开数据可用不代表候选规则目录或正式金标已经批准。
 
 真实抓取前按需执行`.\.venv\Scripts\scrapling.exe install`安装浏览器，再使用`--smoke <URL>`或`--live --column fees`；只在已确认范围内限速抓取。默认浏览器路径仍需②补足F3证据。联网问答使用本机环境变量`DEEPSEEK_API_KEY`，执行`python -m src.main --ask "your English question"`；当前模型配置以`config.yaml`为准，未在本次重组中做在线验证。
 
@@ -67,7 +83,7 @@ scripts/             索引构建、评测资产校验与历史维护脚本
 config.yaml          采集、存储、联网搜索配置
 schema.sql           SQLite模型与索引
 requirements*.txt    运行依赖与版本约束
-data/                本机语料、质检和数据库，仅.gitkeep入Git
+data/                已发布数据库、同版JSONL及版本清单；其他本机产物保持忽略
 docs/                上表四份维护文档、两张工时图
 .agents/skills/      可复用交接skill
 AGENTS.md            按岗位与节点选择提示词
@@ -79,7 +95,7 @@ AGENTS.md            按岗位与节点选择提示词
 
 ## 发布与验证边界
 
-按组长本次明确要求，协作页保留任务相关姓名、岗位及必要认领原话；聊天原图、昵称数字、学号、登记表和其他身份资料不入仓。密钥、网页全文、数据库、索引、原始日志和虚拟环境同样不入仓；详细证据保存在本机忽略目录`runs/`，Git中只记脱敏摘要。网页来源须标注City University of Hong Kong website，仅用于课程演示。既有历史记录不构成再分发网页全文的授权。
+按组长要求，协作页保留任务相关姓名、岗位及必要认领原话；聊天原图、昵称数字、学号、登记表和其他身份资料不入仓。2026-10-31明确授权的公开数据仅为上列已检查的JSONL、脱敏数据库及版本清单，其他数据库、模型、索引、密钥、原始日志、浏览器资料、私有golden和虚拟环境保持忽略。后续更新重新检查，避免把本机运行痕迹混入发布库。详细证据留本机`runs/`，Git只记录检查摘要；数据来源保留City University of Hong Kong website及原URL。
 
 2026-10-21重组验证覆盖48项离线测试、根目录CLI与合成站点流程；使用已有依赖环境。未验证全新机器安装、真实抓取、在线模型调用或尚未实现的RAG。
 
@@ -99,4 +115,4 @@ AGENTS.md            按岗位与节点选择提示词
 
 合计17个净变更文件，复用已有入口。③已经上传的Retriever和构建脚本继续保留，本次没有替③修复或验收检索实现。
 
-真实`data/`语料与数据库、`data/wsb_index/`索引、`evals/private/`金标、`runs/`原文快照与日志、模型缓存和密钥均不上传。组内交付文件、存放位置、SHA及接收者见[节点页取件表](docs/协作与需求节点.md#用git交接文件放哪里)；研究原文的精确路径见[知识入口](knowledge/README.md#原文快照如何交接)。克隆代码后仍须另行取件，不能把候选目录当作运行知识库。
+以上为10/26提交范围的历史说明。10/31新增发布的数据库、JSONL及版本清单见本页“已发布数据库与同版语料”；`data/wsb_index/`索引、`evals/private/`金标、`runs/`研究快照与日志、模型缓存和密钥仍未发布。其他取件位置见[节点页](docs/协作与需求节点.md#用git交接文件放哪里)及[知识入口](knowledge/README.md#原文快照如何交接)，不能把候选目录当作获准运行知识库。
