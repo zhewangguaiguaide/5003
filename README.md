@@ -2,7 +2,7 @@
 
 面向学生服务FAQ的课程项目。仓库根目录是唯一运行目录，沿用成员①②已集成的最大可运行集合：采集、清洗导出、SQLite存储、完整快照接收、离线测试及联网搜索Agent雏形。
 
-**基础向量检索及构建源码已上传，完整自有语料RAG与正式验收仍待完成。** 10/25本轮成功查询远端main=`5282703`，与上一轮相同，新增内容为`src/retriever.py`、`scripts/build_wsb_index.py`及历史补交脚本；实际模型为`intfloat/multilingual-e5-small`。源码交付不等于真实运行或下游接收，依赖/模型准备、版本绑定、切块缺陷及正式20题指标仍待补齐。N1/N2当前快照SHA、语义复核及接收仍需补证。`--ask`尚未接本地Retriever，仍调用独立Web Agent。实际证据和接收范围只看[协作页](docs/协作与需求节点.md)。
+**基础向量检索及构建源码已上传，完整自有语料RAG与正式验收仍待完成。** 已有`src/retriever.py`、`scripts/build_wsb_index.py`及历史补交脚本；实际模型为`intfloat/multilingual-e5-small`。源码交付不等于真实运行或下游接收，依赖/模型准备、版本绑定、切块缺陷及正式20题指标仍待补齐。2026-10-31已核对①②语料版本一致，具体SHA及范围见协作页；不再将①②版本未知列为阻塞。`--ask`尚未接本地Retriever，仍调用独立Web Agent。实际证据和接收范围只看[协作页](docs/协作与需求节点.md)。
 
 ## 从根目录运行
 
@@ -34,6 +34,10 @@ Windows直接调用虚拟环境解释器即可；macOS/Linux把`.venv\Scripts\py
 ```
 
 先核对F1/F2/F3和完整快照，再确认正式接收；质量命令只覆盖结构、版本与配置种子，不能代替语义验收。正式库默认`data/cityu_faq.db`。快照接收后禁止用旧`records`的`--migrate/--export`覆盖它。
+
+2026-10-31组长确认①②在采集后未更新语料；本地只读核对159行JSONL与数据库159条活动文档的URL及全部12个交付字段一致，数据库来源SHA均匹配。该快照SHA为`2c3f9a2d9dc116062791e8c646ad7e343fd8e22f5a59c91581f84808b0620752`，可据此交付当前开发基线。版本一致性已确认，F项语义复核与下游取件范围分别记录。代码中的`pending_member2`、`release_ready=false`是固定输出，不能单独据此判断人工审核是否发生。
+
+公开Git继续提交代码、脱敏版本记录和重建说明；JSONL、SQLite与索引组内传递。③可在实际取件后基于上述SHA准备候选索引，正式发布及成绩仍按节点验收；④⑥的标注工具和⑤接口开发可并行。Git没有数据文件不表示①②版本不一致，也不表示数据库实现缺失。
 
 真实抓取前按需执行`.\.venv\Scripts\scrapling.exe install`安装浏览器，再使用`--smoke <URL>`或`--live --column fees`；只在已确认范围内限速抓取。默认浏览器路径仍需②补足F3证据。联网问答使用本机环境变量`DEEPSEEK_API_KEY`，执行`python -m src.main --ask "your English question"`；当前模型配置以`config.yaml`为准，未在本次重组中做在线验证。
 
