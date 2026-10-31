@@ -63,6 +63,31 @@ python -m scripts.check_eval_assets --corpus data/corpus.jsonl --cases evals/pri
 
 导出只含`case_id`及`input.query/persona/as_of`；ID是评测元数据，不必进入提示词。输出限制在本仓库`runs/`并拒绝覆盖。字段白名单不能替代对persona的人工检查。
 
+## 检索评测 runner
+
+`scripts/evaluate_wsb.py` 已提供首版检索评测接口。它只接受 `answerable` 且
+`retrieval_applicable=true` 的题目，调用
+`Retriever.search(query, topic=None, k=5)`，并按返回 chunk 中是否实际包含
+连续原文摘录匹配证据；同 URL 但没有摘录命中不算 Hit。
+
+```bash
+python -m scripts.evaluate_wsb \
+  --corpus data/corpus.jsonl \
+  --cases evals/private/core.jsonl \
+  --index-dir data/wsb_index \
+  --output runs/retrieval/core20_results.jsonl \
+  --summary runs/retrieval/core20_summary.json \
+  --k 5
+```
+
+逐题 JSONL 保留首轮 Top-5 的 chunk 元数据、matched evidence IDs、Hit@1/5、
+first relevant rank、事实覆盖率、完整证据覆盖、耗时和失败原因；汇总 JSON
+保留分母、命中率、覆盖率和延迟描述。输出只能写入 `runs/` 且不覆盖已有文件。
+
+真实运行前必须检查 `index.faiss`、`chunks.json` 与语料版本；索引缺失时只记录
+阻塞，不填写虚构成绩。结构校验和离线测试不能替代角色④⑥复核、真实模型运行
+或下游接收。正式题冻结后再加 `--require-frozen`。
+
 ## ⑤输出及公平比较约定
 
 结果至少包含实际`case_id/mode/status/answer`、分轮query与Hit、最终上下文chunk IDs、实际引用、tool calls、总耗时与usage、Git/语料/索引/生成模型/prompt版本。待⑤实现，当前不是已取得的运行记录。
