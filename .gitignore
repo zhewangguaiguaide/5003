@@ -47,3 +47,10 @@ TeamForming.docx
 !/data/cityu_faq.db
 !/data/corpus.jsonl
 !/data/release_manifest.json
+
+# 2026-11-01: role 5 explicitly authorizes this fixed test bundle for role 6.
+!/data/wsb_index/
+/data/wsb_index/*
+!/data/wsb_index/index.faiss
+!/data/wsb_index/chunks.json
+!/data/runtime_indexed.db

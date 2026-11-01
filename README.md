@@ -6,6 +6,29 @@
 
 **2026-10-31历史进展：本地后端与模拟联调候选已实现。** 新入口`--ask-local`复用③的Retriever，一次本地Top-5后生成英文回答，返回实际引用、首轮检索记录和失败状态。当时未取得真实输入；11/01已补齐检索运行，随后用户在本机配置密钥，学费支付问题返回`answered`及有效来源引用。N7尚未实施。
 
+## 成员6现在如何开测
+
+取件分支：`codex/n5-real-rag-20261101`。本次已随分支提供881片段的索引、片段映射及对应运行数据库，**不用重建索引**。E5权重尚未上传到GitHub LFS：当前交付环境终端无法联网，连接器不支持LFS上传；先使用下面的固定版本下载命令取得同版模型即可开测。不可将待上传指针视为模型已交付。
+
+在已安装Python 3.12和Git的电脑执行：
+
+```bash
+git clone --branch codex/n5-real-rag-20261101 --single-branch https://github.com/zhewangguaiguaide/5003.git
+cd 5003
+python -m venv .venv
+# Windows使用以下解释器路径；macOS/Linux换成 .venv/bin/python
+.venv\Scripts\python.exe -m pip install -r requirements-retrieval.txt
+.venv\Scripts\python.exe -m scripts.download_e5
+.venv\Scripts\python.exe -m scripts.verify_local_assets
+.venv\Scripts\python.exe -m src.main --ask-local "What payment methods are available for tuition fees?" --retrieve-only --model-path data/models/e5-small-614241f --index-dir data/wsb_index --db data/runtime_indexed.db --json
+```
+
+校验预期：`status=verified`、159篇文档、157篇已索引、881个片段、`model_checked=true`。检索预期：`mode=retrieval/status=retrieved`，命中正文与URL在`retrieval_rounds[].hits`。依赖与模型下载需要联网，之后纯检索不需要API密钥。收到模型LFS交付后，装好Git LFS并执行`git lfs pull`，可省略单独下载E5。
+
+燕萍现在可做接口/失败场景联调、证据支持复核、准备DEV/CORE与rubric；测回答和引用时在**自己的本机**设置`DEEPSEEK_API_KEY`并去掉`--retrieve-only`。不要把密钥写进Git或测试结果。可运行`python -m unittest discover -s tests -v`检查工程回归；正式题集和评分仍由④⑥冻结，N7多跳/反思尚未实现。
+
+文件绑定：模型revision `614241f622f53c4eeff9890bdc4f31cfecc418b3`；模型文件SHA及索引SHA见`data/wsb_index/chunks.json`；发布语料及原始数据库SHA见`data/release_manifest.json`。本次运行库SHA为`083a01505f859e1e109417aabbe407be4ef1a5fc9fd020306d91702b7d3e4ece`，不含问答/抓取日志。校历偏题与两篇未切出片段仍保留，成功返回不代表检索质量达标。
+
 ## N5：先运行无密钥的后端演示
 
 2026-11-01已从远端`6d0ff308972e98789f32716eaec2f9a1a9aee177`接收159条真实语料与数据库，文件SHA与发布清单一致。新增`--retrieve-only`可在不调用DeepSeek的情况下返回真实命中正文。下面10/31的模拟说明保留为离线接线入口；最新真实运行结论以协作页11/01记录为准。随后一次真实生成返回`mode=rag/status=answered/error=null`，回答引用第三条命中S3；支付渠道、到账时间与代付说明均能在该片段中找到依据。这是单题开发验证，不是正式成绩。
@@ -39,7 +62,7 @@ python -m scripts.prepare_local_index --model-path data/models/e5-small-614241f 
 python -m src.main --ask-local "What payment methods are available for tuition fees?" --retrieve-only --topic fees --model-path data/models/e5-small-614241f --index-dir data/wsb_index --db data/runtime_indexed.db --json
 ```
 
-构建器复用③切块代码，核对JSONL与活动文档全部交付字段，将片段和有效性状态写入新建的`runtime_indexed.db`；已发布`cityu_faq.db`不修改。已存在的索引或运行库不会覆盖，重建请使用新路径。模型、索引及运行库保持Git忽略。查询同时验证索引文件、模型文件、语料版本和数据库片段正文；此开发联调不代表政策现行性、N6正式指标或下游签收。去掉`--retrieve-only`才会进入DeepSeek生成，需先在本机配置密钥。
+构建器复用③切块代码，核对JSONL与活动文档全部交付字段，将片段和有效性状态写入新建的`runtime_indexed.db`；已发布`cityu_faq.db`不修改。已存在的索引或运行库不会覆盖，重建请使用新路径。本取件分支已按⑤授权纳入固定索引和运行库；模型LFS交付尚待上传，其余本机产物保持忽略。查询同时验证索引文件、模型文件、语料版本和数据库片段正文；此开发联调不代表政策现行性、N6正式指标或下游签收。去掉`--retrieve-only`才会进入DeepSeek生成，需先在本机配置密钥。
 
 本次运行库覆盖157篇，另2篇被原切块逻辑跳过并保留dirty状态；片段加`passage: `后最长505 tokens，无超过512的片段。macOS实测FAISS与PyTorch同进程存在OpenMP冲突，现用持久子进程运行E5，父进程检索；无需重复初始化模型。Python应用接入需使用`__main__`保护且串行调用同一后端，见接口文档。正式20题、切块修复及检索相关性复核由③④⑤⑥按节点推进。
 
@@ -76,7 +99,7 @@ if (-not (Test-Path data/runtime.db)) { Copy-Item data/cityu_faq.db data/runtime
 .\.venv\Scripts\python.exe -m src.main --db data/runtime.db --status
 ```
 
-③原构建脚本直接读已发布JSONL。11/01新增的`scripts.prepare_local_index`在复用原切块基础上补齐版本及运行库绑定，运行方式见上节；模型、索引留本机，不随Git发布。①界面接入及正式检索质量验收仍待完成。
+③原构建脚本直接读已发布JSONL。11/01新增的`scripts.prepare_local_index`在复用原切块基础上补齐版本及运行库绑定，运行方式见上节；本取件分支已包含固定索引和运行库；模型仍可按固定revision下载，LFS实际交付见上方说明。①界面接入及正式检索质量验收仍待完成。
 
 ②后续更新完整快照时，①先在独立数据库验收；未重新检查的数据、日志与数据库不自动入Git：
 

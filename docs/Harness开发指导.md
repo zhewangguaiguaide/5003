@@ -169,3 +169,7 @@ V2依该开发失败修规则，不证明泛化最优。Flat与HNSW在这组词�
 运行命令见[README](../README.md)。修改采集/导出规则时保留已成功样例，补有意义的边界回归；移动入口后检查配置、schema和fake流程。纯文档变更无需重跑真实抓取或模型实验。
 
 ③④⑤⑥交付时同时记录Git提交、数据SHA、模型/索引构建版本和题集配置；报告不能混入另一版本结果。详细日志放忽略的`runs/`，节点状态和脱敏摘要按[Git交接约定](协作与需求节点.md)维护。
+
+## 2026-11-01 成员6固定测试材料
+
+按⑤明确授权，取件分支包含`data/wsb_index/index.faiss`、`chunks.json`和无日志的`data/runtime_indexed.db`，不需要⑥重建。运行`python -m scripts.verify_local_assets`检查原始发布文件SHA、索引SHA、模型每个文件SHA、全部运行库片段和dirty状态；尚未下载模型时可用`--skip-model`仅检查数据链路材料。实际加载/查询继续使用上方接口，Windows通过`python -m`入口启动以保证spawn保护。模型LFS尚未上传时先运行`python -m scripts.download_e5`，README给出完整开测步骤；不得声称只拉Git就已拿到权重。

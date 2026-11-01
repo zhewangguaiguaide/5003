@@ -3,3 +3,8 @@
 *.db binary
 # Preserve the published corpus bytes and its recorded SHA across platforms.
 /data/corpus.jsonl -text
+
+# Preserve bound artifact bytes, including on Windows.
+/data/wsb_index/index.faiss binary
+/data/wsb_index/chunks.json -text
+/data/models/e5-small-614241f/** -text
