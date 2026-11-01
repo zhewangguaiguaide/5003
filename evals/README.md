@@ -22,7 +22,7 @@
 | rag | ⑤实现固定一次本地Top-5→同一LLM回答并引用 | 与其他模式成对比较 | 条件与例外、事实、引用及误拒答 |
 | agentic_rag | ⑤允许动态选检索、补条件/补证据，并有停止与预算 | 收益、轮次、总token、耗时、成功任务成本 | 是否补齐缺口、合理停止、引用与异常行为 |
 
-③的检索模块不是完整RAG。当前`--ask`是独立Web Agent；本地四模式runner仍待⑤实现，④负责实验与统计，⑥负责回答/引用评分。联网模式单列Web，不能把额外外部知识收益全算给Agent编排。
+③的检索模块不是完整RAG。当前`--ask`是独立Web Agent；⑤新增N5候选`LocalRAGBackend.ask()`和`--ask-local`，可运行固定一次检索的`rag`模式，11/01增加无密钥`mode="retrieval"`/`--retrieve-only`并完成真实链路试查，随后一次DeepSeek回答及引用补验通过（仅开发样例）。四模式统一runner、N7及正式成绩仍待实现/验证。④负责实验与统计，⑥负责回答/引用评分。联网模式单列Web，不能把额外外部知识收益全算给Agent编排。
 
 ## 真实证据标注的最小启动流程
 
@@ -65,7 +65,7 @@ python -m scripts.check_eval_assets --corpus data/corpus.jsonl --cases evals/pri
 
 ## ⑤输出及公平比较约定
 
-结果至少包含实际`case_id/mode/status/answer`、分轮query与Hit、最终上下文chunk IDs、实际引用、tool calls、总耗时与usage、Git/语料/索引/生成模型/prompt版本。待⑤实现，当前不是已取得的运行记录。
+结果至少包含实际`case_id/mode/status/answer`、分轮query与Hit、最终上下文chunk IDs、实际引用、tool calls、总耗时与usage、Git/语料/索引/生成模型/prompt版本。N5已提供上述结构，字段与调用见[本地后端接口](../docs/Harness开发指导.md#n5-local-backend)；11/01真实试查绑定语料SHA、E5 revision及索引SHA，5次均有返回不能计为Hit@5=100%，尚无冻结金标。未知版本仍为null，现有client不提供usage也保持null。无效引用或生成错误保留为失败结果，不从评测分母剔除。
 
 分别保留首轮前5条、各轮累计证据、最终上下文与实际引用；不能把多轮累计命中叫Hit@5，也不能只对URL。失败题保留分母。纯LLM没有检索上下文时忠实度N/A；若统一产品成功率要求引用，须声明该要求，与内容正确性分开。
 

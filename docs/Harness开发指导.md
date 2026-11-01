@@ -51,7 +51,7 @@ FROM documents WHERE active = 1;
 
 ## 检索与应用查询契约（③源码已上传，⑤应用接入待验）
 
-10/25远端`5282703`已提供`src/retriever.py`与`scripts/build_wsb_index.py`，源码实现基础切块、编码、索引构建和加载查询，尚未取得本轮真实模型运行与下游接收证据。③的`Retriever`已含query编码和主题过滤，⑤复用该实现做别名、应用调用与Agent编排；④在同版数据及运行条件到齐后可直接测Retriever，不必等额外应用封装。以下字段与方法签名按该远端源码核对。
+10/25远端`5282703`已提供`src/retriever.py`与`scripts/build_wsb_index.py`，源码实现基础切块、编码、索引构建和加载查询。11/01⑤已按用户授权补齐模型及构建条件，真实运行见下方N5接口；下游接收及质量验收另记。③的`Retriever`已含query编码和主题过滤，⑤复用该实现做别名、应用调用与Agent编排；④可按固定版本备测，不必等完整Agent。
 
 ```python
 @dataclass
@@ -86,6 +86,66 @@ class Retriever:
 6. 不能简单全库top-5再过滤并声称等价于合格候选内top-5。当前指定topic时先召回全量向量再过滤取k，不属于该截断漏检；小规模下可先验正确性，另报效率代价。④仍须测过滤边界。
 7. 中文路径保存/重载须验证；既有实验中可用`serialize_index`配合Python文件读写与`deserialize_index`。
 8. 索引绑定语料SHA和模型/构建版本；查询检查active和版本。清理失效chunk/索引后，确认期间来源未变化，才能清dirty。
+
+<a id="n5-local-backend"></a>
+## N5本地问答接口（2026-11-01真实检索候选）
+
+⑤新增`src/local_rag.py`，复用③`Retriever`，固定一次Top-5；`mode="rag"`再执行一次LLM生成，`mode="retrieval"`只返回命中正文，不需要密钥。`src/local_sources.py`加载本机模型/索引、检查元数据，并提供可选的只读数据库检查；`src/local_demo.py`只用于合成接线演示。未实现N7动态路由、多跳、反思或完整四模式runner。旧Web `--ask`与新`--ask-local`互斥，绝不自动回退Web。
+
+①界面、④⑥评测可以直接调用；后端对象可复用，`load_retriever`只在初始化时加载模型：
+
+```python
+from src.local_sources import load_retriever
+from src.local_rag import LocalRAGBackend
+
+def main():
+    retriever, versions, warnings = load_retriever(
+        "data/wsb_index", model_path="data/models/e5-small-614241f")
+    try:
+        backend = LocalRAGBackend(retriever, None,
+            db_path="data/runtime_indexed.db", versions=versions, warnings=warnings)
+        result = backend.ask("How can I pay my tuition?", mode="retrieval",
+            topic="fees", case_id="dev-001").to_dict()
+        print(result)
+    finally:
+        retriever._model.close()
+
+if __name__ == "__main__":
+    main()
+```
+
+真实加载前应捕获`LocalSourceError`，其`code/message`可直接给界面；不要展示异常原始cause或provider响应。省略`db_path`仅用于候选接入，结果会提示数据库未检查。模拟版可将依赖替换为`DemoRetriever()`和`DemoClient()`，实际生成不提供联网工具。
+
+E5在持久子进程中运行，避免macOS上FAISS/PyTorch的OpenMP冲突；应用启动必须有上述`__main__`保护，不能在模块导入时启动模型。一个后端实例串行处理查询，并发请求由上层排队。要接真实生成，在本机配置密钥后用`DeepSeekClient(LLMConfig.from_conf(load_config().get("llm")))`替换`None`并指定`mode="rag"`；用户已在本机配置密钥并完成一次真实调用，记录见协作页。
+
+| 输入 | 约定 |
+|---|---|
+| `question` | 非空英文问题，最多8000字符；当前不做自动语言检测或翻译 |
+| `topic` | 可省略；支持真实topic或`admission/visa/visa_geo/registration/residence/fees/scholarship/library/calendar`别名。签证别名保持不筛主题，避免遗漏admission证据；这是显式别名适配，不是自动路由 |
+| `persona/as_of` | 用户已知条件字典及参考日期；同时传入检索查询和生成上下文。输入JSON总长最多12000字符。不得夹带gold或预期动作 |
+| `case_id` | 可选评测ID，只留结果，不传给模型 |
+| `mode` | `rag`（默认）或`retrieval`；CLI分别为默认或`--retrieve-only` |
+
+| 结果字段 | 含义与使用方式 |
+|---|---|
+| `mode/status/answer/case_id` | `rag`正常为`answered/clarify/abstained/no_evidence`；`retrieval`有命中返回`retrieved`，`answer`为空；故障答案保持空 |
+| `citations/sources` | 引用含`source_id/chunk_id/doc_id/url/title`，只含实际使用来源；URL由检索元数据映射，不接受模型造URL。纯检索无生成引用，来源及正文在`retrieval_rounds[].hits` |
+| `retrieval_rounds` | 首轮实际query、topic及完整有序Hit；不补位、不将无效Hit跳过后算另一个Top-5 |
+| `context_chunk_ids/tool_calls` | 最终送生成的片段ID，以及本地检索调用；未生成时上下文ID为空 |
+| `latency_ms/usage` | ask调用的总耗时，不含初始化加载；现有LLM client不提供usage，因此保持null |
+| `versions/warnings/error` | prompt版本、生成/Embedding模型、已知索引文件SHA等；未知版本为null。调用方可传入实际Git commit；文件SHA、数据库SHA及索引语料绑定分别记录 |
+
+可诊断错误包括`invalid_input/config_error/index_unavailable/model_unavailable/index_mismatch/database_unavailable/stale_evidence/source_mismatch/retrieval_error/context_limit/generation_error/invalid_response`。CLI正常结果退出0，以上错误退出1，参数冲突退出2。无命中直接返回`no_evidence`，不调用LLM；正文超出默认24000字符预算整次失败，不截掉政策条件。字符预算不等于模型token计量。
+
+生成响应使用严格JSON：`answered`提供`statements[{text,source_ids}]`与空`message`；`clarify/abstained`提供空`statements`及非空`message`。程序为事实句加入`[S1]`等标记，并拒绝未知引用、无引用事实、模型生成的网址和错误结构。**这只验证引用来自上下文，不自动证明证据支持结论或确实适用**；⑥仍须按rubric复核。
+
+真实取件与验收边界：
+
+- 11/01用户授权从真实发布语料补建开发候选；`scripts/download_e5`固定官方revision，`scripts.prepare_local_index`复用③切块且不改发布库。模型、语料、输入库、索引文件与构建源码SHA写入`chunks.json`，加载时核验文件及模型。旧格式仍兼容并明确提示版本缺失，不能把旧格式推断为已绑定。
+- 显式指定数据库时，对首轮每条证据检查`documents.active=1/index_dirty=0`及一致的快照身份。发现一条失效即停止，不修改数据库。`database_corpus_sha256`是查到的数据库身份，不能冒充`corpus_sha256`（索引输入身份）。
+- 新候选在编码成功后向独立`runtime_indexed.db`写881个片段，仅清除157篇有片段文档的dirty状态；另2篇仍dirty。查询逐条核对数据库片段的doc_id及正文，防止只看标志误用错版。原③切块缺陷未修复，不以该候选替代正式N3接受。
+- 11/01固定E5 revision `614241f622f53c4eeff9890bdc4f31cfecc418b3`，真实FAISS/E5建库、5次各Top-5及真实CLI运行成功；全仓库104项测试通过。具体SHA、遗漏文档、相关性失败及命令在协作页。随后用户完成一次`deepseek-flash`真实调用，返回`answered`，5条命中与数据库一致、S3引用映射及回答事实支持检查通过。未做正式20题评分或下游签收；10/31的98项为历史模拟证据。
+- Git交代码、测试与此接口文档；真实证据和trace留`runs/`。N5可交①接界面、④⑥做接口联调；正式通过仍由接收者确认。N6/N7不因这些测试变为通过。
 
 ## 历史小实验保留的结论
 

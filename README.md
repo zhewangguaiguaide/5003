@@ -2,9 +2,46 @@
 
 面向学生服务FAQ的课程项目。仓库根目录是唯一运行目录，沿用成员①②已集成的最大可运行集合：采集、清洗导出、SQLite存储、完整快照接收、离线测试及联网搜索Agent雏形。
 
-**基础向量检索及构建源码已上传，完整自有语料RAG与正式验收仍待完成。** 已有`src/retriever.py`、`scripts/build_wsb_index.py`及历史补交脚本；实际模型为`intfloat/multilingual-e5-small`。源码交付不等于真实运行或下游接收，依赖/模型准备、版本绑定、切块缺陷及正式20题指标仍待补齐。2026-10-31已核对①②语料版本一致，具体SHA及范围见协作页；不再将①②版本未知列为阻塞。`--ask`尚未接本地Retriever，仍调用独立Web Agent。实际证据和接收范围只看[协作页](docs/协作与需求节点.md)。
+**2026-11-01已跑通真实本地检索及一次DeepSeek问答，正式验收仍待完成。** 已接收159篇真实语料，下载官方`intfloat/multilingual-e5-small`，复用③切块与Retriever构建881条384维向量。5次开发试查均返回5条可在运行库核验的片段，CLI退出0；这是链路验证，不是正式Hit@5成绩。依赖、模型与版本绑定已补齐，切块缺陷、检索质量及下游接受仍待核验。`--ask`仍是独立Web Agent；本地入口为`--ask-local`。实际证据和接收范围见[协作页](docs/协作与需求节点.md)。
+
+**2026-10-31历史进展：本地后端与模拟联调候选已实现。** 新入口`--ask-local`复用③的Retriever，一次本地Top-5后生成英文回答，返回实际引用、首轮检索记录和失败状态。当时未取得真实输入；11/01已补齐检索运行，随后用户在本机配置密钥，学费支付问题返回`answered`及有效来源引用。N7尚未实施。
+
+## N5：先运行无密钥的后端演示
+
+2026-11-01已从远端`6d0ff308972e98789f32716eaec2f9a1a9aee177`接收159条真实语料与数据库，文件SHA与发布清单一致。新增`--retrieve-only`可在不调用DeepSeek的情况下返回真实命中正文。下面10/31的模拟说明保留为离线接线入口；最新真实运行结论以协作页11/01记录为准。随后一次真实生成返回`mode=rag/status=answered/error=null`，回答引用第三条命中S3；支付渠道、到账时间与代付说明均能在该片段中找到依据。这是单题开发验证，不是正式成绩。
+
+Python 3.12，在仓库根目录执行；此演示只需标准库：
+
+```bash
+python -m src.main --ask-local "Show the demo evidence" --rag-demo --json
+python -m unittest tests.test_local_rag tests.test_local_sources tests.test_local_cli -v
+```
+
+演示返回`status=answered`、正文、`citations`及`retrieval_rounds`，使用明确标记的合成证据和`example.invalid`来源。它验证接口接线，不是学校政策答案、真实模型效果或正式题集。
+
+已按下节准备本地索引、模型和运行库后，可无密钥运行：
+
+```bash
+python -m src.main --ask-local "How can I pay my tuition?" --retrieve-only --model-path data/models/e5-small-614241f --index-dir data/wsb_index --db data/runtime_indexed.db --json
+```
+
+去掉`--retrieve-only`后，真实生成使用`config.yaml`的`llm`配置与本机`DEEPSEEK_API_KEY`，不进行Web搜索。显式`--db`启用只读文档有效性检查；不指定则返回`database_not_checked`警告。发现失效或待重建文档时返回`stale_evidence`，不清dirty、不删除或补位命中。新候选索引绑定语料SHA、模型revision及片段正文；旧③格式仍可加载，但缺少的版本会明确提示。可调用Python接口、状态和取件条件见[开发指导](docs/Harness开发指导.md#n5-local-backend)。
 
 ## 从根目录运行
+
+真实检索环境与候选构建（Python 3.12）：
+
+```bash
+python -m pip install -r requirements-retrieval.txt
+# 仅首次需要下载和构建；本机本轮已经完成
+python -m scripts.download_e5 --output data/models/e5-small-614241f
+python -m scripts.prepare_local_index --model-path data/models/e5-small-614241f --model-revision 614241f622f53c4eeff9890bdc4f31cfecc418b3
+python -m src.main --ask-local "What payment methods are available for tuition fees?" --retrieve-only --topic fees --model-path data/models/e5-small-614241f --index-dir data/wsb_index --db data/runtime_indexed.db --json
+```
+
+构建器复用③切块代码，核对JSONL与活动文档全部交付字段，将片段和有效性状态写入新建的`runtime_indexed.db`；已发布`cityu_faq.db`不修改。已存在的索引或运行库不会覆盖，重建请使用新路径。模型、索引及运行库保持Git忽略。查询同时验证索引文件、模型文件、语料版本和数据库片段正文；此开发联调不代表政策现行性、N6正式指标或下游签收。去掉`--retrieve-only`才会进入DeepSeek生成，需先在本机配置密钥。
+
+本次运行库覆盖157篇，另2篇被原切块逻辑跳过并保留dirty状态；片段加`passage: `后最长505 tokens，无超过512的片段。macOS实测FAISS与PyTorch同进程存在OpenMP冲突，现用持久子进程运行E5，父进程检索；无需重复初始化模型。Python应用接入需使用`__main__`保护且串行调用同一后端，见接口文档。正式20题、切块修复及检索相关性复核由③④⑤⑥按节点推进。
 
 需要Python 3.12。克隆后不再进入“成员1集成”等子项目目录。
 
@@ -39,7 +76,7 @@ if (-not (Test-Path data/runtime.db)) { Copy-Item data/cityu_faq.db data/runtime
 .\.venv\Scripts\python.exe -m src.main --db data/runtime.db --status
 ```
 
-③现有构建脚本直接读已发布的JSONL；另行准备E5模型及检索依赖后执行`python -m scripts.build_wsb_index`。本次没有附带模型、索引或真实模型验收结果；①⑤的数据与检索应用接入仍需实施。
+③原构建脚本直接读已发布JSONL。11/01新增的`scripts.prepare_local_index`在复用原切块基础上补齐版本及运行库绑定，运行方式见上节；模型、索引留本机，不随Git发布。①界面接入及正式检索质量验收仍待完成。
 
 ②后续更新完整快照时，①先在独立数据库验收；未重新检查的数据、日志与数据库不自动入Git：
 

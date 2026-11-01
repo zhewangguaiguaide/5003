@@ -284,7 +284,6 @@ class Retriever:
         k: int = 5
     ) -> list[Hit]:
         import numpy as np
-        from sentence_transformers import SentenceTransformer
 
         # 1. 检查输入
         if not query or not query.strip() or k <= 0:
@@ -295,6 +294,7 @@ class Retriever:
 
         # 2. 加载 Embedding 模型（仅首次调用时加载）
         if not hasattr(self, "_model"):
+            from sentence_transformers import SentenceTransformer
             self._model = SentenceTransformer(
                 self.model_name,
                 local_files_only=True

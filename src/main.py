@@ -12,6 +12,8 @@
   python -m src.main --import-corpus data/corpus.jsonl # JSONL 完整快照接收
   python -m src.main --quality --quality-source documents # 活动文档接收质检
   python -m src.main --ask "非本地生签证怎么办"   # DeepSeek + web_search 联网问答
+  python -m src.main --ask-local "How do I pay my tuition?" --json
+  python -m src.main --ask-local "Show the demo evidence" --rag-demo --json
 """
 from __future__ import annotations
 
@@ -127,6 +129,62 @@ def cmd_ask(config, question: str) -> int:
     return 0
 
 
+def _print_local_result(result, json_output: bool) -> int:
+    """Stable machine-readable output for the UI and evaluation callers."""
+    payload = result.to_dict()
+    if json_output:
+        print(json.dumps(payload, ensure_ascii=False, allow_nan=False))
+    else:
+        print(f"=== Local RAG: {payload['status']} ===")
+        print(payload.get("answer") or "")
+        for citation in payload.get("citations") or []:
+            print(f"  {citation.get('url', '')}")
+        if payload.get("mode") == "retrieval":
+            for round_ in payload.get("retrieval_rounds", []):
+                for rank, hit in enumerate(round_["hits"], 1):
+                    print(f"\n[{rank}] {hit['title']} (score={hit['score']:.4f})\n{hit['url']}\n{hit['text']}")
+        for warning in payload.get("warnings") or []:
+            print(f"Warning: {warning}")
+        if payload.get("error"):
+            print(f"Error: {payload['error'].get('message', 'Local query failed.')}")
+    return 0 if payload["status"] in {
+        "answered", "clarify", "abstained", "no_evidence", "retrieved"
+    } else 1
+
+
+def cmd_ask_local(config, question: str, *, index_dir: str = "data/wsb_index",
+                  topic=None, db_path=None, demo: bool = False,
+                  json_output: bool = False, model_path=None, retrieve_only=False) -> int:
+    """N5 one-shot local retrieval; never invokes the Web search agent."""
+    from .local_rag import LocalRAGBackend, RagAnswer
+    from .local_sources import LocalSourceError, load_retriever
+
+    if demo:
+        from .local_demo import DemoClient, DemoRetriever
+        retriever, client = DemoRetriever(), DemoClient()
+        versions = {"corpus_sha256": None, "synthetic": True}
+        warnings = ["Synthetic development demo only; not CityU policy or N5 real-data acceptance."]
+    else:
+        from .llm import DeepSeekClient, LLMConfig
+        try:
+            retriever, versions, warnings = load_retriever(index_dir, model_path=model_path)
+        except LocalSourceError as exc:
+            return _print_local_result(RagAnswer(
+                status=exc.code, answer="", error={"code": exc.code, "message": exc.message}
+            ), json_output)
+        try:
+            client = None if retrieve_only else DeepSeekClient(LLMConfig.from_conf(config.get("llm")))
+        except (AttributeError, TypeError, ValueError):
+            return _print_local_result(RagAnswer(
+                status="config_error", answer="",
+                error={"code": "config_error", "message": "Invalid local LLM configuration."}
+            ), json_output)
+    result = LocalRAGBackend(
+        retriever, client, db_path=db_path, versions=versions, warnings=warnings
+    ).ask(question, topic=topic, mode="retrieval" if retrieve_only else "rag")
+    return _print_local_result(result, json_output)
+
+
 def main(argv=None) -> int:
     _fix_console_encoding()
     ap = argparse.ArgumentParser(description="CityU 学生服务 FAQ 采集器（agentic RAG 语料）")
@@ -151,11 +209,51 @@ def main(argv=None) -> int:
     ap.add_argument("--max-pages", type=int, default=None, help="覆盖各栏目的 max_pages（试跑用）")
     ap.add_argument("--repair-loops", type=int, default=1,
                     help="失败详情页的二次回放次数（默认 1，0 表示关闭）")
-    ap.add_argument("--ask", metavar="QUESTION", help="DeepSeek + web_search 联网问答")
+    queries = ap.add_mutually_exclusive_group()
+    queries.add_argument("--ask", metavar="QUESTION", help="DeepSeek + web_search 联网问答")
+    queries.add_argument("--ask-local", metavar="QUESTION", help="N5 英文本地知识库问答（不联网搜索）")
+    ap.add_argument("--index-dir", metavar="PATH", help="本地索引目录，默认 data/wsb_index")
+    ap.add_argument("--model-path", metavar="PATH", help="已下载并与索引绑定的E5模型文件夹")
+    ap.add_argument("--retrieve-only", action="store_true", help="仅返回真实检索正文与来源，不调用LLM")
+    ap.add_argument("--topic", help="本地检索主题或约定别名（例如 fees）；默认不筛主题")
+    ap.add_argument("--rag-demo", action="store_true", help="仅 --ask-local：合成证据离线联调，无模型/密钥")
+    ap.add_argument("--json", dest="json_output", action="store_true", help="仅 --ask-local：输出结构化 JSON")
     args = ap.parse_args(argv)
 
+    if args.ask_local is None and any((args.index_dir is not None, args.topic is not None,
+                                      args.rag_demo, args.json_output, args.model_path is not None, args.retrieve_only)):
+        ap.error("本地检索选项只能与 --ask-local 一起使用")
+    if args.ask_local is not None and any((
+        args.import_corpus, args.live, args.migrate, args.export, args.smoke,
+        args.status, args.quality, args.column, args.mode, args.full, args.dry_run,
+        args.quality_output, args.quality_source != "records", args.min_date,
+        args.max_pages is not None, args.repair_loops != 1,
+    )):
+        ap.error("--ask-local 不能与采集、迁移、导入、导出或其他运行模式混用")
+    if args.rag_demo and (args.db is not None or args.index_dir is not None or args.model_path is not None):
+        ap.error("--rag-demo 使用合成证据，不能指定 --db、--index-dir 或 --model-path")
     if args.import_corpus and any((args.live, args.migrate, args.export, args.smoke, args.ask, args.status, args.quality, args.column, args.mode)):
         ap.error("--import-corpus 是完整快照操作，不能与采集/迁移/导出/筛选操作同时使用")
+    if args.ask_local is not None:
+        # Branch before storage construction: querying cannot create or modify a DB.
+        if args.rag_demo:
+            config = {}
+        else:
+            try:
+                config = cfg.load_config(args.config)
+                if not isinstance(config, dict):
+                    raise ValueError("configuration must be a mapping")
+            except Exception:
+                from .local_rag import RagAnswer
+                return _print_local_result(RagAnswer(
+                    status="config_error", answer="",
+                    error={"code": "config_error", "message": "Cannot load local query configuration."}
+                ), args.json_output)
+        return cmd_ask_local(
+            config, args.ask_local, index_dir=args.index_dir or "data/wsb_index",
+            topic=args.topic, db_path=args.db, demo=args.rag_demo,
+            json_output=args.json_output, model_path=args.model_path, retrieve_only=args.retrieve_only,
+        )
     config = cfg.load_config(args.config)
     if args.ask:
         return cmd_ask(config, args.ask)
