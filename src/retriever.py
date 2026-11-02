@@ -112,6 +112,74 @@ def chunk_records(records: list[dict]) -> list[Chunk]:
                 end_marker="\nAbout Us\nOrganisation Structure\n",
             ).replace("\ufeff", "").strip()
 
+        # 清理本科生学费延期缴纳页面的导航栏及页脚
+        if url.rstrip("/") == "https://www.cityu.edu.hk/fo/htm/Degree_Deferral.htm":
+            content = clean_general_text(
+                content,
+                start_marker="Deferral of Tuition Payment\nFull-time UGC-funded",
+                end_marker="\nAbout Us\nOrganisation Structure\n",
+            ).replace("\ufeff", "").strip()
+
+        # 清理研究生学费延期缴纳页面的导航栏及页脚
+        if url.rstrip("/") == "https://www.cityu.edu.hk/fo/htm/TPg_Deferral.htm":
+            content = clean_general_text(
+                content,
+                start_marker="Deferral of Tuition Payment\nFull-time UGC-funded local",
+                end_marker="\nAbout Us\nOrganisation Structure\n",
+            ).replace("\ufeff", "").strip()
+
+        # 清理本科生学费退款页面的导航栏及页脚
+        if url.rstrip("/") == "https://www.cityu.edu.hk/fo/htm/Degree_Refund.htm":
+            content = clean_general_text(
+                content,
+                start_marker="Refund of Fees\nAny overpayment",
+                end_marker="\nAbout Us\nOrganisation Structure\n",
+            ).replace("\ufeff", "").strip()
+
+        # 清理研究生学费退款页面的导航栏及页脚
+        if url.rstrip("/") == "https://www.cityu.edu.hk/fo/htm/TPg_Refund.htm":
+            content = clean_general_text(
+                content,
+                start_marker="Refund of Fees\nAny overpayment",
+                end_marker="\nAbout Us\nOrganisation Structure\n",
+            ).replace("\ufeff", "").strip()
+
+        # 清理学费付款方式页面的导航栏及页脚
+        if url.rstrip("/") == "https://www.cityu.edu.hk/fo/htm/paymethods.htm":
+            content = clean_general_text(
+                content,
+                start_marker="Payment Methods to Settle Your Student Account Balance",
+                end_marker="\nAbout Us\nOrganisation Structure\n",
+            ).replace("\ufeff", "").strip()
+
+        # 跳过与 CityU 学生服务无关的 UGC 院校名单页面
+        if url.rstrip("/") == "https://www.cityu.edu.hk/fo/htm/UGC.htm":
+            continue
+
+        # 跳过只有报告入口、没有实际报告正文的页面
+        if url.rstrip("/") == "https://www.cityu.edu.hk/fo/htm/AR.htm":
+            continue
+
+        # 跳过只有 PDF 入口、没有有效正文的学费规定页面
+        if url.rstrip("/") == "https://www.cityu.edu.hk/fo/htm/tuition_fees.htm":
+            continue
+
+        # 清理 Finance Office 首页的导航栏和无关新闻
+        if url.rstrip("/") == "https://www.cityu.edu.hk/fo/index.htm":
+            office = clean_general_text(
+                content,
+                start_marker="Our Office\nAddress:",
+                end_marker="Find CityUHK on",
+            ).strip()
+
+            services = clean_general_text(
+                content,
+                start_marker="Our Vision",
+                end_marker="CityUHK Finance AI Assistant x",
+            ).strip()
+
+            content = office + "\n\n" + services
+
         # 根据网页类型选择切块方法
         if "faq" in title.lower():
             faq_texts = split_faq_text(content)
@@ -273,6 +341,37 @@ class Retriever:
         # 5. 记录 Embedding 模型名称
         self.model_name = "intfloat/multilingual-e5-small"
 
+        # 6. 配置 Rerank 模型（使用时才加载）
+        self.rerank_model_name = "cross-encoder/mmarco-mMiniLMv2-L12-H384-v1"
+        self._reranker = None
+
+    def rerank_hits(self, query: str, hits: list[Hit]) -> list[Hit]:
+        from dataclasses import replace
+        from sentence_transformers import CrossEncoder
+
+        if not hits:
+            return []
+
+        # 首次使用时加载 Rerank 模型
+        if self._reranker is None:
+            self._reranker = CrossEncoder(self.rerank_model_name)
+
+        # 对查询与候选 Chunk 进行相关性评分
+        pairs = [(query.strip(), hit.text) for hit in hits]
+        scores = self._reranker.predict(pairs)
+
+        # 按 Rerank 得分从高到低排序
+        ranked = sorted(
+            zip(hits, scores),
+            key=lambda x: float(x[1]),
+            reverse=True
+        )
+
+        return [
+            replace(hit, score=float(score))
+            for hit, score in ranked
+        ]
+
     def list_topics(self) -> list[str]:
         return self.topics.copy()
 
@@ -281,7 +380,8 @@ class Retriever:
         self,
         query: str,
         topic: str | None = None,
-        k: int = 5
+        k: int = 5,
+        rerank: bool = False
     ) -> list[Hit]:
         import numpy as np
         from sentence_transformers import SentenceTransformer
@@ -314,10 +414,13 @@ class Retriever:
 
         # 4. FAISS 相似度检索
         # 指定主题时，先检索全部向量，再过滤
+        # 启用 Rerank 时，至少检索 20 个候选 Chunk
+        candidate_k = max(k, 20) if rerank else k
+
         search_k = (
             self.index.ntotal
             if topic is not None
-            else min(k, self.index.ntotal)
+            else min(candidate_k, self.index.ntotal)
         )
 
         if search_k == 0:
@@ -354,8 +457,13 @@ class Retriever:
 
             hits.append(hit)
 
-            if len(hits) >= k:
+            if len(hits) >= candidate_k:
                 break
 
-        return hits
+        # 启用 Rerank 时，对候选结果进行二次排序
+        if rerank and hits:
+            hits = self.rerank_hits(query, hits)
+
+        # 返回最终 Top-K 结果
+        return hits[:k]
 
