@@ -1,0 +1,10 @@
+# 公开评测结果
+
+本目录只保存可公开、脱敏的评测汇总：版本绑定、聚合指标、消融、失败题ID和限制。
+完整题目、gold evidence、逐题 Top-5、模型原始trace和个人环境路径继续保留在
+`evals/private/` 与 `runs/`，不进入Git。
+
+- [`core20_retrieval_20261103.md`](core20_retrieval_20261103.md)
+- [`core20_retrieval_20261103.json`](core20_retrieval_20261103.json)
+
+结构检查或聚合指标不替代role4/role6双评、题集冻结或下游接收。

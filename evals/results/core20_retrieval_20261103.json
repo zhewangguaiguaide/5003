@@ -1,0 +1,74 @@
+{
+  "version": "core20-retrieval-public-v1",
+  "date": "2026-11-03",
+  "status": "draft_candidate_not_frozen",
+  "scope": "retrieval_only",
+  "corpus_sha256": "2c3f9a2d9dc116062791e8c646ad7e343fd8e22f5a59c91581f84808b0620752",
+  "index_chunks": 881,
+  "index_sha256": "2e6b7edcac34c1b07ce5f81860ff61d85129b64fe3d07101435d54eec1129590",
+  "embedding_model": "intfloat/multilingual-e5-small",
+  "embedding_revision": "614241f622f53c4eeff9890bdc4f31cfecc418b3",
+  "rerank_model": "cross-encoder/mmarco-mMiniLMv2-L12-H384-v1",
+  "rerank_revision": "1427fd652930e4ba29e8149678df786c240d8825",
+  "k": 5,
+  "candidate_k": 50,
+  "cases": 20,
+  "metrics": {
+    "hit_at_1": {
+      "count": 9,
+      "rate": 0.45
+    },
+    "hit_at_5": {
+      "count": 17,
+      "rate": 0.85
+    },
+    "mean_fact_coverage": 0.85,
+    "mean_critical_fact_coverage": 0.85,
+    "complete_evidence": {
+      "count": 17,
+      "rate": 0.85
+    },
+    "latency_seconds": {
+      "count": 20,
+      "mean": 2.774660004253383,
+      "median": 2.6986580835073255,
+      "p95": 3.376709333038889,
+      "max": 5.8705750000081025
+    }
+  },
+  "ablation": {
+    "e5_only_hit_at_5": {
+      "count": 8,
+      "rate": 0.4
+    },
+    "rerank20_hit_at_5": {
+      "count": 13,
+      "rate": 0.65
+    },
+    "rerank50_hit_at_5": {
+      "count": 17,
+      "rate": 0.85
+    },
+    "rerank100_hit_at_5": {
+      "count": 18,
+      "rate": 0.9
+    }
+  },
+  "remaining_failure_case_ids": [
+    "CORE-FEE-002",
+    "CORE-REG-002",
+    "CORE-RES-001"
+  ],
+  "not_formal_acceptance_reasons": [
+    "cases remain draft",
+    "role4 and role6 independent review/freeze pending",
+    "candidate depth 50 was selected on the current draft CORE set",
+    "retrieval metrics are not answer quality"
+  ],
+  "private_artifacts_not_committed": [
+    "evals/private/core.jsonl",
+    "evals/private/dev.jsonl",
+    "runs/retrieval/core20_rerank50_final_results_20261103.jsonl",
+    "runs/retrieval/core20_report_20261103.md"
+  ]
+}
