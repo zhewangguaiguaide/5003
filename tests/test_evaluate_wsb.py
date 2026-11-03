@@ -6,9 +6,12 @@ from types import SimpleNamespace
 
 from scripts.evaluate_wsb import (
     AssetError,
+    configure_model_path,
+    configure_rerank_model,
     ensure_retrieval_cases,
     match_case,
     normalize_text,
+    run_evaluation,
     summarize_results,
     write_results,
 )
@@ -141,6 +144,38 @@ class MatchingTests(unittest.TestCase):
         self.assertIsNone(row["first_relevant_rank"])
 
 
+class RunEvaluationTests(unittest.TestCase):
+    def test_candidate_depth_is_used_before_rerank(self):
+        class FakeRetriever:
+            def __init__(self):
+                self.search_args = None
+                self.rerank_hit_count = None
+
+            def search(self, query, topic=None, k=5, rerank=False):
+                self.search_args = (topic, k, rerank)
+                return [hit("The deadline is 15 October.")]
+
+            def rerank_hits(self, query, hits):
+                self.rerank_hit_count = len(hits)
+                return hits
+
+        retriever = FakeRetriever()
+        rows = run_evaluation(
+            [case(facts=[{"id": "f1", "text": "Deadline", "critical": True}],
+                  evidence=[{"id": "e1", "doc_id": "https://example.test/doc",
+                             "locator": "p1", "quote": "The deadline is 15 October.",
+                             "fact_ids": ["f1"]}],
+                  sets=[["e1"]])],
+            retriever,
+            k=5,
+            rerank=True,
+            candidate_k=2,
+        )
+        self.assertEqual(retriever.search_args, (None, 5, False))
+        self.assertEqual(retriever.rerank_hit_count, 1)
+        self.assertTrue(rows[0]["hit_at_5"])
+
+
 class SummaryTests(unittest.TestCase):
     def test_failed_cases_remain_in_denominator(self):
         good = match_case(
@@ -185,6 +220,24 @@ class ContractTests(unittest.TestCase):
             with self.assertRaisesRegex(AssetError, "overwrite"):
                 write_results([], {}, output, root / "runs" / "summary.json", root=root)
             self.assertEqual(output.read_text(encoding="utf-8"), "keep")
+
+    def test_local_model_path_replaces_default_model_name(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            fake = SimpleNamespace(model_name="default-model")
+            configured = configure_model_path(fake, Path(tmp))
+            self.assertEqual(configured.model_name, str(Path(tmp).resolve()))
+
+    def test_local_rerank_model_path_replaces_default_model_name(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            fake = SimpleNamespace(rerank_model_name="default-reranker")
+            configured = configure_rerank_model(fake, Path(tmp))
+            self.assertEqual(configured.rerank_model_name, str(Path(tmp).resolve()))
+
+    def test_missing_local_model_path_is_rejected(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            missing = Path(tmp) / "missing"
+            with self.assertRaisesRegex(AssetError, "model path"):
+                configure_model_path(SimpleNamespace(model_name="default-model"), missing)
 
     def test_write_results_creates_jsonl_and_summary(self):
         with tempfile.TemporaryDirectory() as tmp:

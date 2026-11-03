@@ -4,13 +4,21 @@ from __future__ import annotations
 import argparse
 import json
 import math
+import os
 import statistics
+import sys
 import time
 from collections import Counter
 from pathlib import Path
 from typing import Any, Iterable
 
 from scripts.check_eval_assets import AssetError, read_jsonl, validate_bundle
+
+# macOS FAISS and PyTorch can crash when both initialize their own OpenMP runtimes.
+# A single worker is fast enough for this small evaluator and is the verified mode.
+if sys.platform == "darwin":
+    os.environ.setdefault("OMP_NUM_THREADS", "1")
+    os.environ.setdefault("MKL_NUM_THREADS", "1")
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -184,14 +192,48 @@ def ensure_retrieval_cases(cases: list[dict]) -> None:
             raise AssetError(f"case {case['id']}: sufficient evidence sets are required")
 
 
-def run_evaluation(cases: list[dict], retriever: Any, k: int = 5) -> list[dict]:
+def configure_model_path(retriever: Any, model_path: Path | str | None) -> Any:
+    """Point the existing retriever at a pinned local sentence-transformers model."""
+    if model_path is None:
+        return retriever
+    path = Path(model_path).resolve()
+    if not path.is_dir():
+        raise AssetError("model path is missing")
+    retriever.model_name = str(path)
+    return retriever
+
+
+def configure_rerank_model(retriever: Any, model_path: Path | str | None) -> Any:
+    """Point an optional cross-encoder reranker at a pinned local model directory."""
+    if model_path is None:
+        return retriever
+    path = Path(model_path).resolve()
+    if not path.is_dir():
+        raise AssetError("rerank model path is missing")
+    retriever.rerank_model_name = str(path)
+    return retriever
+
+
+def run_evaluation(
+    cases: list[dict],
+    retriever: Any,
+    k: int = 5,
+    *,
+    rerank: bool = False,
+    candidate_k: int | None = None,
+) -> list[dict]:
     """Run retrieval per case and retain errors in the evaluation denominator."""
     ensure_retrieval_cases(cases)
     rows = []
     for case in cases:
         started = time.perf_counter()
         try:
-            hits = retriever.search(case["query"], topic=None, k=k)
+            if rerank and candidate_k is not None:
+                depth = max(k, candidate_k)
+                hits = retriever.search(case["query"], topic=None, k=depth, rerank=False)
+                hits = retriever.rerank_hits(case["query"], hits)
+            else:
+                hits = retriever.search(case["query"], topic=None, k=k, rerank=rerank)
             row = match_case(case, hits, k=k)
         except Exception as error:  # Keep one broken query from hiding the remaining cases.
             row = {
@@ -300,6 +342,10 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--cases", type=Path, required=True)
     parser.add_argument("--rubric", type=Path, default=ROOT / "evals/rubric.json")
     parser.add_argument("--index-dir", type=Path, default=ROOT / "data/wsb_index")
+    parser.add_argument("--model-path", type=Path, help="Pinned local sentence-transformers model directory")
+    parser.add_argument("--rerank", action="store_true", help="Rerank the top candidates before scoring")
+    parser.add_argument("--rerank-model-path", type=Path, help="Pinned local cross-encoder model directory")
+    parser.add_argument("--candidate-k", type=int, help="Candidate depth before reranking")
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--summary", type=Path, required=True)
     parser.add_argument("--k", type=int, default=5)
@@ -308,6 +354,9 @@ def main(argv: list[str] | None = None) -> int:
 
     if args.k <= 0:
         print("FAIL: k must be positive")
+        return 1
+    if args.candidate_k is not None and args.candidate_k <= 0:
+        print("FAIL: candidate-k must be positive")
         return 1
     try:
         _ensure_output_path(args.output, root=ROOT)
@@ -319,11 +368,21 @@ def main(argv: list[str] | None = None) -> int:
         index_chunks = validate_index_corpus_alignment(args.index_dir, args.corpus)
         from src.retriever import Retriever
 
-        retriever = Retriever(str(args.index_dir))
-        rows = run_evaluation(cases, retriever, k=args.k)
+        retriever = configure_model_path(Retriever(str(args.index_dir)), args.model_path)
+        retriever = configure_rerank_model(retriever, args.rerank_model_path)
+        rows = run_evaluation(
+            cases, retriever, k=args.k, rerank=args.rerank,
+            candidate_k=args.candidate_k,
+        )
         summary = summarize_results(rows, read_manifest_corpus_sha(args.corpus))
         summary["index_chunks"] = index_chunks
         summary["k"] = args.k
+        summary["model"] = getattr(retriever, "model_name", None)
+        summary["rerank"] = args.rerank
+        summary["candidate_k"] = args.candidate_k
+        summary["rerank_model"] = (
+            getattr(retriever, "rerank_model_name", None) if args.rerank else None
+        )
         write_results(rows, summary, args.output, args.summary, root=ROOT)
     except (AssetError, OSError, UnicodeError, ImportError, ModuleNotFoundError) as error:
         message = str(error) if isinstance(error, AssetError) else type(error).__name__

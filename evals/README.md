@@ -75,8 +75,25 @@ python -m scripts.evaluate_wsb \
   --corpus data/corpus.jsonl \
   --cases evals/private/core.jsonl \
   --index-dir data/wsb_index \
+  --model-path data/models/e5-small-614241f \
   --output runs/retrieval/core20_results.jsonl \
   --summary runs/retrieval/core20_summary.json \
+  --k 5
+```
+
+固定本地 rerank 模型并做候选深度消融时：
+
+```bash
+python -m scripts.evaluate_wsb \
+  --corpus data/corpus.jsonl \
+  --cases evals/private/core.jsonl \
+  --index-dir data/wsb_index \
+  --model-path data/models/e5-small-614241f \
+  --rerank \
+  --rerank-model-path data/models/mmarco-mMiniLMv2-L12-H384-v1-1427fd65 \
+  --candidate-k 50 \
+  --output runs/retrieval/core20_rerank50_results.jsonl \
+  --summary runs/retrieval/core20_rerank50_summary.json \
   --k 5
 ```
 
@@ -87,6 +104,13 @@ first relevant rank、事实覆盖率、完整证据覆盖、耗时和失败原�
 真实运行前必须检查 `index.faiss`、`chunks.json` 与语料版本；索引缺失时只记录
 阻塞，不填写虚构成绩。结构校验和离线测试不能替代角色④⑥复核、真实模型运行
 或下游接收。正式题冻结后再加 `--require-frozen`。
+
+2026-11-03使用N5取件分支的881-chunk同版索引和固定E5/rerank revision做了draft
+候选消融：E5-only为8/20，rerank@20为13/20，rerank@50为17/20，
+rerank@100为18/20。17/20达到内部门槛数值，但题集尚未双评冻结，候选深度50
+也是在当前draft CORE上选择的，因此只能记为候选实验，不能登记N6正式通过。
+剩余3道失败为`CORE-FEE-002`、`CORE-REG-002`、`CORE-RES-001`；前三名之后的
+原始逐题结果、延迟和失败明细保存在本机`runs/retrieval/`。
 
 ## ⑤输出及公平比较约定
 
