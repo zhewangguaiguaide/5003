@@ -70,5 +70,8 @@
     "evals/private/dev.jsonl",
     "runs/retrieval/core20_rerank50_final_results_20261103.jsonl",
     "runs/retrieval/core20_report_20261103.md"
-  ]
+  ],
+  "case_id_namespace": "CORE-*",
+  "reserved_role6_dev_ids": "YP-DEV-001..010",
+  "role4_dev_ids": "R4-DEV-001..005"
 }

@@ -17,6 +17,16 @@ Scope: retrieval evidence only; no LLM/RAG/agentic answer-quality claim.
 | Rerank candidate depth | 50 |
 | Cases | 20 |
 
+## ID allocation
+
+- `YP-DEV-001..010`: reserved for role6 candidate/behavior/scoring calibration; not used by CORE20.
+- `R4-DEV-001..005`: role4 positive DEV calibration.
+- `CORE-*`: the 20 independent positive retrieval cases in this report.
+
+The 2026-11-04 audit found no duplicate IDs, queries, fact texts or document+quote pairs between
+the role4 DEV and CORE sets. Behavior, clarification, unanswerable, conflict and fault cases remain
+outside the CORE retrieval denominator.
+
 ## Results
 
 | Metric | Result |
