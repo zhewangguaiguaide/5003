@@ -25,3 +25,7 @@ Role4 and role6 independently assess calibration outputs and resolve recorded di
 Actual answers, citations, retrieval rounds, final context IDs, tool events and version information must be retained. Review distinguishes retrieval gaps from generation errors, condition omissions, unsupported citations, inappropriate refusals and failed degradation. Tool errors are tested with controlled fixtures and explicit budgets, without altering the official corpus.
 
 No answer-quality figures are reported in this draft. Existing CORE20 retrieval candidate results cannot be substituted for response accuracy or formal acceptance. Current limitations include small calibration samples, snapshot-versus-current-policy differences, unavailable private CORE traces and pending backend fault-injection support. Formal results and charts will be added only after matched-version execution and review.
+
+## Subsequent execution update
+
+A separate N5/E5-only candidate run has now been completed; see results/README.md for actual status counts, strict quote-match retrieval metrics and explicitly provisional AI review. This does not convert the methodology draft into human-reviewed formal results. New YP-CORE annotations are separate from the original R4 CORE and remain unfrozen.

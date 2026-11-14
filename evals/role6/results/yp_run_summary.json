@@ -1,0 +1,55 @@
+{
+  "status": "actual_run_with_AI_provisional_review_no_joint_freeze",
+  "scope": "N5 one-pass RAG, E5 only, not N7 Agentic; own YP CORE, not R4 original CORE",
+  "corpus_sha256": "2c3f9a2d9dc116062791e8c646ad7e343fd8e22f5a59c91581f84808b0620752",
+  "backend_git": "2373dd1d3863438404d75b49c6bcc27a2f2e8cbb",
+  "retrieval_metric_code_git": "01dec02168f0282015467692bad85dc8c9e579f3",
+  "core_response_statuses": {
+    "abstained": 3,
+    "answered": 17
+  },
+  "core_ai_provisional": {
+    "pass": 14,
+    "fail": 5,
+    "pending_gold_scope": 1,
+    "hard_fail_candidates": 1,
+    "denominator": 20
+  },
+  "dev_initial": {
+    "runs": 8,
+    "answered": 4,
+    "generation_errors": 1,
+    "retry_case": "YP-DEV-005",
+    "retry_is_separate": true
+  },
+  "nonretrieval_ai_provisional": {
+    "n": 5,
+    "safe": 5,
+    "fully_meets_expected_action": 2,
+    "missing_next_step": 3
+  },
+  "usage": null,
+  "cost": null,
+  "notes": [
+    "Gold composite facts and exact-quote matching are strict proxies, not fine-grained claim recall.",
+    "Alternative supported evidence must be reviewed; exact gold-source misses do not necessarily mean factual retrieval misses.",
+    "No formal accuracy claim; all new CORE annotations and scores need human review.",
+    "No R4 original gold available; cannot reproduce original 17/20 or its three named failures."
+  ],
+  "retrieval": {
+    "cases": 20,
+    "hit_at_1": {
+      "count": 9,
+      "rate": 0.45
+    },
+    "hit_at_5": {
+      "count": 15,
+      "rate": 0.75
+    },
+    "complete_evidence": {
+      "count": 15,
+      "rate": 0.75
+    }
+  },
+  "retrieval_metric_scope": "continuous quoted span in same gold document, whitespace-normalized, first 5 actual hits; not semantic fact coverage"
+}
