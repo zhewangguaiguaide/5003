@@ -8,3 +8,10 @@
 - [`core20_retrieval_20261103.json`](core20_retrieval_20261103.json)
 
 结构检查或聚合指标不替代role4/role6双评、题集冻结或下游接收。
+
+## 公开题目清单
+
+- [`core20_questions_20261103.md`](core20_questions_20261103.md)
+- [`core20_questions_20261103.jsonl`](core20_questions_20261103.jsonl)
+
+题目清单只包含公开题干、persona、as_of和检索状态；必要事实、标准答案、gold evidence和私有评分材料不公开。
