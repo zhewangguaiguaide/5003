@@ -150,3 +150,7 @@ rerank@100为18/20。17/20达到内部门槛数值，但题集尚未双评冻结
 2026-11-03的CORE20题干与公开检索状态见
 [`evals/results/core20_questions_20261103.md`](results/core20_questions_20261103.md)。
 该文件不包含必要事实、标准答案或gold evidence。题目公开后，后续泛化评测必须另用独立未见题。
+
+2026-11-03的CORE20公开答案键见
+[`evals/results/core20_answers_20261103.md`](results/core20_answers_20261103.md)。
+该答案键只公开标准答案与来源URL，不公开私有证据字段；题目和答案均已公开后，后续泛化测评必须另用未见题。

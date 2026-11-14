@@ -73,5 +73,8 @@
   ],
   "case_id_namespace": "CORE-*",
   "reserved_role6_dev_ids": "YP-DEV-001..010",
-  "role4_dev_ids": "R4-DEV-001..005"
+  "role4_dev_ids": "R4-DEV-001..005",
+  "answer_key_public": true,
+  "answer_key_path": "evals/results/core20_answers_20261103.md",
+  "held_out_warning": "CORE20 questions and answers are public; use a new unseen set for future generalization testing."
 }

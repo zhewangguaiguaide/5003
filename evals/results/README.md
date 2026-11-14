@@ -15,3 +15,10 @@
 - [`core20_questions_20261103.jsonl`](core20_questions_20261103.jsonl)
 
 题目清单只包含公开题干、persona、as_of和检索状态；必要事实、标准答案、gold evidence和私有评分材料不公开。
+
+## 公开答案键
+
+- [`core20_answers_20261103.md`](core20_answers_20261103.md)
+- [`core20_answers_20261103.jsonl`](core20_answers_20261103.jsonl)
+
+答案键包含标准答案和来源URL，不包含私有`required_facts`、`gold_evidence`或逐条证据quote。CORE20题目与答案均已公开，后续不得再把它当作留出测试集。
