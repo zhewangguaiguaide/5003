@@ -76,3 +76,7 @@ python -m scripts.check_eval_assets --corpus data/corpus.jsonl --cases evals/pri
 ## ⑥第一版候选
 
 2026-11-01本机候选见[燕萍启动入口](yanping_startup.md)：真实DEV草稿、评分工作台和后端接口核对。私有金标与runs不提交；未运行、未冻结、未代④⑥人工审核。
+
+## ⑥评分与交付v2候选
+
+通用rubric、空白评分模板、报告方法及问卷填写底稿见[role6入口](role6/README.md)。私有题目和AI逐题意见保留本机；本人已确认当前v1的YP-DEV-001—010及YP-NR-001—005全部同意，仅本人审核；韩上复核待完成。无正式成绩。

@@ -1,0 +1,36 @@
+{
+  "case_id": null,
+  "mode": null,
+  "run_id": null,
+  "versions": {
+    "git": null,
+    "corpus_sha256": null,
+    "index": null,
+    "model": null,
+    "prompt": null,
+    "gold": null,
+    "rubric": "v2"
+  },
+  "reviewer": null,
+  "review_status": "not_reviewed",
+  "run_status": "not_run",
+  "answer": null,
+  "cited_sources": [],
+  "context_chunk_ids": [],
+  "tool_trace_path": null,
+  "expected_action_met": null,
+  "fact_checks": [],
+  "scores": {
+    "correctness": null,
+    "completeness": null,
+    "citation_support": null,
+    "clarity_and_action": null
+  },
+  "na_reasons": {},
+  "hard_fail": null,
+  "failure_codes": [],
+  "weighted_score": null,
+  "task_success": null,
+  "disagreement": null,
+  "adjudication": null
+}

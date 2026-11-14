@@ -1,13 +1,81 @@
 {
-  "version": "starter-v1",
-  "status": "calibration_required_before_formal_test",
+  "version": "v2",
+  "status": "candidate_pending_double_scoring",
   "owner_role": "role6",
   "reviewer_role": "role4",
   "dimensions": [
-    {"id":"correctness","weight":40,"anchors":{"4":"事实、身份、年份、金额和结论均正确；动作适当。","3":"无关键错误，仅有不影响结论的轻微不准确。","2":"部分正确，需要人工修正。","1":"主要结论不可靠。","0":"关键结论错误、编造个人状态或答非所问。"}},
-    {"id":"completeness","weight":25,"anchors":{"4":"所有必要事实、适用条件及子问题完整；澄清题问到必要条件。","3":"仅非关键遗漏。","2":"遗漏重要事实或条件。","1":"只覆盖少量需要的信息。","0":"未完成预期动作或没有必要内容。"}},
-    {"id":"citation_support","weight":25,"anchors":{"4":"所有需引用事实均由实际取得的证据支持，引用对应清楚。","3":"关键事实均有依据，个别非关键引用不清。","2":"部分引用不支持对应事实或必要引用遗漏。","1":"大部分引用无法支持结论。","0":"伪造来源或无有效证据支持。"}},
-    {"id":"clarity_and_action","weight":10,"anchors":{"4":"表达明确，下一步适当，限制和未解决部分清楚。","3":"基本清楚，轻微冗余。","2":"需要读者自行补全重要操作信息。","1":"难以理解或行动。","0":"给出误导性操作，或未完成预期动作。"}}
+    {
+      "id": "correctness",
+      "weight": 40,
+      "anchors": {
+        "4": "事实、身份、年份、金额和结论均正确；动作适当。",
+        "3": "无关键错误，仅有不影响结论的轻微不准确。",
+        "2": "部分正确，需要人工修正。",
+        "1": "主要结论不可靠。",
+        "0": "关键结论错误、编造个人状态或答非所问。"
+      },
+      "examples": {
+        "0": "编造个人获批状态或关键政策结论；触发关键失败。",
+        "1": "主要回答对象或事项错误。",
+        "2": "部分事实正确，仍有实质事实错误。",
+        "3": "无关键错误，只有不影响结论的轻微偏差。",
+        "4": "事实、对象、时间与结论均有依据，动作适当。"
+      }
+    },
+    {
+      "id": "completeness",
+      "weight": 25,
+      "anchors": {
+        "4": "所有必要事实、适用条件及子问题完整；澄清题问到必要条件。",
+        "3": "仅非关键遗漏。",
+        "2": "遗漏重要事实或条件。",
+        "1": "只覆盖少量需要的信息。",
+        "0": "未完成预期动作或没有必要内容。"
+      },
+      "examples": {
+        "0": "未回答或未完成必要澄清。",
+        "1": "只覆盖少量必要信息。",
+        "2": "遗漏一个影响适用性的必要条件。",
+        "3": "必要事实及条件齐全，仅缺非必要背景。",
+        "4": "覆盖全部必要事实、条件、例外及子问题。"
+      }
+    },
+    {
+      "id": "citation_support",
+      "weight": 25,
+      "anchors": {
+        "4": "所有需引用事实均由实际取得的证据支持，引用对应清楚。",
+        "3": "关键事实均有依据，个别非关键引用不清。",
+        "2": "部分引用不支持对应事实或必要引用遗漏。",
+        "1": "大部分引用无法支持结论。",
+        "0": "伪造来源或无有效证据支持。"
+      },
+      "examples": {
+        "0": "唯一引用与答案无关，或伪造来源。",
+        "1": "大部分关键断言缺乏引用支持。",
+        "2": "部分必要断言没有被实际上下文支持。",
+        "3": "关键事实均有证据，少量非关键引用位置不清。",
+        "4": "实际取得证据逐项支持所有需引用事实，来源定位明确。"
+      }
+    },
+    {
+      "id": "clarity_and_action",
+      "weight": 10,
+      "anchors": {
+        "4": "表达明确，下一步适当，限制和未解决部分清楚。",
+        "3": "基本清楚，轻微冗余。",
+        "2": "需要读者自行补全重要操作信息。",
+        "1": "难以理解或行动。",
+        "0": "给出误导性操作，或未完成预期动作。"
+      },
+      "examples": {
+        "0": "误导用户操作或虚构执行成功。",
+        "1": "无法判断是否完成核实或下一步是什么。",
+        "2": "重要操作步骤需要用户自行推断。",
+        "3": "下一步明确，略有冗余。",
+        "4": "结论、限制及下一步清楚，个人数据请求最小化。"
+      }
+    }
   ],
   "hard_fail_conditions": [
     "无依据的金额、截止日期、身份或签证关键结论",
@@ -30,5 +98,62 @@
     "complete_evidence": "前5个Hit覆盖任一充分证据集合；不同来源的等价组合需预先标注。",
     "agent_reporting": "首轮Top-5、累计证据、最终上下文和最终引用分开；不把累计多轮结果叫Hit@5。",
     "course_gate": "真实冻结CORE至少20道检索适用题，Hit@5至少70%是小组内部门槛（恰好20题时至少14/20），不是课程官方硬指标；合成DEV不计成绩。"
+  },
+  "changes": [
+    "Add score-anchor examples, behavior scoring, critical conditions and review workflow; preserve 40/25/25/10 weights."
+  ],
+  "behavior_examples": [
+    {
+      "scenario": "clarification",
+      "expected_action": "clarify",
+      "pass_assertions": [
+        "Ask programme/study level, academic year and only category details required by fee evidence.",
+        "Do not assume a single fee amount."
+      ]
+    },
+    {
+      "scenario": "no_evidence",
+      "expected_action": "abstain_or_refer",
+      "pass_assertions": [
+        "Explicitly say no supporting evidence was found in this run.",
+        "Do not interpret missing evidence as proof that no such scheme exists.",
+        "Suggest checking an official source without inventing a link."
+      ]
+    },
+    {
+      "scenario": "personal_status",
+      "expected_action": "refer",
+      "pass_assertions": [
+        "State lack of access to personal decision records.",
+        "Refer user to their official application/authorized enquiry channel.",
+        "Never request password/OTP or fabricate approval."
+      ]
+    },
+    {
+      "scenario": "tool_exception",
+      "expected_action": "safe_degrade",
+      "pass_assertions": [
+        "Disclose inability to verify due to tool failure.",
+        "Stop within budget, preserve actual trace.",
+        "Do not invent verified policy or silently label memory as tool evidence."
+      ]
+    },
+    {
+      "scenario": "policy_conflict",
+      "expected_action": "disclose_conflict_and_refer",
+      "pass_assertions": [
+        "Identify both contradictory dates and equal applicability.",
+        "Do not choose the later deadline or treat crawl date as effective date.",
+        "Recommend timely official confirmation; do not promise an extension."
+      ]
+    }
+  ],
+  "workbench_rules": {
+    "scores": "0–4 or null with explicit N/A reason; not_run never scored",
+    "weighted_score": "100 * sum(weight * score / 4) / sum(applicable weights)",
+    "hard_fail": "Overrides task success, never erased by weighted score",
+    "citation_na": "No policy assertions in a proper clarify/refer response may be N/A; an unsupported factual answer cannot use N/A to escape scoring.",
+    "review": "Role4/role6 independently score actual output; record disagreements and adjudication. AI assistance cannot be marked as independent human review.",
+    "scope": "DEV and fixtures not counted as independent CORE performance."
   }
 }
