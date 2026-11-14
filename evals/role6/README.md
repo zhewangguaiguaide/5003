@@ -7,6 +7,7 @@
 - 通用评分：`../rubric.json`（v2，保留40/25/25/10权重，公开示例不含私有题目答案）。
 - 空白评分模板：`scorecard_template.json`，缺失值null，not_run不当作0分。
 - 报告方法初稿：`report_method_draft.md`，不包含未运行结果。
+- [R06 前端现状与 F4 建议](5003_R06_前端建议_F4评估结果_20261114_v01.md)，含 Q1–Q7、可接入的脱敏结果和验收条件。
 - 视频/前端问卷填写底稿：`questionnaire_drafts.md`，供复制到组长Word模板，非已套版签收文件。
 - 私有材料：`evals/private/`中的YP题、非检索场景、逐题AI核查意见及原评分表，不提交公开Git。
 
