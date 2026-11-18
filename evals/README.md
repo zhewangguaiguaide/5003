@@ -22,7 +22,15 @@
 | rag | ⑤实现固定一次本地Top-5→同一LLM回答并引用 | 与其他模式成对比较 | 条件与例外、事实、引用及误拒答 |
 | agentic_rag | ⑤允许动态选检索、补条件/补证据，并有停止与预算 | 收益、轮次、总token、耗时、成功任务成本 | 是否补齐缺口、合理停止、引用与异常行为 |
 
-③的检索模块不是完整RAG。当前`--ask`是独立Web Agent；⑤新增N5候选`LocalRAGBackend.ask()`和`--ask-local`，可运行固定一次检索的`rag`模式，11/01增加无密钥`mode="retrieval"`/`--retrieve-only`并完成真实链路试查，随后一次DeepSeek回答及引用补验通过（仅开发样例）。四模式统一runner、N7及正式成绩仍待实现/验证。④负责实验与统计，⑥负责回答/引用评分。联网模式单列Web，不能把额外外部知识收益全算给Agent编排。
+③的检索模块不是完整RAG。当前`--ask`是独立Web Agent；⑤的N5 `LocalRAGBackend.ask()`和`--ask-local`已完成固定一次检索的`rag`模式，11/01增加无密钥`mode="retrieval"`/`--retrieve-only`并完成真实链路试查，随后一次DeepSeek回答及引用补验通过（仅开发样例）。11/18新增N7 `AgenticRAGBackend.ask()`和`--local-mode agentic_rag`工程候选，已有动态补检索/主题选择、澄清与预算停止，接口见[开发指导](../docs/Harness开发指导.md#n7-agentic-backend)。四模式统一批量runner及正式成绩仍待完成。④负责实验与统计，⑥负责回答/引用评分。联网模式单列Web，不能把额外外部知识收益全算给Agent编排。
+
+N7工程验证为合成fixture，不是政策金标或正式成绩。对比N5/N7时注入同版Retriever；本轮N7默认仍为E5-only，没有自动采用韩上rerank@50候选。记录`decisions/stop_reason/budget`以及每次模型调用的实际上下文ID/usage；任何一次usage缺失则总usage=null。N5基线继续保留单轮行为。界面补充澄清后以原问题和真实用户条件重新调用，每次ask独立计预算，评测多轮会话时另计整段交互成本，不把多次ask伪装成一次预算内成功。
+
+11/19另有真实N7 DEV与单列回放控制，详见协作页及本机忽略目录`runs/n7-dev-20261119/`。发现v1会漏答子问题却返回answered，原失败保留；当前v2增加一次候选答案覆盖/支持检查，输出`answer_reviews`，其模型调用、usage及耗时全部计入原预算。该检查仅使用原问题、候选断言和实际上下文，不接收gold、评分或预期动作；它仍由同一模型执行，不能充当④⑥独立评分。比较v1/v2或N5/N7时明确版本和额外检查成本，不能混用输出计算成功率。
+
+本轮19次ask包括预算变体、澄清后续及两个无LLM的真实E5短时限注入，不是19个独立样本；32次真实API请求另加1次旧草稿检查，回放控制不计新增API请求。ORCID定义/用途覆盖、借阅具体额度和期限缺口仍保留；没有把安全拒答直接记为任务成功，也没有用多轮累计覆盖冒充首轮Hit@5。正式用例和评分仍由④⑥独立冻结及核验。
+
+11/18只读核对韩上最新分支说明：CORE20题目及答案均已公开，可用于回归，但不再作为未见留出集。本轮不导入答案键或gold到提示词/索引；正式N7效果需DEV先校准、新未见题冻结、N6同版达标及④⑥独立核对。燕萍11/16对原CORE20题目和答案键的本人复核不等于逐题chunk核验、YP-CORE评分或④⑥校准已完成。
 
 ## 真实证据标注的最小启动流程
 
@@ -65,7 +73,7 @@ python -m scripts.check_eval_assets --corpus data/corpus.jsonl --cases evals/pri
 
 ## ⑤输出及公平比较约定
 
-结果至少包含实际`case_id/mode/status/answer`、分轮query与Hit、最终上下文chunk IDs、实际引用、tool calls、总耗时与usage、Git/语料/索引/生成模型/prompt版本。N5已提供上述结构，字段与调用见[本地后端接口](../docs/Harness开发指导.md#n5-local-backend)；11/01真实试查绑定语料SHA、E5 revision及索引SHA，5次均有返回不能计为Hit@5=100%，尚无冻结金标。未知版本仍为null，现有client不提供usage也保持null。无效引用或生成错误保留为失败结果，不从评测分母剔除。
+结果至少包含实际`case_id/mode/status/answer`、分轮query与Hit、最终上下文chunk IDs、实际引用、tool calls、总耗时与usage、Git/语料/索引/生成模型/prompt版本。N5已提供上述结构，字段与调用见[本地后端接口](../docs/Harness开发指导.md#n5-local-backend)；11/01真实试查绑定语料SHA、E5 revision及索引SHA，5次均有返回不能计为Hit@5=100%，尚无冻结金标。未知版本仍为null，N5旧message-only路径的usage仍为null；N7逐次读取实际元数据（含v2最终检查），缺失时总usage为null。无效引用或生成错误保留为失败结果，不从评测分母剔除。
 
 分别保留首轮前5条、各轮累计证据、最终上下文与实际引用；不能把多轮累计命中叫Hit@5，也不能只对URL。失败题保留分母。纯LLM没有检索上下文时忠实度N/A；若统一产品成功率要求引用，须声明该要求，与内容正确性分开。
 

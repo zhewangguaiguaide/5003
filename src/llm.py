@@ -72,6 +72,20 @@ class DeepSeekClient:
 
     def chat(self, messages: List[Dict[str, Any]],
              tools: Optional[List[Dict[str, Any]]] = None) -> Dict[str, Any]:
+        message, _ = self.chat_with_metadata(messages, tools)
+        return message
+
+    def chat_with_metadata(self, messages: List[Dict[str, Any]],
+                           tools: Optional[List[Dict[str, Any]]] = None, *,
+                           timeout_s: float | None = None) -> tuple[Dict[str, Any], dict | None]:
+        """Per-call usage and timeout; preserves chat()'s message-only contract."""
+        import math
+        timeout = self.config.timeout_s
+        if timeout_s is not None:
+            if (type(timeout_s) not in (int, float)
+                    or not math.isfinite(timeout_s) or timeout_s <= 0):
+                raise ValueError("timeout_s must be positive and finite")
+            timeout = min(timeout, timeout_s)
         key = self.config.resolved_key()
         if not key:
             raise LLMError(
@@ -85,7 +99,7 @@ class DeepSeekClient:
                 url,
                 json=self._payload(messages, tools),
                 headers={"Authorization": f"Bearer {key}"},
-                timeout=self.config.timeout_s,
+                timeout=timeout,
             )
         except Exception as exc:
             raise LLMError(f"请求失败: {exc}") from exc
@@ -93,6 +107,10 @@ class DeepSeekClient:
             raise LLMError(f"HTTP {resp.status_code}: {resp.text[:300]}")
         data = resp.json()
         try:
-            return data["choices"][0]["message"]
-        except (KeyError, IndexError) as exc:
+            message = data["choices"][0]["message"]
+            if not isinstance(message, dict):
+                raise TypeError("Invalid message")
+            usage = data.get("usage")
+            return message, usage if isinstance(usage, dict) else None
+        except (KeyError, IndexError, TypeError) as exc:
             raise LLMError(f"响应结构异常: {str(data)[:300]}") from exc

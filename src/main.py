@@ -154,14 +154,19 @@ def _print_local_result(result, json_output: bool) -> int:
 
 def cmd_ask_local(config, question: str, *, index_dir: str = "data/wsb_index",
                   topic=None, db_path=None, demo: bool = False,
-                  json_output: bool = False, model_path=None, retrieve_only=False) -> int:
-    """N5 one-shot local retrieval; never invokes the Web search agent."""
+                  json_output: bool = False, model_path=None, retrieve_only=False,
+                  local_mode="rag", persona=None, as_of=None, clarification=None,
+                  agent_budget=None) -> int:
+    """N5 baseline or bounded N7; never invokes the Web search agent."""
     from .local_rag import LocalRAGBackend, RagAnswer
     from .local_sources import LocalSourceError, load_retriever
 
     if demo:
         from .local_demo import DemoClient, DemoRetriever
         retriever, client = DemoRetriever(), DemoClient()
+        if local_mode == "agentic_rag":
+            from .agentic_demo import AgentDemoClient, AgentDemoRetriever
+            retriever, client = AgentDemoRetriever(), AgentDemoClient()
         versions = {"corpus_sha256": None, "synthetic": True}
         warnings = ["Synthetic development demo only; not CityU policy or N5 real-data acceptance."]
     else:
@@ -170,18 +175,26 @@ def cmd_ask_local(config, question: str, *, index_dir: str = "data/wsb_index",
             retriever, versions, warnings = load_retriever(index_dir, model_path=model_path)
         except LocalSourceError as exc:
             return _print_local_result(RagAnswer(
-                status=exc.code, answer="", error={"code": exc.code, "message": exc.message}
+                mode=local_mode, status=exc.code, answer="", error={"code": exc.code, "message": exc.message}
             ), json_output)
         try:
             client = None if retrieve_only else DeepSeekClient(LLMConfig.from_conf(config.get("llm")))
         except (AttributeError, TypeError, ValueError):
             return _print_local_result(RagAnswer(
-                status="config_error", answer="",
+                mode=local_mode, status="config_error", answer="",
                 error={"code": "config_error", "message": "Invalid local LLM configuration."}
             ), json_output)
-    result = LocalRAGBackend(
-        retriever, client, db_path=db_path, versions=versions, warnings=warnings
-    ).ask(question, topic=topic, mode="retrieval" if retrieve_only else "rag")
+    if local_mode == "agentic_rag":
+        from .agentic_rag import AgenticRAGBackend
+        backend = AgenticRAGBackend(retriever, client, db_path=db_path, versions=versions,
+                                    warnings=warnings, budget=agent_budget)
+        result = backend.ask(question, topic=topic, persona=persona, as_of=as_of,
+                             clarification=clarification)
+    else:
+        result = LocalRAGBackend(
+            retriever, client, db_path=db_path, versions=versions, warnings=warnings
+        ).ask(question, topic=topic, persona=persona, as_of=as_of,
+              mode="retrieval" if retrieve_only else "rag")
     return _print_local_result(result, json_output)
 
 
@@ -215,14 +228,48 @@ def main(argv=None) -> int:
     ap.add_argument("--index-dir", metavar="PATH", help="本地索引目录，默认 data/wsb_index")
     ap.add_argument("--model-path", metavar="PATH", help="已下载并与索引绑定的E5模型文件夹")
     ap.add_argument("--retrieve-only", action="store_true", help="仅返回真实检索正文与来源，不调用LLM")
+    ap.add_argument("--local-mode", choices=["rag", "agentic_rag"], help="本地单轮N5或动态N7；默认rag")
+    ap.add_argument("--persona", help="用户已知条件的JSON对象，不含标准答案")
+    ap.add_argument("--as-of", help="用户给出的参考日期")
+    ap.add_argument("--clarification", help="N7：对原问题的用户补充，重新检索和核验")
+    ap.add_argument("--agent-max-rounds", type=int, help="N7最多检索轮数，默认3")
+    ap.add_argument("--agent-max-llm-calls", type=int, help="N7最多模型调用，默认4")
+    ap.add_argument("--agent-timeout-s", type=float, help="N7耗时预算秒数，默认90")
+    ap.add_argument("--agent-context-chars", type=int, help="N7累计证据正文字符预算，默认24000")
     ap.add_argument("--topic", help="本地检索主题或约定别名（例如 fees）；默认不筛主题")
     ap.add_argument("--rag-demo", action="store_true", help="仅 --ask-local：合成证据离线联调，无模型/密钥")
     ap.add_argument("--json", dest="json_output", action="store_true", help="仅 --ask-local：输出结构化 JSON")
     args = ap.parse_args(argv)
 
+    agent_options = (args.agent_max_rounds, args.agent_max_llm_calls,
+                     args.agent_timeout_s, args.agent_context_chars)
     if args.ask_local is None and any((args.index_dir is not None, args.topic is not None,
-                                      args.rag_demo, args.json_output, args.model_path is not None, args.retrieve_only)):
+                                      args.rag_demo, args.json_output, args.model_path is not None, args.retrieve_only,
+                                      args.local_mode is not None, args.persona is not None,
+                                      args.as_of is not None, args.clarification is not None,
+                                      any(x is not None for x in agent_options))):
         ap.error("本地检索选项只能与 --ask-local 一起使用")
+    if args.local_mode != "agentic_rag" and (args.clarification is not None or any(x is not None for x in agent_options)):
+        ap.error("澄清补充和Agent预算只能与 --local-mode agentic_rag 一起使用")
+    if args.local_mode == "agentic_rag" and args.retrieve_only:
+        ap.error("agentic_rag需要模型决策，不能与 --retrieve-only 一起使用")
+    persona = None
+    if args.persona is not None:
+        try:
+            persona = json.loads(args.persona)
+            if not isinstance(persona, dict):
+                raise ValueError("Expected object")
+            json.dumps(persona, allow_nan=False)
+        except (ValueError, TypeError, RecursionError):
+            ap.error("--persona 必须是有限JSON对象")
+    agent_budget = None
+    if args.local_mode == "agentic_rag":
+        from .agentic_rag import AgentBudget
+        names = ("max_retrieval_rounds", "max_llm_calls", "max_elapsed_s", "max_context_chars")
+        try:
+            agent_budget = AgentBudget(**{k: v for k, v in zip(names, agent_options) if v is not None})
+        except ValueError:
+            ap.error("Agent预算必须为有限正数，轮数/调用/字符必须为正整数")
     if args.ask_local is not None and any((
         args.import_corpus, args.live, args.migrate, args.export, args.smoke,
         args.status, args.quality, args.column, args.mode, args.full, args.dry_run,
@@ -246,13 +293,15 @@ def main(argv=None) -> int:
             except Exception:
                 from .local_rag import RagAnswer
                 return _print_local_result(RagAnswer(
-                    status="config_error", answer="",
+                    mode=args.local_mode or "rag", status="config_error", answer="",
                     error={"code": "config_error", "message": "Cannot load local query configuration."}
                 ), args.json_output)
         return cmd_ask_local(
             config, args.ask_local, index_dir=args.index_dir or "data/wsb_index",
             topic=args.topic, db_path=args.db, demo=args.rag_demo,
             json_output=args.json_output, model_path=args.model_path, retrieve_only=args.retrieve_only,
+            local_mode=args.local_mode or "rag", persona=persona, as_of=args.as_of,
+            clarification=args.clarification, agent_budget=agent_budget,
         )
     config = cfg.load_config(args.config)
     if args.ask:

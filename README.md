@@ -4,9 +4,36 @@
 
 **2026-11-01已跑通真实本地检索及一次DeepSeek问答，正式验收仍待完成。** 已接收159篇真实语料，下载官方`intfloat/multilingual-e5-small`，复用③切块与Retriever构建881条384维向量。5次开发试查均返回5条可在运行库核验的片段，CLI退出0；这是链路验证，不是正式Hit@5成绩。依赖、模型与版本绑定已补齐，切块缺陷、检索质量及下游接受仍待核验。`--ask`仍是独立Web Agent；本地入口为`--ask-local`。实际证据和接收范围见[协作页](docs/协作与需求节点.md)。
 
-**2026-10-31历史进展：本地后端与模拟联调候选已实现。** 新入口`--ask-local`复用③的Retriever，一次本地Top-5后生成英文回答，返回实际引用、首轮检索记录和失败状态。当时未取得真实输入；11/01已补齐检索运行，随后用户在本机配置密钥，学费支付问题返回`answered`及有效来源引用。N7尚未实施。
+**2026-11-18 N7开发候选已实现，并取得首份真实回答。** N5本地查询后端已完成，组员联调和接受单独记录。新增`AgenticRAGBackend`及`--local-mode agentic_rag`，按证据缺口改写查询、调整主题、补检索、澄清或停止；复用N5逐轮数据库核验和引用映射。首份真实输出为学费支付开发问题，返回`answered/evidence_sufficient`，1轮检索、1次DeepSeek调用、3227 tokens、4488ms（不含初始化），引用S4对应付款方式页的`#chunk-1`。5条命中及引用映射已核对数据库，6项断言在引用快照中可找到依据。真实多轮补检索、DEV行为覆盖与N7正式验收仍待完成；默认入口仍是N5单轮`rag`。
+
+本次受限环境首次生成返回`generation_error`，联网执行重试成功；失败与成功输出均保留在本机忽略目录`runs/n7-real-20261118/`，不把失败尝试隐去。原始输出的`git_commit`为null，另在本机`run_manifest.json`记录真实基线提交、工作区dirty状态、源码SHA及脱敏生成配置，不伪造已提交版本。该题已用于N5开发检查，只是N7真实链路试跑，不是未见题成绩或④⑥独立评分。
+
+**同日环境准备补验已完成。** 本机已安装`requirements-retrieval.txt`固定依赖，`pip check`通过；固定E5的11个文件全部与原构建SHA256一致，`scripts.verify_local_assets`返回`verified/model_checked=true`。真实E5通过持久子进程加载及合成文本编码，384维、最大序列长度512、881个索引片段。DeepSeek本机配置已通过模型列表认证，所配模型可见；未调用回答生成。139项回归测试通过。个人密钥使用被Git忽略的`config.local.yaml`（权限0600）；采用此配置时，在真实运行命令中增加`--config config.local.yaml`。模型、依赖缓存、密钥和详细准备记录均不加入Git。
+
+**2026-11-19 DEV验证与修正。** 已取得真实多轮补检索、借阅身份澄清/补充后重查、语料缺失拒答、重复查询停止、LLM/时间预算停止等记录。发现v1会在仍缺少一个子问题时只回答另一部分却标为answered，已保留失败原样并升级为`n7-local-agentic-v2`：候选答案发布前增加一次单独的覆盖/引用支持检查，该调用计入原有4次LLM及90秒预算；漏答或无依据草稿不发布。复测的学费支付问题经过3轮检索、4次模型调用（含检查）后answered；借阅补充身份后仍无具体配额则拒答。144项测试通过。真实运行、动作回放及注入控制分开记录于忽略目录`runs/n7-dev-20261119/`；没有把控制回放计为新增API调用或正式成绩，N7正式验收仍待④⑥独立核对。
+
+**N7 v2交付分支：`codex/n7-agentic-rag-20261118`。** 基于N5交付`2373dd1`，本次交源码、必要测试和现有文档；语料、固定索引及运行库沿用该基线。组员测试N7应取得这个分支，按下方命令运行；模型仍按固定revision下载，个人密钥在各自本机配置。①接入、④检索统计、⑥回答/行为评分与接受各自记录，不以分支交付替代正式验收。
+
+无密钥运行N7两轮合成演示（不是学校政策或正式评测）：
+
+```bash
+python -m src.main --ask-local "Show the synthetic fixtures" --local-mode agentic_rag --rag-demo --json
+python -m unittest tests.test_agentic_rag tests.test_agentic_cli tests.test_llm_metadata -v
+```
+
+已准备固定模型和本机密钥后，真实运行命令为：
+
+```bash
+python -m src.main --ask-local "What payment methods are available for tuition fees?" --local-mode agentic_rag --model-path data/models/e5-small-614241f --index-dir data/wsb_index --db data/runtime_indexed.db --json
+```
+
+默认最多3轮检索（每轮Top-5）、4次LLM调用（含最终答案检查）、24000字符累计证据及90秒处理预算。可用`--agent-max-rounds/--agent-max-llm-calls/--agent-context-chars/--agent-timeout-s`调整；停止原因见`stop_reason`。v2正常回答至少需要一次决策和一次检查；仅给1次LLM预算时不会发布未经检查的候选答案。澄清后用原问题加`--clarification "用户补充的英文条件"`重新调用；已知身份等可传`--persona '{"programme":"TPG"}'`及`--as-of`。详细输入输出、耗时预算限制及验收边界见[接口约定](docs/Harness开发指导.md#n7-agentic-backend)。
+
+**2026-10-31历史进展：本地后端与模拟联调候选已实现。** 新入口`--ask-local`复用③的Retriever，一次本地Top-5后生成英文回答，返回实际引用、首轮检索记录和失败状态。当时未取得真实输入；11/01已补齐检索运行，随后用户在本机配置密钥，学费支付问题返回`answered`及有效来源引用。该历史运行不包含N7。
 
 ## 成员6现在如何开测
+
+以下N5取件说明保留作单轮基线；测试N7请改取上方N7 v2分支，并在本地问答命令中增加`--local-mode agentic_rag`。
 
 取件分支：`codex/n5-real-rag-20261101`。本次已随分支提供881片段的索引、片段映射及对应运行数据库，**不用重建索引**。E5权重尚未上传到GitHub LFS：当前交付环境终端无法联网，连接器不支持LFS上传；先使用下面的固定版本下载命令取得同版模型即可开测。不可将待上传指针视为模型已交付。
 
@@ -25,7 +52,7 @@ python -m venv .venv
 
 校验预期：`status=verified`、159篇文档、157篇已索引、881个片段、`model_checked=true`。检索预期：`mode=retrieval/status=retrieved`，命中正文与URL在`retrieval_rounds[].hits`。依赖与模型下载需要联网，之后纯检索不需要API密钥。收到模型LFS交付后，装好Git LFS并执行`git lfs pull`，可省略单独下载E5。
 
-燕萍现在可做接口/失败场景联调、证据支持复核、准备DEV/CORE与rubric；测回答和引用时在**自己的本机**设置`DEEPSEEK_API_KEY`并去掉`--retrieve-only`。不要把密钥写进Git或测试结果。可运行`python -m unittest discover -s tests -v`检查工程回归；正式题集和评分仍由④⑥冻结，N7多跳/反思尚未实现。
+燕萍现在可做接口/失败场景联调、证据支持复核、准备DEV/CORE与rubric；测回答和引用时在**自己的本机**设置`DEEPSEEK_API_KEY`并去掉`--retrieve-only`。不要把密钥写进Git或测试结果。可运行`python -m unittest discover -s tests -v`检查工程回归；N7已有真实DEV运行，正式题集冻结、独立评分与验收仍待完成。
 
 文件绑定：模型revision `614241f622f53c4eeff9890bdc4f31cfecc418b3`；模型文件SHA及索引SHA见`data/wsb_index/chunks.json`；发布语料及原始数据库SHA见`data/release_manifest.json`。本次运行库SHA为`083a01505f859e1e109417aabbe407be4ef1a5fc9fd020306d91702b7d3e4ece`，不含问答/抓取日志。校历偏题与两篇未切出片段仍保留，成功返回不代表检索质量达标。
 
