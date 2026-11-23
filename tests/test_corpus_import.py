@@ -20,7 +20,7 @@ def row(url="https://x.test/a", content="Student service information. " * 20, ye
 
 class TestCorpusImport(unittest.TestCase):
     def setUp(self):
-        self.temp = tempfile.TemporaryDirectory()
+        self.temp = tempfile.TemporaryDirectory(ignore_cleanup_errors=True)
         self.path = Path(self.temp.name) / "corpus.jsonl"
         self.conn = sqlite3.connect(":memory:")
 

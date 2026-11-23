@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="DSC5003 CityU student services evidence lab">
+  <title>CityU Evidence Lab · DSC5003</title>
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="grain" aria-hidden="true"></div>
+  <header class="topbar">
+    <a class="brand" href="#overview" data-route="overview" aria-label="Evidence Lab home">
+      <span class="brand-mark">E<span>L</span></span>
+      <span class="brand-copy"><strong>Evidence Lab</strong><small>CityU student services · DSC5003</small></span>
+    </a>
+    <nav class="main-nav" aria-label="Product areas">
+      <button class="nav-item active" data-route="overview"><span>00</span>Overview</button>
+      <button class="nav-item" data-route="ask"><span>01</span>Ask</button>
+      <button class="nav-item" data-route="data"><span>02</span>Data</button>
+      <button class="nav-item" data-route="retrieval"><span>03</span>Retrieval</button>
+      <button class="nav-item" data-route="evaluation"><span>04</span>Evaluation</button>
+      <button class="nav-item" data-route="delivery"><span>05</span>Delivery</button>
+    </nav>
+    <div class="lang-switch" aria-label="Language"><button data-lang="en" class="active">EN</button><button data-lang="zh">中文</button></div>
+    <div class="top-meta"><span class="live-dot"></span><span>Evidence-ready demo</span><b>21 NOV 2026</b></div>
+  </header>
+
+  <main id="app" class="shell" aria-live="polite">
+    <div class="loading-card">
+      <div class="loader"></div>
+      <p>Loading frozen evidence…</p>
+    </div>
+  </main>
+
+  <aside id="drawer" class="drawer" role="dialog" aria-modal="true" aria-hidden="true" aria-label="Source evidence">
+    <div class="drawer-shade" data-close-drawer></div>
+    <div class="drawer-panel">
+      <div class="drawer-head"><div><small class="eyebrow">SOURCE EVIDENCE</small><h2 id="drawer-title">Evidence</h2></div><button class="icon-btn" data-close-drawer aria-label="Close source">×</button></div>
+      <div id="drawer-body"></div>
+    </div>
+  </aside>
+
+  <div id="toast" class="toast" role="status"></div>
+  <script src="app.js"></script>
+</body>
+</html>
+
+

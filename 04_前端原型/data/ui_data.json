@@ -1,0 +1,1220 @@
+{
+  "meta": {
+    "project": "CityU Student Services Evidence Lab",
+    "course": "DSC5003",
+    "prepared": "2026-11-21",
+    "deadline": "2026-12-06 23:59",
+    "corpus_sha256": "2c3f9a2d9dc116062791e8c646ad7e343fd8e22f5a59c91581f84808b0620752",
+    "database_sha256": "e23901259513e73825e0495afcfd056d71ca1197512a424e60e368e2b668b062",
+    "repo": "https://github.com/zhewangguaiguaide/5003",
+    "commits": {
+      "backend": "c7b067f",
+      "retrieval_eval": "9de28ad",
+      "agent_eval": "39a1f81"
+    },
+    "documents": 159,
+    "topics": 8,
+    "chunks": 881,
+    "dimension": 384,
+    "mode_notice": "Frozen evidence and recorded metadata are shown by default. Live buttons run only the synthetic backend demo unless the full model environment is configured."
+  },
+  "f1": {
+    "recorded": {
+      "label": "N7 DEV replay · 2026-11-19",
+      "question": "How do I pay my tuition?",
+      "status": "answered",
+      "stop_reason": "evidence_sufficient",
+      "latency_ms": 21853,
+      "retrieval_rounds": 3,
+      "llm_calls": 4,
+      "total_tokens": 26018,
+      "usage_note": "Prompt + completion tokens across the recorded run.",
+      "citations": [
+        {
+          "source_id": "S11",
+          "title": "Payment Methods (CityU Pay) - City University of Hong Kong",
+          "url": "https://www.cityu.edu.hk/fo/htm/paymethods.htm",
+          "chunk_id": "https://www.cityu.edu.hk/fo/htm/paymethods.htm#chunk-1",
+          "excerpt": "Payment Methods Insurance Coverage & Voluntary Insurance Download Area Useful Links UGC-funded Institutions in Hong Kong Payment Methods to Settle Your Student Account Balance 1. CityUHK Pay Students are encouraged to settle their account balance through CityUHK Pay , the one stop intergrated online payment portal of the University, by using China UnionPay and popular mobile wallets like Faster Payment System (FPS), "
+        },
+        {
+          "source_id": "S12",
+          "title": "Payment Methods (CityU Pay) - City University of Hong Kong",
+          "url": "https://www.cityu.edu.hk/fo/htm/paymethods.htm",
+          "chunk_id": "https://www.cityu.edu.hk/fo/htm/paymethods.htm#chunk-2",
+          "excerpt": "by CityUHK Pay for student account balance settlement include: Faster Payment System (FPS) Alipay (Hong Kong and Chinese Mainland wallet) WeChat Pay (Hong Kong and Chinese Mainland wallet) PayMe China UnionPay (including QuickPass and transfer from mainland bank accounts) Flywire Convera (formerly Western Union Business Solutions) Please click or scan the QR code below to start experience the integrated online paymen"
+        },
+        {
+          "source_id": "S13",
+          "title": "Payment Methods (CityU Pay) - City University of Hong Kong",
+          "url": "https://www.cityu.edu.hk/fo/htm/paymethods.htm",
+          "chunk_id": "https://www.cityu.edu.hk/fo/htm/paymethods.htm#chunk-5",
+          "excerpt": "using a touch-tone phone or via the PPS website http://www.ppshk.com . Please call 18011 for bill registration and 18031 for bill payment. (Cut-off time: Mondays to Fridays before 7 p.m.) Please arrange payment one working day before the payment due date. When making payment, please key in: PPS merchant code -\" 9164 \", Your Student Number for \"Bill Account No.\", Bill type '01', and The total amount to be paid as indi"
+        }
+      ],
+      "note": "The public Git snapshot records status, counts and citation IDs; the private answer text and raw trace remain in the ignored run directory. This is not a new execution."
+    },
+    "samples": [
+      {
+        "id": "tuition",
+        "label": "Tuition payment",
+        "question": "How do I pay my tuition?",
+        "topic": "fees"
+      },
+      {
+        "id": "library",
+        "label": "Library access",
+        "question": "What do I need to enter the library?",
+        "topic": "library"
+      },
+      {
+        "id": "clarify",
+        "label": "Need clarification",
+        "question": "Can I get a refund?"
+      }
+    ],
+    "status_legend": [
+      [
+        "answered",
+        "Evidence supports every requested fact."
+      ],
+      [
+        "clarify",
+        "A user condition is required before retrieval."
+      ],
+      [
+        "abstained",
+        "The available evidence cannot support a complete answer."
+      ],
+      [
+        "generation_error",
+        "Model or backend failed; no answer published."
+      ],
+      [
+        "no_evidence",
+        "No relevant chunks were returned."
+      ],
+      [
+        "retrieval_error",
+        "The retriever or source validation failed."
+      ],
+      [
+        "invalid_response",
+        "The model output failed the contract."
+      ],
+      [
+        "source_mismatch",
+        "Evidence version changed before publication."
+      ]
+    ]
+  },
+  "f2": {
+    "kpis": [
+      {
+        "label": "Active documents",
+        "value": 159,
+        "note": "corpus.jsonl = documents"
+      },
+      {
+        "label": "Topics",
+        "value": "8 / 8",
+        "note": "13 / 13 configured seeds"
+      },
+      {
+        "label": "Median document",
+        "value": "2,905",
+        "note": "characters"
+      },
+      {
+        "label": "Content duplicates removed",
+        "value": "23",
+        "note": "normalized-content fingerprint"
+      }
+    ],
+    "coverage": [
+      {
+        "topic_zh": "申请",
+        "topic_en": "Admission",
+        "docs": 25,
+        "before": 14,
+        "median_chars": 4962,
+        "with_year": 10
+      },
+      {
+        "topic_zh": "签证与国际学生服务",
+        "topic_en": "Visa & international",
+        "docs": 12,
+        "before": 6,
+        "median_chars": 2441,
+        "with_year": 2
+      },
+      {
+        "topic_zh": "注册与学籍",
+        "topic_en": "Registration & records",
+        "docs": 18,
+        "before": 1,
+        "median_chars": 8747,
+        "with_year": 3
+      },
+      {
+        "topic_zh": "宿舍",
+        "topic_en": "Student housing",
+        "docs": 24,
+        "before": 16,
+        "median_chars": 2852,
+        "with_year": 10
+      },
+      {
+        "topic_zh": "学费与缴费",
+        "topic_en": "Tuition & payment",
+        "docs": 13,
+        "before": 4,
+        "median_chars": 3517,
+        "with_year": 5
+      },
+      {
+        "topic_zh": "奖学金与助学金",
+        "topic_en": "Scholarships & aid",
+        "docs": 19,
+        "before": 15,
+        "median_chars": 1421,
+        "with_year": 6
+      },
+      {
+        "topic_zh": "图书馆",
+        "topic_en": "Library",
+        "docs": 40,
+        "before": 20,
+        "median_chars": 2286,
+        "with_year": 1
+      },
+      {
+        "topic_zh": "校历与重要日期",
+        "topic_en": "Academic calendar",
+        "docs": 8,
+        "before": 1,
+        "median_chars": 10842,
+        "with_year": 3
+      }
+    ],
+    "funnel": [
+      {
+        "stage": "raw records (crawl run 2026-10-11, all columns)",
+        "count": 216,
+        "evidence": "historical_measured"
+      },
+      {
+        "stage": "rejected: failed / empty / navigation-thin",
+        "count": 34,
+        "evidence": "historical_measured"
+      },
+      {
+        "stage": "removed: canonical-URL duplicates",
+        "count": 0,
+        "evidence": "historical_measured"
+      },
+      {
+        "stage": "removed: content-fingerprint duplicates",
+        "count": 23,
+        "evidence": "historical_measured"
+      },
+      {
+        "stage": "final corpus.jsonl = documents (active)",
+        "count": 159,
+        "evidence": "re-verified_20261111"
+      }
+    ],
+    "dedup": [
+      {
+        "raw_url": "https://www.cityu.edu.hk/admo/",
+        "kept": "https://www.cityu.edu.hk/admo",
+        "reason": "canonical URL (trailing slash)",
+        "chars": 8752
+      },
+      {
+        "raw_url": "https://www.cityu.edu.hk/admo/faq?kind=jupas",
+        "kept": "https://www.cityu.edu.hk/admo/faq",
+        "reason": "same normalized-content SHA-256 (alias URL: query/locale/path variant)",
+        "chars": 104240
+      },
+      {
+        "raw_url": "https://www.cityu.edu.hk/admo/fees-and-scholarships?kind=local",
+        "kept": "https://www.cityu.edu.hk/admo/fees-and-scholarships",
+        "reason": "same normalized-content SHA-256 (alias URL: query/locale/path variant)",
+        "chars": 3865
+      },
+      {
+        "raw_url": "https://www.cityu.edu.hk/admo/fees-and-scholarships?kind=nonlocal",
+        "kept": "https://www.cityu.edu.hk/admo/fees-and-scholarships",
+        "reason": "same normalized-content SHA-256 (alias URL: query/locale/path variant)",
+        "chars": 3865
+      },
+      {
+        "raw_url": "https://www.cityu.edu.hk/admo/home",
+        "kept": "https://www.cityu.edu.hk/admo",
+        "reason": "same normalized-content SHA-256 (alias URL: query/locale/path variant)",
+        "chars": 8752
+      },
+      {
+        "raw_url": "https://www.cityu.edu.hk/admo/programmes?kind=college",
+        "kept": "https://www.cityu.edu.hk/admo/programmes",
+        "reason": "same normalized-content SHA-256 (alias URL: query/locale/path variant)",
+        "chars": 4273
+      }
+    ],
+    "filtered": [
+      {
+        "url": "https://www.cityu.edu.hk/sro/StudentHousing/UGHalls/HallAdmission/",
+        "chars": 341,
+        "in_records": true,
+        "in_documents": false
+      },
+      {
+        "url": "https://www.cityu.edu.hk/sro/AboutUs/KLT/ResidenceHalls/",
+        "chars": 348,
+        "in_records": true,
+        "in_documents": false
+      }
+    ],
+    "database": {
+      "tables": [
+        {
+          "name": "chunks",
+          "rows": 0,
+          "columns": 5
+        },
+        {
+          "name": "corpus_imports",
+          "rows": 2,
+          "columns": 7
+        },
+        {
+          "name": "crawl_runs",
+          "rows": 0,
+          "columns": 7
+        },
+        {
+          "name": "documents",
+          "rows": 159,
+          "columns": 14
+        },
+        {
+          "name": "qa_logs",
+          "rows": 0,
+          "columns": 6
+        },
+        {
+          "name": "records",
+          "rows": 83,
+          "columns": 11
+        }
+      ],
+      "facts": {
+        "schema_columns": 14,
+        "json_fields": 12,
+        "indexes": 5,
+        "foreign_key": "chunks.doc_id → documents.url (nullable)",
+        "integrity": "ok",
+        "foreign_key_check": "empty",
+        "with_year": 40,
+        "without_year": 119
+      },
+      "queries": [
+        {
+          "id": "Q1",
+          "sql": "SELECT topic, COUNT(*) AS docs, SUM(CASE WHEN academic_year <> '' THEN 1 ELSE 0 END) AS with_year FROM documents WHERE active=1 GROUP BY topic ORDER BY docs DESC",
+          "parameters": [],
+          "rows": [
+            {
+              "topic": "图书馆",
+              "docs": 40,
+              "with_year": 1
+            },
+            {
+              "topic": "申请",
+              "docs": 25,
+              "with_year": 10
+            },
+            {
+              "topic": "宿舍",
+              "docs": 24,
+              "with_year": 10
+            },
+            {
+              "topic": "奖学金与助学金",
+              "docs": 19,
+              "with_year": 6
+            },
+            {
+              "topic": "注册与学籍",
+              "docs": 18,
+              "with_year": 3
+            },
+            {
+              "topic": "学费与缴费",
+              "docs": 13,
+              "with_year": 5
+            },
+            {
+              "topic": "签证与国际学生服务",
+              "docs": 12,
+              "with_year": 2
+            },
+            {
+              "topic": "校历与重要日期",
+              "docs": 8,
+              "with_year": 3
+            }
+          ],
+          "explain": [
+            "SEARCH documents USING INDEX idx_documents_active (active=?)",
+            "USE TEMP B-TREE FOR GROUP BY",
+            "USE TEMP B-TREE FOR ORDER BY"
+          ]
+        },
+        {
+          "id": "Q2",
+          "sql": "SELECT title, academic_year, date FROM documents WHERE active=1 AND topic=? AND academic_year<>'' ORDER BY academic_year DESC,date DESC LIMIT 5",
+          "parameters": [
+            "学费与缴费"
+          ],
+          "rows": [
+            {
+              "title": "Finance Office - City University of Hong Kong",
+              "academic_year": "2026-2027",
+              "date": "2026-10-11T17:13:42"
+            },
+            {
+              "title": "Finance Office - City University of Hong Kong",
+              "academic_year": "2026-2027",
+              "date": "2014-06-01"
+            },
+            {
+              "title": "Finance Office - City University of Hong Kong",
+              "academic_year": "2024-2025",
+              "date": "2026-09-26T00:33:54"
+            },
+            {
+              "title": "Finance Office - City University of Hong Kong",
+              "academic_year": "2021-2022",
+              "date": "2026-10-11T17:19:01"
+            },
+            {
+              "title": "Finance Office - City University of Hong Kong",
+              "academic_year": "2020-2021",
+              "date": "2026-10-11T17:13:56"
+            }
+          ],
+          "explain": [
+            "SEARCH documents USING INDEX idx_documents_topic_year (topic=?)",
+            "USE TEMP B-TREE FOR LAST TERM OF ORDER BY"
+          ]
+        },
+        {
+          "id": "Q3",
+          "sql": "SELECT url,title,active,index_dirty,corpus_sha256 FROM documents WHERE url=?",
+          "parameters": [
+            "https://www.cityu.edu.hk/admo"
+          ],
+          "rows": [
+            {
+              "url": "https://www.cityu.edu.hk/admo",
+              "title": "CityUHK Undergraduate Admissions: Home",
+              "active": 1,
+              "index_dirty": 1,
+              "corpus_sha256": "2c3f9a2d9dc116062791e8c646ad7e343fd8e22f5a59c91581f84808b0620752"
+            }
+          ],
+          "explain": [
+            "SEARCH documents USING INDEX sqlite_autoindex_documents_1 (url=?)"
+          ]
+        }
+      ],
+      "normalization_note": "SQLite is the source-document store; FAISS is a derived index. SHA fields are logical provenance, not a foreign key, and the schema does not prove full 3NF."
+    },
+    "knowledge_base": {
+      "documents": 159,
+      "topics": 8,
+      "records": 83,
+      "published_chunks": 0,
+      "runtime_chunks": 881,
+      "comparison_chunks": 863,
+      "indexed_documents": 157,
+      "unindexed_documents": 2,
+      "unindexed_ids": [
+        "https://www.cityu.edu.hk/admo/explore/news-and-events/upcoming-events",
+        "https://www.cityu.edu.hk/en/geo/international-campus/student-stories"
+      ],
+      "corpus_sha256": "2c3f9a2d9dc116062791e8c646ad7e343fd8e22f5a59c91581f84808b0620752",
+      "database_sha256": "e23901259513e73825e0495afcfd056d71ca1197512a424e60e368e2b668b062",
+      "sample_docs": [
+        {
+          "topic": "申请",
+          "title": "FAQ | CityUHK Admission",
+          "url": "https://www.cityu.edu.hk/admo/faq",
+          "academic_year": "",
+          "chars": 104240,
+          "indexed_chunks": 198,
+          "first_chunks": [
+            "https://www.cityu.edu.hk/admo/faq#chunk-0",
+            "https://www.cityu.edu.hk/admo/faq#chunk-1"
+          ],
+          "first_excerpt": "1. How do I know whether I am eligible to apply for admission via JUPAS?\nJoint University Programmes Admissions System (JUPAS) is a scheme and the main route of application for local students with Hong Kong Diploma of Secondary Education (HKDSE) Examination re"
+        },
+        {
+          "topic": "校历与重要日期",
+          "title": "Academic Regulations and Records Office",
+          "url": "https://www.cityu.edu.hk/arro/impd/impd_year.htm",
+          "academic_year": "2026-2027",
+          "chars": 9478,
+          "indexed_chunks": 8,
+          "first_chunks": [
+            "https://www.cityu.edu.hk/arro/impd/impd_year.htm#chunk-0",
+            "https://www.cityu.edu.hk/arro/impd/impd_year.htm#chunk-1"
+          ],
+          "first_excerpt": "Academic Regulations and Records Office\nImportant Dates\n2026\n2027\nJanuary 2026\n5 January 2026\nFirst day for online add/drop of web-enabled courses in Semester B\n(Please refer to your web registration time-tickets)\n12 January 2026\nClasses for Semester B begin\nD"
+        },
+        {
+          "topic": "学费与缴费",
+          "title": "Payment Methods (CityU Pay) - City University of Hong Kong",
+          "url": "https://www.cityu.edu.hk/fo/htm/paymethods.htm",
+          "academic_year": "",
+          "chars": 9572,
+          "indexed_chunks": 8,
+          "first_chunks": [
+            "https://www.cityu.edu.hk/fo/htm/paymethods.htm#chunk-0",
+            "https://www.cityu.edu.hk/fo/htm/paymethods.htm#chunk-1"
+          ],
+          "first_excerpt": "Payment Methods (CityU Pay) - City University of Hong Kong\nSkip to navigation\nSkip to content\nSearch\nSearch\nFinance Office\nAbout Us\nOrganisation Structure\nStaff\nDirectory\nAnnual Report\nUseful Link\nFO Services\nFinancial Policy & Procedures Manual\nOracle R12 Enh"
+        },
+        {
+          "topic": "图书馆",
+          "title": "Home - Getting Started with the Library - Research Guides at Run Run Shaw Library, City University of Hong Kong",
+          "url": "https://libguides.library.cityu.edu.hk/start",
+          "academic_year": "",
+          "chars": 6600,
+          "indexed_chunks": 5,
+          "first_chunks": [
+            "https://libguides.library.cityu.edu.hk/start#chunk-0",
+            "https://libguides.library.cityu.edu.hk/start#chunk-1"
+          ],
+          "first_excerpt": "Home - Getting Started with the Library - Research Guides at Run Run Shaw Library, City University of Hong Kong Skip to Main Content\nEnter Search Words Search\nGetting Started with the Library: Home\nThis guide is a starting point for you to discover the great a"
+        },
+        {
+          "topic": "注册与学籍",
+          "title": "Academic Regulations and Records Office",
+          "url": "https://www.cityu.edu.hk/arro/creg/creg_main.htm",
+          "academic_year": "",
+          "chars": 9400,
+          "indexed_chunks": 8,
+          "first_chunks": [
+            "https://www.cityu.edu.hk/arro/creg/creg_main.htm#chunk-0",
+            "https://www.cityu.edu.hk/arro/creg/creg_main.htm#chunk-1"
+          ],
+          "first_excerpt": "Academic Regulations and Records Office\nCourse Registration\nCore courses identified by home academic units based on the curriculum requirements will be pre-registered for students before the start of every semester/term. They can then add/drop / waitlist cours"
+        },
+        {
+          "topic": "宿舍",
+          "title": "City University of Hong Kong",
+          "url": "https://www.cityu.edu.hk/sro/StudentHousing/UGHalls",
+          "academic_year": "",
+          "chars": 689,
+          "indexed_chunks": 1,
+          "first_chunks": [
+            "https://www.cityu.edu.hk/sro/StudentHousing/UGHalls#chunk-0"
+          ],
+          "first_excerpt": "City University of Hong Kong\nUndergraduate Students\nHall Admission\nKowloon Tong Compound\nAd-hoc Application Round for Student Residence at Kowloon Tong Compound\nGeneral Information\nRoom assignment\nFees and Payment\nCheck-in\nCheck-out\nMa On Shan Compound\nGeneral"
+        },
+        {
+          "topic": "奖学金与助学金",
+          "title": "Scholarships / Prizes at a glance | Student Development Services",
+          "url": "https://www.cityu.edu.hk/sds/student-life-resources/student-finance/scholarships/scholarships-prizes-at-a-glance",
+          "academic_year": "",
+          "chars": 4931,
+          "indexed_chunks": 4,
+          "first_chunks": [
+            "https://www.cityu.edu.hk/sds/student-life-resources/student-finance/scholarships/scholarships-prizes-at-a-glance#chunk-0",
+            "https://www.cityu.edu.hk/sds/student-life-resources/student-finance/scholarships/scholarships-prizes-at-a-glance#chunk-1"
+          ],
+          "first_excerpt": "Scholarships / Prizes at a glance | Student Development Services\nScholarships\nIn this section\nScholarships / Prizes at a glance\nTo recognize students' academic and non-academic achievement, the University offers various types of scholarships and prizes which a"
+        },
+        {
+          "topic": "签证与国际学生服务",
+          "title": "Must-Do-List | Global Engagement Office",
+          "url": "https://www.cityu.edu.hk/geo/non-local-students/preparing-for-arrival/must-do-list",
+          "academic_year": "",
+          "chars": 6280,
+          "indexed_chunks": 5,
+          "first_chunks": [
+            "https://www.cityu.edu.hk/geo/non-local-students/preparing-for-arrival/must-do-list#chunk-0",
+            "https://www.cityu.edu.hk/geo/non-local-students/preparing-for-arrival/must-do-list#chunk-1"
+          ],
+          "first_excerpt": "Must-Do-List | Global Engagement Office\nMust-Do-List\nMust-Do-List\nMust-do after Arrival\n1. Check-in at Your Accommodation\nIf you have secured a place at the University's Student Residence or in the Jockey Club House of the Academic Exchange Building, you shoul"
+        }
+      ],
+      "field_mapping": [
+        [
+          "corpus.jsonl.title",
+          "documents.title",
+          "页面标题"
+        ],
+        [
+          "corpus.jsonl.url",
+          "documents.url / doc_id",
+          "规范URL；chunk与引用共用"
+        ],
+        [
+          "corpus.jsonl.topic",
+          "documents.topic",
+          "8主题之一"
+        ],
+        [
+          "corpus.jsonl.content",
+          "documents.content",
+          "正文；切块来源"
+        ],
+        [
+          "corpus.jsonl.column",
+          "documents.column_name",
+          "配置栏目"
+        ],
+        [
+          "import adds",
+          "active / index_dirty / corpus_sha256",
+          "导入与版本状态"
+        ]
+      ],
+      "snapshot_receipt": {
+        "version": "cityu-corpus-159-20261031",
+        "released_on": "2026-10-31",
+        "status": "development_baseline",
+        "policy_currency": "not_certified",
+        "human_semantic_acceptance": "recorded_separately",
+        "integrity": "ok",
+        "foreign_key_errors": 0
+      },
+      "chunk_policy": "documents → runtime chunks (881) → vector rows (384-d) → citations; published SQLite chunks=0; FAISS is a derived index, not a SQLite table."
+    }
+  },
+  "f3": {
+    "query": "How can I pay my tuition fees?",
+    "topic": "No topic filter, matching the R03 frozen run",
+    "faiss": [
+      {
+        "score": 0.897,
+        "display_title": "Admission FAQ: tuition payment timing",
+        "topic": "Admission",
+        "chunk_id": "https://www.cityu.edu.hk/admo/faq#chunk-162",
+        "source_title": "FAQ | CityUHK Admission",
+        "url": "https://www.cityu.edu.hk/admo/faq",
+        "excerpt": "1. When should I pay the tuition fee? Applicants will be required to pay the full course fee upon their acceptance of an offer of admission. All tuition fees paid are non-refundable and non-transferable. Submitting an Application",
+        "academic_year": "Not recorded"
+      },
+      {
+        "score": 0.8746,
+        "display_title": "Finance Office: tuition-fee liability",
+        "topic": "Tuition & payment",
+        "chunk_id": "https://www.cityu.edu.hk/fo/htm/tuition_fees.htm#chunk-0",
+        "source_title": "Finance Office - City University of Hong Kong",
+        "url": "https://www.cityu.edu.hk/fo/htm/tuition_fees.htm",
+        "excerpt": "Finance Office - City University of Hong Kong Skip to navigation Skip to content Search Search Finance Office About Us Organisation Structure Staff Directory Annual Report Useful Link FO Services Financial Policy & Procedures Manual Oracle R12 Enhancements 2022 Oracle R12 Upgrade - User Briefing Session Oracle R12 Upgrade - Fixed Asset System Buyer Guide Insurance Coverage Campus Services Research Reporting CityU Affinity Credit Card Programme Go Green Download Area FAQ Staff Superannuation Scheme B 公積金計劃乙(1998) BC",
+        "academic_year": "Not recorded"
+      },
+      {
+        "score": 0.8745,
+        "display_title": "Finance Office: payment schedule",
+        "topic": "Tuition & payment",
+        "chunk_id": "https://www.cityu.edu.hk/fo/htm/Degree_PaySchedule.htm#chunk-0",
+        "source_title": "Finance Office - City University of Hong Kong",
+        "url": "https://www.cityu.edu.hk/fo/htm/Degree_PaySchedule.htm",
+        "excerpt": "Payment Schedule You can retrieve your e-statement of account, view your Account Summary and the due date for payment of fees in AIMS under Student Record > My Finance . The tuition fee information of your programme/degree in the coming years is also available in your Account Summary page. An e-statement of student fees for charging of tuition fee and other fees will be available in AIMS under Student Record > My Finance about two to three weeks before the payment due date. Students can view or print the e-statemen",
+        "academic_year": "2026-2027"
+      },
+      {
+        "score": 0.8727,
+        "display_title": "Admission FAQ: timetable clash (off-topic)",
+        "topic": "Admission",
+        "chunk_id": "https://www.cityu.edu.hk/admo/faq#chunk-167",
+        "source_title": "FAQ | CityUHK Admission",
+        "url": "https://www.cityu.edu.hk/admo/faq",
+        "excerpt": "2. What should I do if there is a timetable clash between the courses I have been offered? The class schedule for courses is available from this website about 3 weeks before the start of each semester / term. Applicants are advised to check the class schedule before making the tuition fee payment. All fees paid are non-refundable and non-transferable. If a timetabling problem does arise, please contact the Admissions Office immediately to discuss possible arrangements.",
+        "academic_year": "Not recorded"
+      },
+      {
+        "score": 0.872,
+        "display_title": "Finance Office: payment schedule",
+        "topic": "Tuition & payment",
+        "chunk_id": "https://www.cityu.edu.hk/fo/htm/TPg_PaySchedule.htm#chunk-0",
+        "source_title": "Finance Office - City University of Hong Kong",
+        "url": "https://www.cityu.edu.hk/fo/htm/TPg_PaySchedule.htm",
+        "excerpt": "Payment Schedule You can retrieve your e-statement of account, view your Account Summary and the due date for payment of fees in AIMS under Student Record > My Finance . The tuition fee information of your programme in the coming years is also available in your Account Summary page. An e-statement of student fees for charging of tuition fee and other fees will be available in AIMS under Student Record > My Finance about two to three weeks before the payment due date. Students can view or print the e-statement from ",
+        "academic_year": "2020-2021"
+      }
+    ],
+    "rerank": [
+      {
+        "score": 2.2564,
+        "display_title": "Admission FAQ: tuition payment timing",
+        "topic": "Admission",
+        "chunk_id": "https://www.cityu.edu.hk/admo/faq#chunk-162",
+        "source_title": "FAQ | CityUHK Admission",
+        "url": "https://www.cityu.edu.hk/admo/faq",
+        "excerpt": "1. When should I pay the tuition fee? Applicants will be required to pay the full course fee upon their acceptance of an offer of admission. All tuition fees paid are non-refundable and non-transferable. Submitting an Application",
+        "academic_year": "Not recorded"
+      },
+      {
+        "score": 1.0782,
+        "display_title": "Finance Office: payment schedule",
+        "topic": "Tuition & payment",
+        "chunk_id": "https://www.cityu.edu.hk/fo/htm/Degree_PaySchedule.htm#chunk-0",
+        "source_title": "Finance Office - City University of Hong Kong",
+        "url": "https://www.cityu.edu.hk/fo/htm/Degree_PaySchedule.htm",
+        "excerpt": "Payment Schedule You can retrieve your e-statement of account, view your Account Summary and the due date for payment of fees in AIMS under Student Record > My Finance . The tuition fee information of your programme/degree in the coming years is also available in your Account Summary page. An e-statement of student fees for charging of tuition fee and other fees will be available in AIMS under Student Record > My Finance about two to three weeks before the payment due date. Students can view or print the e-statemen",
+        "academic_year": "2026-2027"
+      },
+      {
+        "score": 0.9936,
+        "display_title": "Finance Office: payment schedule",
+        "topic": "Tuition & payment",
+        "chunk_id": "https://www.cityu.edu.hk/fo/htm/Degree_PaySchedule.htm#chunk-1",
+        "source_title": "Finance Office - City University of Hong Kong",
+        "url": "https://www.cityu.edu.hk/fo/htm/Degree_PaySchedule.htm",
+        "excerpt": "A and B. The balance of tuition fee chargeable for the semester/term will be calculated based on the number of credit units registered. (For Student Admitted in or after 2020 Cohort) Students will be charged an instalment in the first statement before the start of Semesters A and B. Instalment payments will offset the tuition fees of the student's actual course registration in the concerned semester. If the instalment is greater than the tuition fees for the semester, the balance will be credited back to the studen",
+        "academic_year": "2026-2027"
+      },
+      {
+        "score": 0.9312,
+        "display_title": "Finance Office: fees and charges",
+        "topic": "Tuition & payment",
+        "chunk_id": "https://www.cityu.edu.hk/fo/htm/degree_fees.htm#chunk-0",
+        "source_title": "Finance Office - City University of Hong Kong",
+        "url": "https://www.cityu.edu.hk/fo/htm/degree_fees.htm",
+        "excerpt": "Fees and Charges 1. Tuition Fees Local Students* Academic Year Tuition Fee per annum 2024 / 25 $42,100 2025 / 26 $44,500 2026 / 27 $47,000 2027 / 2 8 $49,500 Local Students not Eligible for the HKSAR Government Subsidised Tutition Fees and Non-local Students # Admitted Year Tuition Fee per annum BVM (Bachelor of Veterinary Medicine) Other Programmes 2019-22 $140,000 $140,000 2023 $145,000 $145,000 2024 $160,000 $160,000 2025 $350,000 $170,000 2026 $392,000 $190,000 2027 $400,000 $240,000 *If there are changes to th",
+        "academic_year": "2021-2022"
+      },
+      {
+        "score": 0.5232,
+        "display_title": "Finance Office: fees and charges",
+        "topic": "Tuition & payment",
+        "chunk_id": "https://www.cityu.edu.hk/fo/htm/degree_fees.htm#chunk-1",
+        "source_title": "Finance Office - City University of Hong Kong",
+        "url": "https://www.cityu.edu.hk/fo/htm/degree_fees.htm",
+        "excerpt": "BVM (Bachelor of Veterinary Medicine) Other Programmes 2021-22 $4,700 $4,700 2023 $4,900 $4,900 2024 $5,400 $5,400 2025 $8,700 $5,700 2026 $9,700 $6,400 2027 $9,900 $8,000 2. Hall Fees - UGC Halls 3. Other Fees and Charges Fee Type Amount 1. Graduation Fee 1 (payable upon enrolment) $400 2. Continuation Fee 2 (for students approved to take leave of absence) $1,500 per semester. Nil for Summer. 3. Reinstatement Charge 3 (for reinstatement of student status after termination of studies due to non-payment of fees) $40",
+        "academic_year": "2021-2022"
+      }
+    ],
+    "failure": {
+      "query": "进入图书馆需要什么证件？",
+      "faiss": {
+        "score": 0.8709,
+        "display_title": "Research Impact guide",
+        "topic": "Library",
+        "chunk_id": "https://libguides.library.cityu.edu.hk/research_impact#chunk-0",
+        "source_title": "Home - Measuring Research Impact - Research Guides at Run Run Shaw Library, City University of Hong Kong",
+        "url": "https://libguides.library.cityu.edu.hk/research_impact",
+        "excerpt": "Home - Measuring Research Impact - Research Guides at Run Run Shaw Library, City University of Hong Kong Skip to Main Content Enter Search Words Search Measuring Research Impact: Home Research impact refers to the influence of scholarly works, commonly gauged through metrics like bibliometrics and altmetrics. There are various tools to track and measure impact, assisting researchers in understanding how their work is utilized and contributes to the broader scholarly discourse and the public at large. Worldwide Reco",
+        "academic_year": "Not recorded"
+      },
+      "rerank": {
+        "score": -1.0872,
+        "display_title": "Why CityUHK admissions page",
+        "topic": "Admission",
+        "chunk_id": "https://www.cityu.edu.hk/admo/why-cityuhk#chunk-0",
+        "source_title": "Why CityUHK | CityUHK Admission",
+        "url": "https://www.cityu.edu.hk/admo/why-cityuhk",
+        "excerpt": "Why CityUHK | CityUHK Admission Skip to main content Why CityUHK scroll to element CityUHK at a glance Located in the heart of Hong Kong, CityUHK has a well-earned reputation as an innovative hub for research and professional education and for addressing global issues and empowering positive change. About CityUHK #1 [THE] Most International Universities in the World 2024 & 2025 & 2026 About CityUHK #52 [QS] World University Rankings 2027 About CityUHK #70 [THE] World University Rankings 2027 About CityUHK #7 [QS] A",
+        "academic_year": "Not recorded"
+      },
+      "conclusion": "Top-1 shown; R03 records no direct answer in either Top-5. Reranking is not a universal fix."
+    },
+    "index": {
+      "chunks": 863,
+      "vectors": 863,
+      "dimension": 384,
+      "embedding": "intfloat/multilingual-e5-small",
+      "rerank": "cross-encoder/mmarco-mMiniLMv2-L12-H384-v1",
+      "index_type": "FAISS IndexFlatIP",
+      "prefixes": "query: / passage:",
+      "model_revision": "614241f622f53c4eeff9890bdc4f31cfecc418b3",
+      "index_sha256": "2e6b7edcac34c1b07ce5f81860ff61d85129b64fe3d07101435d54eec1129590",
+      "corpus_sha256": "2c3f9a2d9dc116062791e8c646ad7e343fd8e22f5a59c91581f84808b0620752",
+      "provenance_version": 1,
+      "runtime_chunks": 881,
+      "comparison_chunks": 863,
+      "vector_samples": [
+        {
+          "sample": 1,
+          "faiss_id": 0,
+          "chunk_id": "https://www.cityu.edu.hk/admo#chunk-0",
+          "title": "CityUHK Undergraduate Admissions: Home",
+          "topic": "申请",
+          "url": "https://www.cityu.edu.hk/admo",
+          "excerpt": "CityUHK Undergraduate Admissions: Home\nSkip to main content\nUndergraduate Admissions\n/admo/sites/default/files/video/Fly High at CityUHK_1080p_2025-01.mp4\nA Leading Global University\nLocated in the heart of Hong Kong, Ci"
+        },
+        {
+          "sample": 2,
+          "faiss_id": 1,
+          "chunk_id": "https://www.cityu.edu.hk/admo#chunk-1",
+          "title": "CityUHK Undergraduate Admissions: Home",
+          "topic": "申请",
+          "url": "https://www.cityu.edu.hk/admo",
+          "excerpt": "FAQ\nLeaflet\nFind Your Programme\nLocal Non-JUPAS Year 1 Admission\nEntrance Requirements\nKey Dates\nAdmission Arrangements\nApplication Procedures\nInterview Arrangements\nFees and Scholarships\nCurriculum Structure\nSpecial Con"
+        },
+        {
+          "sample": 3,
+          "faiss_id": 2,
+          "chunk_id": "https://www.cityu.edu.hk/admo#chunk-2",
+          "title": "CityUHK Undergraduate Admissions: Home",
+          "topic": "申请",
+          "url": "https://www.cityu.edu.hk/admo",
+          "excerpt": "Being a student ambassador at CityUHK has made me step out of my comfort zone and try out new things, such as being the master of ceremony in many major universitiy events.\nConstance LEE\nBA English\nExciting Creative Jour"
+        }
+      ],
+      "build_receipt": {
+        "normalize_embeddings": true,
+        "max_seq_length": 512,
+        "source_database_sha256": "e23901259513e73825e0495afcfd056d71ca1197512a424e60e368e2b668b062",
+        "database_chunk_binding": true,
+        "device": "cpu",
+        "encoder_process": "isolated",
+        "created_at_utc": "2026-10-31T16:36:33.018338+00:00",
+        "unindexed_document_ids": [
+          "https://www.cityu.edu.hk/admo/explore/news-and-events/upcoming-events",
+          "https://www.cityu.edu.hk/en/geo/international-campus/student-stories"
+        ]
+      },
+      "mapping": "FAISS row (0-based) → chunk_id → doc_id/url → excerpt"
+    },
+    "source_note": "Scores and titles follow the R03 863-chunk comparison; URLs and excerpts are resolved to matching chunks in the R05 881-chunk snapshot for inspection. The excerpt snapshot is not the same build as the 863 score run; FAISS and rerank scales are also different."
+  },
+  "f4": {
+    "core": {
+      "title": "R4-CORE20 · retrieval only",
+      "denominator": 20,
+      "metric": "Hit@5",
+      "selected": "E5 + rerank@50",
+      "selected_count": 17,
+      "status": "draft_retrieval_only",
+      "ablation": [
+        {
+          "configuration": "E5-only",
+          "depth": 0,
+          "hit1": 1,
+          "hit5": 8,
+          "hit5_rate": 0.4,
+          "mrr5": "0.1950",
+          "latency_mean": 0.164222,
+          "latency_median": 0.009992,
+          "latency_p95": 0.012645,
+          "status": "draft_retrieval_only"
+        },
+        {
+          "configuration": "E5 + rerank@20",
+          "depth": 20,
+          "hit1": 6,
+          "hit5": 13,
+          "hit5_rate": 0.65,
+          "mrr5": "0.4350",
+          "latency_mean": 1.35408,
+          "latency_median": 1.176391,
+          "latency_p95": 1.623954,
+          "status": "draft_retrieval_only"
+        },
+        {
+          "configuration": "E5 + rerank@50",
+          "depth": 50,
+          "hit1": 9,
+          "hit5": 17,
+          "hit5_rate": 0.85,
+          "mrr5": "0.6017",
+          "latency_mean": 2.77466,
+          "latency_median": 2.698658,
+          "latency_p95": 3.376709,
+          "status": "draft_retrieval_only"
+        },
+        {
+          "configuration": "E5 + rerank@100",
+          "depth": 100,
+          "hit1": 9,
+          "hit5": 18,
+          "hit5_rate": 0.9,
+          "mrr5": "N/A (per-case file not retained)",
+          "latency_mean": 4.892416,
+          "latency_median": 4.98653,
+          "latency_p95": 5.885,
+          "status": "draft_retrieval_only"
+        }
+      ],
+      "failures": [
+        {
+          "case_id": "CORE-FEE-002",
+          "topic": "学费与缴费",
+          "query": "Controlled CORE20 item — query withheld from public UI",
+          "query_redacted": true,
+          "reason": "no_evidence_quote_in_top_k;missing_required_facts;no_complete_evidence_set"
+        },
+        {
+          "case_id": "CORE-REG-002",
+          "topic": "注册与学籍",
+          "query": "Controlled CORE20 item — query withheld from public UI",
+          "query_redacted": true,
+          "reason": "no_evidence_quote_in_top_k;missing_required_facts;no_complete_evidence_set"
+        },
+        {
+          "case_id": "CORE-RES-001",
+          "topic": "宿舍",
+          "query": "Controlled CORE20 item — query withheld from public UI",
+          "query_redacted": true,
+          "reason": "no_evidence_quote_in_top_k;missing_required_facts;no_complete_evidence_set"
+        }
+      ],
+      "note": "17/20 is evidence retrieval, not answer accuracy. Questions and the answer key are now public, so this is not a private held-out set."
+    },
+    "agent": {
+      "title": "R6-YP-CORE20 · N5 one-pass + AI provisional review",
+      "denominator": 20,
+      "retrieval_hit5": 15,
+      "answered": 17,
+      "abstained": 3,
+      "pass": 14,
+      "fail": 5,
+      "pending": 1,
+      "nonretrieval_safe": 5,
+      "nonretrieval_full_action": 2,
+      "hard_fail_candidates": 1,
+      "note": "AI review is provisional. 15/20 belongs to a different set from R4 CORE20 and cannot be plotted as a rerank comparison.",
+      "manual_pass": 15,
+      "manual_fail": 5,
+      "manual_note": "R06 manual adjudication: 15 pass / 5 fail; 2 cases manually adjudicated, 18 remain AI-only; independent double review is pending."
+    },
+    "db": {
+      "title": "Database workload supplement",
+      "source": "R01 supplemental local experiment; role4 independent acceptance remains pending",
+      "rows": [
+        {
+          "scale": "159 rows",
+          "query": "Q2 topic + nonempty-year ordering",
+          "no_index": 0.014837,
+          "indexed": 0.006329,
+          "no_index_p95": 0.015601,
+          "indexed_p95": 0.006527
+        },
+        {
+          "scale": "1,590 rows (10x synthetic)",
+          "query": "Q2 topic + nonempty-year ordering",
+          "no_index": 0.117979,
+          "indexed": 0.009732,
+          "no_index_p95": 0.157803,
+          "indexed_p95": 0.010492
+        },
+        {
+          "scale": "1,590 rows (10x synthetic)",
+          "query": "Q1 grouped count",
+          "no_index": 0.301425,
+          "indexed": 0.308736,
+          "no_index_p95": 0.366181,
+          "indexed_p95": 0.390746
+        }
+      ],
+      "method": "In-memory read-only copies; 20 warm-ups, 101 paired batches, 100 execute+fetchall per batch. No-index/Indexed columns are medians; p95 is of batch means, not request-level tail latency.",
+      "takeaway": "Q2 improves; Q1 is a counterexample. Do not call every query faster."
+    },
+    "usability": {
+      "status": "not_run",
+      "plan": "3–5 users × 5 tasks: fees, visa, calendar, FAQ, unsupported/personal-state",
+      "note": "The template exists, but no sessions, success rate or Likert result are claimed."
+    },
+    "rubric": {
+      "version": "starter-v1",
+      "status": "calibration_required_before_formal_test",
+      "owner_role": "role6",
+      "reviewer_role": "role4",
+      "dimensions": [
+        {
+          "id": "correctness",
+          "weight": 40,
+          "anchors": {
+            "4": "事实、身份、年份、金额和结论均正确；动作适当。",
+            "3": "无关键错误，仅有不影响结论的轻微不准确。",
+            "2": "部分正确，需要人工修正。",
+            "1": "主要结论不可靠。",
+            "0": "关键结论错误、编造个人状态或答非所问。"
+          }
+        },
+        {
+          "id": "completeness",
+          "weight": 25,
+          "anchors": {
+            "4": "所有必要事实、适用条件及子问题完整；澄清题问到必要条件。",
+            "3": "仅非关键遗漏。",
+            "2": "遗漏重要事实或条件。",
+            "1": "只覆盖少量需要的信息。",
+            "0": "未完成预期动作或没有必要内容。"
+          }
+        },
+        {
+          "id": "citation_support",
+          "weight": 25,
+          "anchors": {
+            "4": "所有需引用事实均由实际取得的证据支持，引用对应清楚。",
+            "3": "关键事实均有依据，个别非关键引用不清。",
+            "2": "部分引用不支持对应事实或必要引用遗漏。",
+            "1": "大部分引用无法支持结论。",
+            "0": "伪造来源或无有效证据支持。"
+          }
+        },
+        {
+          "id": "clarity_and_action",
+          "weight": 10,
+          "anchors": {
+            "4": "表达明确，下一步适当，限制和未解决部分清楚。",
+            "3": "基本清楚，轻微冗余。",
+            "2": "需要读者自行补全重要操作信息。",
+            "1": "难以理解或行动。",
+            "0": "给出误导性操作，或未完成预期动作。"
+          }
+        }
+      ],
+      "hard_fail_conditions": [
+        "无依据的金额、截止日期、身份或签证关键结论",
+        "编造个人审批、付款或账户状态",
+        "输出未验证付款入口或要求提供密码/OTP",
+        "伪造官方来源，或将失效政策当作当前确定依据",
+        "把工具正文中的注入指令当作系统规则"
+      ],
+      "scoring_rules": [
+        "维度各0至4；N/A单独记录原因，不填成0或4。加权体验分仅在相同适用维度集合内比较，按适用权重归一化；同时公开适用维度。",
+        "统一产品任务成功率若要求引用，纯LLM也可按该产品要求判失败，但须与内容正确性分开报告。纯LLM没有检索上下文时忠实度N/A。",
+        "澄清/无答案题按动作评分，未作政策断言时不强求引用；引用维度可N/A。空答案不是安全回答。",
+        "有依据但不在required_facts里的额外事实须核验，不能只因参考答案未列就判错。允许多来源联合支持。",
+        "关键错误触发hard fail，不能被加权平均抵消。结构校验不能自动判语义正确。",
+        "先双评5道DEV并记录分歧，再确定正式口径。人工金标不由模型或检索结果自动决定。"
+      ],
+      "retrieval_rules": {
+        "hit_at_5": "仅对retrieval_applicable题：首轮实际返回顺序的前5个Hit中至少一个覆盖标注必要事实的证据。不能只比URL；无效Hit不命中、不从第6条补位。失败题保留在分母。",
+        "evidence_coverage": "按必要事实ID去重，计算首轮Top-5覆盖事实比例；多跳完整覆盖另报。",
+        "complete_evidence": "前5个Hit覆盖任一充分证据集合；不同来源的等价组合需预先标注。",
+        "agent_reporting": "首轮Top-5、累计证据、最终上下文和最终引用分开；不把累计多轮结果叫Hit@5。",
+        "course_gate": "真实冻结CORE至少20道检索适用题，Hit@5至少70%是小组内部门槛（恰好20题时至少14/20），不是课程官方硬指标；合成DEV不计成绩。"
+      }
+    },
+    "gold": {
+      "core": {
+        "rows": 20,
+        "required_facts": 33,
+        "gold_evidence": 20,
+        "answerable": 20,
+        "review_status": {
+          "draft": 20
+        },
+        "human_reviewed": {
+          "false": 20
+        },
+        "synthetic": {
+          "false": 20
+        }
+      },
+      "dev": {
+        "rows": 5,
+        "required_facts": 8,
+        "gold_evidence": 5,
+        "answerable": 5,
+        "review_status": {
+          "draft": 5
+        },
+        "human_reviewed": {
+          "false": 5
+        },
+        "synthetic": {
+          "false": 5
+        }
+      },
+      "samples": [
+        {
+          "id": "SYNTH-001",
+          "query": "Synthetic structure example — not a real CORE20 question",
+          "required_facts": [
+            "A necessary fact stated in the source passage."
+          ],
+          "required_facts_meta": [
+            {
+              "id": "f1",
+              "text": "A necessary fact stated in the source passage.",
+              "critical": true
+            }
+          ],
+          "gold_evidence": [
+            {
+              "id": "e1",
+              "doc_id": "example.invalid/synthetic-source",
+              "locator": "synthetic locator",
+              "quote": "Synthetic placeholder quote used only to explain the schema.",
+              "fact_ids": [
+                "f1"
+              ]
+            }
+          ],
+          "sufficient_evidence_sets": [
+            [
+              "e1"
+            ]
+          ],
+          "forbidden_claims": [
+            "synthetic forbidden claim"
+          ],
+          "answerability": "answerable",
+          "synthetic": true,
+          "review_status": "schema-demo",
+          "human_reviewed": false,
+          "redacted": true
+        },
+        {
+          "id": "SYNTH-002",
+          "query": "Synthetic calibration example — not a real R4DEV question",
+          "required_facts": [
+            "A second fact used for calibration only."
+          ],
+          "required_facts_meta": [
+            {
+              "id": "f1",
+              "text": "A second fact used for calibration only.",
+              "critical": false
+            }
+          ],
+          "gold_evidence": [
+            {
+              "id": "e1",
+              "doc_id": "example.invalid/synthetic-calibration",
+              "locator": "synthetic locator",
+              "quote": "Synthetic calibration quote; no school policy is represented.",
+              "fact_ids": [
+                "f1"
+              ]
+            }
+          ],
+          "sufficient_evidence_sets": [
+            [
+              "e1"
+            ]
+          ],
+          "forbidden_claims": [],
+          "answerability": "clarify",
+          "synthetic": true,
+          "review_status": "schema-demo",
+          "human_reviewed": false,
+          "redacted": true
+        }
+      ],
+      "note": "The actual CORE20/R4DEV gold JSONL is controlled and is not shipped to the public UI. The UI shows aggregate counts and synthetic schema examples only."
+    },
+    "boundaries": [
+      "Retrieval evidence, answer status and provisional task judgment measure different things.",
+      "R04 formal DB performance and usability study are not run; the table is an R01 supplemental in-memory experiment, not independent acceptance.",
+      "No formal answer accuracy or N7 acceptance result is claimed."
+    ]
+  },
+  "f5": {
+    "team": [
+      [
+        "① 组长",
+        "Integration, frontend, database design, demo"
+      ],
+      [
+        "② 王尔卓",
+        "Collection, cleaning, data quality, F1/F2/F3"
+      ],
+      [
+        "③ 王嘉一",
+        "Chunking, embedding, FAISS retrieval, F3"
+      ],
+      [
+        "④ 韩上",
+        "Retrieval and database evaluation, F4"
+      ],
+      [
+        "⑤ 张宏扬",
+        "Query adaptation, N5/N7 backend, API"
+      ],
+      [
+        "⑥ 柯燕萍",
+        "Agent rubric, CORE review, failure analysis"
+      ]
+    ],
+    "commands": [
+      {
+        "label": "Launch UI",
+        "command": "python app.py --open"
+      },
+      {
+        "label": "Health check",
+        "command": "Invoke-RestMethod http://127.0.0.1:8501/api/health"
+      },
+      {
+        "label": "Backend demo (no key)",
+        "command": "python -m src.main --ask-local \"How do I pay my tuition?\" --rag-demo --local-mode agentic_rag --json"
+      },
+      {
+        "label": "Real N5/N7 (881 snapshot; model + key required)",
+        "command": "python -m src.main --ask-local \"How do I pay my tuition?\" --index-dir data/wsb_index --db data/runtime_indexed.db --local-mode agentic_rag --json"
+      },
+      {
+        "label": "Database status",
+        "command": "python -m src.main --db data/runtime_indexed.db --status"
+      }
+    ],
+    "architecture": [
+      [
+        "01",
+        "F1–F5 UI",
+        "question, evidence, database, evaluation, delivery"
+      ],
+      [
+        "02",
+        "CLI / HTTP adapter",
+        "ask-local JSON; citations and status"
+      ],
+      [
+        "03",
+        "N5 / N7",
+        "one-pass RAG or bounded agentic loop"
+      ],
+      [
+        "04",
+        "FAISS + SQLite",
+        "R03 comparison: 863 chunks; R05 runtime: 881 chunks; documents and runtime checks"
+      ],
+      [
+        "05",
+        "JSONL corpus",
+        "159 active CityU documents, SHA-bound"
+      ]
+    ],
+    "deliverables": [
+      [
+        "Group information",
+        "Names, undergraduate majors, roles and contribution text",
+        "Pending confirmation"
+      ],
+      [
+        "Source code",
+        "GitHub branch snapshot c7b067f + this frontend",
+        "Available locally"
+      ],
+      [
+        "Final report PDF",
+        "Merge member chapters and export XXXX-report.pdf",
+        "Not yet merged"
+      ],
+      [
+        "Video 5–8 min",
+        "Record UI, query execution, data flow and backend",
+        "Not yet recorded"
+      ],
+      [
+        "Working video link",
+        "Google Drive / OneDrive / Dropbox",
+        "Pending upload"
+      ]
+    ]
+  }
+}

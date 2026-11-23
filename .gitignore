@@ -47,3 +47,8 @@ TeamForming.docx
 !/data/cityu_faq.db
 !/data/corpus.jsonl
 !/data/release_manifest.json
+# Submission artefacts that must ship with the repository
+!data/wsb_index/
+!data/wsb_index/*
+!04_前端原型/data/
+!04_前端原型/data/*

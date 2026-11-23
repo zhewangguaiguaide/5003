@@ -1,4 +1,4 @@
-﻿import json
+import json
 import unittest
 from dataclasses import asdict
 from pathlib import Path
@@ -17,7 +17,7 @@ class TestRetriever(unittest.TestCase):
 
     def test_index_consistency(self):
         self.assertEqual(self.r.index.ntotal, len(self.r.chunks))
-        self.assertEqual(self.r.index.ntotal, 862)
+        self.assertEqual(self.r.index.ntotal, 881)
         self.assertEqual(self.r.index.d, 384)
 
     def test_topics(self):
